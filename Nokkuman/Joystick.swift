@@ -18,8 +18,11 @@ class Joystick: SKNode {
     
     var joystickAction: ((_ x: CGFloat) -> ())?
     
+    let initialPosition = CGPoint(x: 100, y: 100)
+    
     override init() {
         
+        super.init()
         // 外側の円の作成
         // 四角形の大きさを決める
         let joystickRect = CGRect(x: 0, y: 0, width: 100, height: 100)
@@ -38,10 +41,11 @@ class Joystick: SKNode {
         stick.fillColor = UIColor.black
         stick.strokeColor = UIColor.white
         
-        super.init()
-        
         addChild(joystick)
         addChild(stick)
+        
+        // ジョイスティックの位置を設定
+        self.position = initialPosition
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -19,13 +19,7 @@ class GameScene: SKScene {
         self.anchorPoint = .zero
         self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
         
-        //主人公に物理エンジンを与えて速度を付与できるようにする
-        nokkuman.physicsBody = SKPhysicsBody(circleOfRadius: 10)
-        nokkuman.physicsBody?.mass = 1
         self.addChild(nokkuman)
-        
-        // ジョイスティックの位置を設定
-        joystick.position = CGPoint(x: 100, y: 100)
         self.addChild(joystick)
         
         //ゲームシーンにも物理エンジンを設定。フレームの隅に行くと折り返す。

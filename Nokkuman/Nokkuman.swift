@@ -14,11 +14,14 @@ class Nokkuman :SKSpriteNode{
     // キャラクターのサイズを指定します。
     let initialSize = CGSize(width: 64, height: 64)
     // キャラクターの位置を指定します。
-    let initialPosition = CGPoint(x: 100, y: 100)
+    let initialPosition = CGPoint(x: 200, y: 100)
     
     init() {
         super.init(texture: mytexture, color: .clear, size: initialSize)
         self.position = initialPosition
+        //主人公に物理エンジンを与えて速度を付与できるようにする
+        self.physicsBody = SKPhysicsBody(circleOfRadius: size.width/2)
+        self.physicsBody?.mass = 30
     }
     
     required init?(coder aDecoder: NSCoder) {
