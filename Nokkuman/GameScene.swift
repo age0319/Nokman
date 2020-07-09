@@ -28,28 +28,29 @@ class GameScene: SKScene {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.nokkuman.startRunAnimation()
+    }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-
         joystick.moveStick(touch: touches.first!)
         
         joystick.joystickAction = { (x: CGFloat ) in
             // スティックの位置によって速度と向きを変える。
             if 0 < x {
                 self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
-                self.nokkuman.FlipDirection(forward: true)
+                self.nokkuman.changeDirection(forward: true)
             } else {
                 self.nokkuman.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
-                self.nokkuman.FlipDirection(forward: false)
+                self.nokkuman.changeDirection(forward: false)
             }
         }
-        self.nokkuman.startRunAnimation()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // 指が離れたスティックを初期化してキャラクタを止める
         joystick.resetStick()
         self.nokkuman.physicsBody?.velocity = CGVector(dx: 0,dy: 0)
-        self.nokkuman.FlipDirection(forward: true)
         self.nokkuman.startIdleAnimation()
     }
 }

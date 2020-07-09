@@ -66,32 +66,31 @@ class Nokkuman :SKSpriteNode{
             ]
         
         // 1フレームあたりの表示時間は0.14秒
-        let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.14)
+        let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.05)
         
         runAnimation = SKAction.repeatForever(runAction)
         
     }
     
-    // キャラクターの向きを変える
-    func FlipDirection(forward:Bool){
+    // キャラクターを走らせる
+    func startRunAnimation(){
+        self.run(runAnimation, withKey: "runAnimation")
+    }
+    
+    // キャラクタの向きを変える
+    func changeDirection(forward:Bool){
         if forward {
             let flipTexturePositive = SKAction.scaleX(to: 1, duration: 0)
             self.run(flipTexturePositive)
-        }else{
+        } else {
             let flipTextureNegative = SKAction.scaleX(to: -1, duration: 0)
             self.run(flipTextureNegative)
         }
     }
     
-    // キャラクターを走らせる
-    func startRunAnimation(){
-        self.removeAction(forKey: "idleAnimation")
-        self.run(runAnimation, withKey: "runAnimation")
-    }
-    
     // キャラクターをアイドル状態にする
     func startIdleAnimation(){
-        self.removeAction(forKey: "runAnimation")
+//        self.removeAction(forKey: "runAnimation")
         self.run(idleAnimation, withKey: "idleAnimation")
     }
     
