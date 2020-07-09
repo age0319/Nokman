@@ -29,26 +29,27 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-       
+
         joystick.moveStick(touch: touches.first!)
         
         joystick.joystickAction = { (x: CGFloat ) in
-            // スティックの位置によって速度を変える。
-            if 0 < x && x < 10 {
-                self.nokkuman.physicsBody?.velocity = CGVector(dx: 50, dy: 0)
-            }else if 10 < x && x < 20 {
-                 self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
-            }else if -10 < x && x < 0 {
-                 self.nokkuman.physicsBody?.velocity = CGVector(dx: -50, dy: 0)
-            }else if -20 < x && x < -10 {
-                 self.nokkuman.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
+            // スティックの位置によって速度と向きを変える。
+            if 0 < x {
+                self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
+                self.nokkuman.FlipDirection(forward: true)
+            } else {
+                self.nokkuman.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
+                self.nokkuman.FlipDirection(forward: false)
             }
         }
+        self.nokkuman.startRunAnimation()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // 指が離れたスティックを初期化して、キャラクタを止める
+        // 指が離れたスティックを初期化してキャラクタを止める
         joystick.resetStick()
         self.nokkuman.physicsBody?.velocity = CGVector(dx: 0,dy: 0)
+        self.nokkuman.FlipDirection(forward: true)
+        self.nokkuman.startIdleAnimation()
     }
 }
