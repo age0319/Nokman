@@ -39,10 +39,14 @@ class GameScene: SKScene {
             // スティックの位置によって速度と向きを変える。
             if 0 < x {
                 self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
-                self.nokkuman.changeDirection(forward: true)
-            } else {
+                if self.nokkuman.forward == false {
+                    self.nokkuman.goForward()
+                }
+            } else if 0 > x {
                 self.nokkuman.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
-                self.nokkuman.changeDirection(forward: false)
+                if self.nokkuman.forward == true {
+                    self.nokkuman.goBack()
+                }
             }
         }
     }

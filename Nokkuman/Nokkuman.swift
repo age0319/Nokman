@@ -20,6 +20,8 @@ class Nokkuman :SKSpriteNode{
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
     
+    var forward:Bool = true
+    
     init() {
         super.init(texture: nil, color: .clear, size: initialSize)
         self.position = initialPosition
@@ -77,15 +79,16 @@ class Nokkuman :SKSpriteNode{
         self.run(runAnimation, withKey: "runAnimation")
     }
     
-    // キャラクタの向きを変える
-    func changeDirection(forward:Bool){
-        if forward {
-            let flipTexturePositive = SKAction.scaleX(to: 1, duration: 0)
-            self.run(flipTexturePositive)
-        } else {
-            let flipTextureNegative = SKAction.scaleX(to: -1, duration: 0)
-            self.run(flipTextureNegative)
-        }
+    func goForward(){
+        let flipTexturePositive = SKAction.scaleX(to: 1, duration: 0)
+        self.run(flipTexturePositive)
+        self.forward = true
+    }
+    
+    func goBack(){
+        let flipTextureNegative = SKAction.scaleX(to: -1, duration: 0)
+        self.run(flipTextureNegative)
+        self.forward = false
     }
     
     // キャラクターをアイドル状態にする
