@@ -12,15 +12,15 @@ import GameplayKit
 class GameScene: SKScene {
     
     let nokkuman = Nokkuman()
-    let joystick = Joystick()
-    
+        
     override func didMove(to view: SKView) {
         
         self.anchorPoint = .zero
         self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
         
         self.addChild(nokkuman)
-        self.addChild(joystick)
+        
+        setupButtons()
         
         //ゲームシーンにも物理エンジンを設定。フレームの隅に行くと折り返す。
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
@@ -28,33 +28,58 @@ class GameScene: SKScene {
         
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.nokkuman.startRunAnimation()
+    func setupButtons(){
+        // 四角形の大きさを決める
+        let Rect = CGRect(x: 0, y: 0, width: 40, height: 40)
+        // ovalInを指定すると円を作成する
+        let circle = UIBezierPath(ovalIn: Rect)
+        
+        let leftMove = SKShapeNode(path: circle.cgPath, centered: true)
+        
+        leftMove.position = CGPoint(x:70, y:35)
+        
+        leftMove.name = "Left"
+        
+        addChild(leftMove)
+        
+        let rightMove = SKShapeNode(path: circle.cgPath, centered: true)
+        
+        rightMove.position = CGPoint(x:120, y:35)
+        
+        rightMove.name = "Right"
+        
+        addChild(rightMove)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        joystick.moveStick(touch: touches.first!)
-        
-        joystick.joystickAction = { (x: CGFloat ) in
-            // スティックの位置によって速度と向きを変える。
-            if 0 < x {
-                self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
-                if self.nokkuman.forward == false {
-                    self.nokkuman.goForward()
-                }
-            } else if 0 > x {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // タッチしたボタンによって処理を分ける
+        for touch: AnyObject in touches {
+            let location = touch.location(in: self)
+            let node = self.atPoint(location)
+            
+            if (node.name == "Left") {
+                self.nokkuman.lookBackward()
+                self.nokkuman.startRunAnimation()
                 self.nokkuman.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
-                if self.nokkuman.forward == true {
-                    self.nokkuman.goBack()
-                }
+            } else if (node.name == "Right") {
+                self.nokkuman.lookForward()
+                self.nokkuman.startRunAnimation()
+                self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
             }
         }
     }
     
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // 指が離れたスティックを初期化してキャラクタを止める
-        joystick.resetStick()
-        self.nokkuman.physicsBody?.velocity = CGVector(dx: 0,dy: 0)
-        self.nokkuman.startIdleAnimation()
+        
+        for touch: AnyObject in touches {
+            let location = touch.location(in: self)
+            let node = self.atPoint(location)
+            
+            if (node.name == "Left" || node.name == "Right") {
+                self.nokkuman.physicsBody?.velocity = CGVector(dx: 0,dy: 0)
+                self.nokkuman.startIdleAnimation()
+            }
+        }
     }
 }

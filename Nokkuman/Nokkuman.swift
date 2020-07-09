@@ -20,14 +20,14 @@ class Nokkuman :SKSpriteNode{
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
     
-    var forward:Bool = true
-    
     init() {
         super.init(texture: nil, color: .clear, size: initialSize)
         self.position = initialPosition
         //主人公に物理エンジンを与えて速度を与える
         self.physicsBody = SKPhysicsBody(circleOfRadius: size.width/2)
         self.physicsBody?.mass = 30
+        self.physicsBody?.allowsRotation = false
+        
         // アニメーションの作成
         createAnimations()
         // アイドル状態の開始
@@ -67,7 +67,7 @@ class Nokkuman :SKSpriteNode{
              textureAtlas.textureNamed("2_entity_000_RUN_006"),
             ]
         
-        // 1フレームあたりの表示時間は0.14秒
+        // 1フレームあたりの表示時間は0.05秒
         let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.05)
         
         runAnimation = SKAction.repeatForever(runAction)
@@ -79,21 +79,18 @@ class Nokkuman :SKSpriteNode{
         self.run(runAnimation, withKey: "runAnimation")
     }
     
-    func goForward(){
+    func lookForward(){
         let flipTexturePositive = SKAction.scaleX(to: 1, duration: 0)
         self.run(flipTexturePositive)
-        self.forward = true
     }
     
-    func goBack(){
+    func lookBackward(){
         let flipTextureNegative = SKAction.scaleX(to: -1, duration: 0)
         self.run(flipTextureNegative)
-        self.forward = false
     }
     
     // キャラクターをアイドル状態にする
     func startIdleAnimation(){
-//        self.removeAction(forKey: "runAnimation")
         self.run(idleAnimation, withKey: "idleAnimation")
     }
     
