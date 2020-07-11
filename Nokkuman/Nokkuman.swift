@@ -19,9 +19,11 @@ class Nokkuman :SKSpriteNode{
     // アニメーションを指定する
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
+    var jumpAnimation = SKAction()
     
     var rightMove = false
     var leftMove = false
+    var jump = false
     
     init() {
         super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
@@ -78,6 +80,21 @@ class Nokkuman :SKSpriteNode{
         
         runAnimation = SKAction.repeatForever(runAction)
         
+        // ジャンプのアニメーションを追加するよ
+        let jumpFrames:[SKTexture] =
+            [textureAtlas.textureNamed("2_entity_000_JUMP_000"),
+             textureAtlas.textureNamed("2_entity_000_JUMP_001"),
+             textureAtlas.textureNamed("2_entity_000_JUMP_002"),
+             textureAtlas.textureNamed("2_entity_000_JUMP_003"),
+             textureAtlas.textureNamed("2_entity_000_JUMP_004"),
+             textureAtlas.textureNamed("2_entity_000_JUMP_005"),
+             textureAtlas.textureNamed("2_entity_000_JUMP_006"),
+        ]
+        
+        // 1フレームあたりの表示時間は0.05秒
+        jumpAnimation = SKAction.animate(with: jumpFrames,timePerFrame: 0.08)
+        
+
     }
     
     // キャラクターを走らせる
@@ -98,6 +115,10 @@ class Nokkuman :SKSpriteNode{
     // キャラクターをアイドル状態にする
     func startIdleAnimation(){
         self.run(idleAnimation, withKey: "idleAnimation")
+    }
+    
+    func startJumpAnimation(){
+        self.run(jumpAnimation)
     }
     
     func update(){

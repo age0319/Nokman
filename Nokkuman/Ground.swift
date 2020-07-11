@@ -22,10 +22,9 @@ class Ground: SKSpriteNode {
         
         while CGFloat(tileCount) * tileSize.width < self.size.width {
             let tileNode = SKSpriteNode(texture: texture)
-            tileNode.position.x = CGFloat(tileCount) * tileSize.width
+            tileNode.anchorPoint = CGPoint(x: 0.5,y: 0)
+            tileNode.position = CGPoint(x: CGFloat(tileCount) * tileSize.width,y: 0)
             tileNode.size = tileSize
-            // 当たり判定を左下にする
-            tileNode.anchorPoint = CGPoint(x: 0, y: 0)
             self.addChild(tileNode)
             tileCount += 1
         }
@@ -34,6 +33,7 @@ class Ground: SKSpriteNode {
         let pointTopLeft = CGPoint(x: 0, y: size.height)
         let pointTopRight = CGPoint(x: size.width, y: size.height)
         self.physicsBody = SKPhysicsBody(edgeFrom: pointTopLeft, to: pointTopRight)
+        
         
     }
 }

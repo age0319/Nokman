@@ -22,9 +22,7 @@ class GameScene: SKScene {
     let ground = Ground()
         
     override func didMove(to view: SKView) {
-//
-//        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-//        print(self.frame)
+
         self.anchorPoint = .zero
         self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
         
@@ -37,14 +35,20 @@ class GameScene: SKScene {
         
         setupButtons()
         
+        let Rect = CGRect(x: 0, y: 0, width: 40, height: 40)
+        let circle = UIBezierPath(roundedRect: Rect, cornerRadius: 5)
+        let hoge = SKShapeNode(path: circle.cgPath, centered: true)
+        hoge.position = CGPoint(x:70, y:235)
+        hoge.physicsBody = SKPhysicsBody(circleOfRadius: Rect.width/2)
+        
+        self.addChild(hoge)
     }
     
     func setupButtons(){
         // 四角形の大きさを決める
         let Rect = CGRect(x: 0, y: 0, width: 40, height: 40)
-        // ovalInを指定すると円を作成する
-        let circle = UIBezierPath(ovalIn: Rect)
-        
+        let circle = UIBezierPath(roundedRect: Rect, cornerRadius: 5)
+
         let leftMove = SKShapeNode(path: circle.cgPath, centered: true)
         
         leftMove.position = CGPoint(x:70, y:35)
@@ -86,7 +90,7 @@ class GameScene: SKScene {
             } else if (node.name == "Right") {
                 startRightMove()
             } else if ( node.name == "Jump") {
-                
+                self.nokkuman.jump = true
             }
         }
     }
@@ -113,6 +117,10 @@ class GameScene: SKScene {
         self.nokkuman.startIdleAnimation()
     }
     
+    func startJump(){
+        self.nokkuman.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
+        self.nokkuman.startJumpAnimation()
+    }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -122,13 +130,31 @@ class GameScene: SKScene {
             
             if node.name == "Left" {
                 stopLeftMove()
-            } else if node.name == "Right"{
+            } else if node.name == "Right" {
                 stopRightMove()
+            } else if node.name == "Jump" {
+                self.nokkuman.jump = false
             }
         }
     }
     
+    var updateTime:Double = 0
+    // ジャンプ時間のインターバルを設定する
+    var jumpInterval:Double = 0.8
+    
     override func update(_ currentTime: TimeInterval) {
+        
         nokkuman.update()
+        
+        //　ジャンプフラグが立っていなければ終了
+        guard self.nokkuman.jump else {
+            return
+        }
+                
+        // インターバルを空けないと再度ジャンプできないようにする
+        if updateTime == 0 || currentTime - updateTime > jumpInterval {
+            startJump()
+            updateTime = currentTime
+        }
     }
 }
