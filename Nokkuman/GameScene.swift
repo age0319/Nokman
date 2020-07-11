@@ -9,22 +9,33 @@
 import SpriteKit
 import GameplayKit
 
+enum ZPositions: Int {
+    case background
+    case foreground
+    case player
+    case otherNodes
+}
+
 class GameScene: SKScene {
     
     let nokkuman = Nokkuman()
+    let ground = Ground()
         
     override func didMove(to view: SKView) {
-        
+//
+//        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+//        print(self.frame)
         self.anchorPoint = .zero
         self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
         
+        nokkuman.zPosition = CGFloat(ZPositions.player.rawValue)
         self.addChild(nokkuman)
         
-        setupButtons()
+        ground.createGround(frameSize: self.size)
+        ground.zPosition = CGFloat(ZPositions.background.rawValue)
+        self.addChild(ground)
         
-        //ゲームシーンにも物理エンジンを設定。フレームの隅に行くと折り返す。
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        setupButtons()
         
     }
     
@@ -40,6 +51,8 @@ class GameScene: SKScene {
         
         leftMove.name = "Left"
         
+        leftMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        
         addChild(leftMove)
         
         let rightMove = SKShapeNode(path: circle.cgPath, centered: true)
@@ -48,7 +61,18 @@ class GameScene: SKScene {
         
         rightMove.name = "Right"
         
+        rightMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         addChild(rightMove)
+        
+        let jump = SKShapeNode(path: circle.cgPath, centered: true)
+               
+        jump.position = CGPoint(x:600, y:35)
+        
+        jump.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        jump.name = "Jump"
+        
+        addChild(jump)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -58,15 +82,35 @@ class GameScene: SKScene {
             let node = self.atPoint(location)
             
             if (node.name == "Left") {
-                self.nokkuman.lookBackward()
-                self.nokkuman.startRunAnimation()
-                self.nokkuman.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
+                startLeftMove()
             } else if (node.name == "Right") {
-                self.nokkuman.lookForward()
-                self.nokkuman.startRunAnimation()
-                self.nokkuman.physicsBody?.velocity = CGVector(dx: 100, dy: 0)
+                startRightMove()
+            } else if ( node.name == "Jump") {
+                
             }
         }
+    }
+    
+    func startRightMove(){
+        self.nokkuman.rightMove = true
+        self.nokkuman.lookForward()
+        self.nokkuman.startRunAnimation()
+    }
+    
+    func stopRightMove(){
+        self.nokkuman.rightMove = false
+        self.nokkuman.startIdleAnimation()
+    }
+    
+    func startLeftMove(){
+        self.nokkuman.leftMove = true
+        self.nokkuman.lookBackward()
+        self.nokkuman.startRunAnimation()
+    }
+    
+    func stopLeftMove(){
+        self.nokkuman.leftMove = false
+        self.nokkuman.startIdleAnimation()
     }
     
     
@@ -76,10 +120,15 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             let node = self.atPoint(location)
             
-            if (node.name == "Left" || node.name == "Right") {
-                self.nokkuman.physicsBody?.velocity = CGVector(dx: 0,dy: 0)
-                self.nokkuman.startIdleAnimation()
+            if node.name == "Left" {
+                stopLeftMove()
+            } else if node.name == "Right"{
+                stopRightMove()
             }
         }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        nokkuman.update()
     }
 }

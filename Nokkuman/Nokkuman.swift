@@ -20,12 +20,18 @@ class Nokkuman :SKSpriteNode{
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
     
+    var rightMove = false
+    var leftMove = false
+    
     init() {
-        super.init(texture: nil, color: .clear, size: initialSize)
+        super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
+  
         self.position = initialPosition
-        //主人公に物理エンジンを与えて速度を与える
-        self.physicsBody = SKPhysicsBody(circleOfRadius: size.width/2)
+                
+        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
+        
         self.physicsBody?.mass = 30
+        
         self.physicsBody?.allowsRotation = false
         
         // アニメーションの作成
@@ -94,4 +100,11 @@ class Nokkuman :SKSpriteNode{
         self.run(idleAnimation, withKey: "idleAnimation")
     }
     
+    func update(){
+        if self.rightMove {
+            self.physicsBody?.velocity.dx = 100
+        } else if leftMove {
+            self.physicsBody?.velocity.dx = -100
+        }
+    }
 }
