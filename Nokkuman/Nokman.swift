@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Nokkuman :SKSpriteNode{
+class Nokman :SKSpriteNode{
     // キャラクターのサイズを指定します。
     let initialSize = CGSize(width: 64, height: 64)
     // キャラクターの位置を指定します。

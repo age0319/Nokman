@@ -18,7 +18,7 @@ enum ZPositions: Int {
 
 class GameScene: SKScene {
     
-    let nokkuman = Nokkuman()
+    let nokman = Nokman()
     let ground = Ground()
     let cam = SKCameraNode()
         
@@ -27,8 +27,8 @@ class GameScene: SKScene {
         self.anchorPoint = .zero
         self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
         
-        nokkuman.zPosition = CGFloat(ZPositions.player.rawValue)
-        self.addChild(nokkuman)
+        nokman.zPosition = CGFloat(ZPositions.player.rawValue)
+        self.addChild(nokman)
         
         // フレームの3倍の大きさの地面を作る
         ground.size = CGSize(width: self.size.width * 3, height: 0)
@@ -48,7 +48,7 @@ class GameScene: SKScene {
     override func didSimulatePhysics() {
         //カメラのポジションはプレイヤーのx座標とフレームの高さの半分。
         //横スクロールゲームのため、高さは固定でx座標だけ動けば良い。
-        self.camera?.position = CGPoint(x: self.nokkuman.position.x,
+        self.camera?.position = CGPoint(x: self.nokman.position.x,
         y: self.size.height / 2)
     }
     
@@ -103,36 +103,36 @@ class GameScene: SKScene {
             } else if (node.name == "Right") {
                 startRightMove()
             } else if ( node.name == "Jump") {
-                self.nokkuman.jump = true
+                self.nokman.jump = true
             }
         }
     }
     
     func startRightMove(){
-        self.nokkuman.rightMove = true
-        self.nokkuman.lookForward()
-        self.nokkuman.startRunAnimation()
+        self.nokman.rightMove = true
+        self.nokman.lookForward()
+        self.nokman.startRunAnimation()
     }
     
     func stopRightMove(){
-        self.nokkuman.rightMove = false
-        self.nokkuman.startIdleAnimation()
+        self.nokman.rightMove = false
+        self.nokman.startIdleAnimation()
     }
     
     func startLeftMove(){
-        self.nokkuman.leftMove = true
-        self.nokkuman.lookBackward()
-        self.nokkuman.startRunAnimation()
+        self.nokman.leftMove = true
+        self.nokman.lookBackward()
+        self.nokman.startRunAnimation()
     }
     
     func stopLeftMove(){
-        self.nokkuman.leftMove = false
-        self.nokkuman.startIdleAnimation()
+        self.nokman.leftMove = false
+        self.nokman.startIdleAnimation()
     }
     
     func startJump(){
-        self.nokkuman.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
-        self.nokkuman.startJumpAnimation()
+        self.nokman.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
+        self.nokman.startJumpAnimation()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,7 +146,7 @@ class GameScene: SKScene {
             } else if node.name == "Right" {
                 stopRightMove()
             } else if node.name == "Jump" {
-                self.nokkuman.jump = false
+                self.nokman.jump = false
             }
         }
     }
@@ -157,10 +157,10 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         
-        nokkuman.update()
+        nokman.update()
         
         //　ジャンプフラグが立っていなければ終了
-        guard self.nokkuman.jump else {
+        guard self.nokman.jump else {
             return
         }
                 

@@ -15,7 +15,7 @@
 		49228BF224B542B900CBB1C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF024B542B900CBB1C5 /* Main.storyboard */; };
 		49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF324B542BB00CBB1C5 /* Assets.xcassets */; };
 		49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF524B542BB00CBB1C5 /* LaunchScreen.storyboard */; };
-		49228BFF24B546BE00CBB1C5 /* Nokkuman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BFE24B546BE00CBB1C5 /* Nokkuman.swift */; };
+		49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BFE24B546BE00CBB1C5 /* Nokman.swift */; };
 		49A1E78424B81158000F0957 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1E78324B81158000F0957 /* Ground.swift */; };
 		49AAE32F24BA8C2A00DB3484 /* Hoge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AAE32E24BA8C2A00DB3484 /* Hoge.swift */; };
 /* End PBXBuildFile section */
@@ -31,7 +31,7 @@
 		49228BF324B542BB00CBB1C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49228BF624B542BB00CBB1C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49228BF824B542BB00CBB1C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49228BFE24B546BE00CBB1C5 /* Nokkuman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nokkuman.swift; sourceTree = "<group>"; };
+		49228BFE24B546BE00CBB1C5 /* Nokman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nokman.swift; sourceTree = "<group>"; };
 		49A1E78324B81158000F0957 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		49AAE32E24BA8C2A00DB3484 /* Hoge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hoge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,7 +75,7 @@
 				49228BF324B542BB00CBB1C5 /* Assets.xcassets */,
 				49228BF524B542BB00CBB1C5 /* LaunchScreen.storyboard */,
 				49228BF824B542BB00CBB1C5 /* Info.plist */,
-				49228BFE24B546BE00CBB1C5 /* Nokkuman.swift */,
+				49228BFE24B546BE00CBB1C5 /* Nokman.swift */,
 				49A1E78324B81158000F0957 /* Ground.swift */,
 				49AAE32E24BA8C2A00DB3484 /* Hoge.swift */,
 			);
@@ -156,7 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49228BED24B542B900CBB1C5 /* GameScene.swift in Sources */,
-				49228BFF24B546BE00CBB1C5 /* Nokkuman.swift in Sources */,
+				49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */,
 				49228BEF24B542B900CBB1C5 /* GameViewController.swift in Sources */,
 				49228BE724B542B900CBB1C5 /* AppDelegate.swift in Sources */,
 				49AAE32F24BA8C2A00DB3484 /* Hoge.swift in Sources */,
