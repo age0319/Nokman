@@ -20,6 +20,7 @@ class GameScene: SKScene {
     
     let nokkuman = Nokkuman()
     let ground = Ground()
+    let cam = SKCameraNode()
         
     override func didMove(to view: SKView) {
 
@@ -29,54 +30,66 @@ class GameScene: SKScene {
         nokkuman.zPosition = CGFloat(ZPositions.player.rawValue)
         self.addChild(nokkuman)
         
+        // フレームの3倍の大きさの地面を作る
+        ground.size = CGSize(width: self.size.width * 3, height: 0)
+        // 地面のx開始点は-1フレーム分の場所から。
+        ground.position = CGPoint(x: -1 * self.size.width, y: 0)
         ground.createGround(frameSize: self.size)
         ground.zPosition = CGFloat(ZPositions.background.rawValue)
         self.addChild(ground)
         
         setupButtons()
+ 
+        self.camera = cam
+        self.addChild(cam)
         
-        let Rect = CGRect(x: 0, y: 0, width: 40, height: 40)
-        let circle = UIBezierPath(roundedRect: Rect, cornerRadius: 5)
-        let hoge = SKShapeNode(path: circle.cgPath, centered: true)
-        hoge.position = CGPoint(x:70, y:235)
-        hoge.physicsBody = SKPhysicsBody(circleOfRadius: Rect.width/2)
-        
-        self.addChild(hoge)
+    }
+    
+    override func didSimulatePhysics() {
+        //カメラのポジションはプレイヤーのx座標とフレームの高さの半分。
+        //横スクロールゲームのため、高さは固定でx座標だけ動けば良い。
+        self.camera?.position = CGPoint(x: self.nokkuman.position.x,
+        y: self.size.height / 2)
     }
     
     func setupButtons(){
+        // カメラに追随して動くようにボタンはカメラの子として設置する。
+        // カメラ(SKCameraNode)の開始座標はフレームの中心。
+        // 開始座標を左下にするためにフレームの中心座標を引き算する
+        let halfPoint = CGPoint(x: self.size.width/2, y: self.size.height/2)
+
         // 四角形の大きさを決める
         let Rect = CGRect(x: 0, y: 0, width: 40, height: 40)
         let circle = UIBezierPath(roundedRect: Rect, cornerRadius: 5)
 
         let leftMove = SKShapeNode(path: circle.cgPath, centered: true)
         
-        leftMove.position = CGPoint(x:70, y:35)
+        leftMove.position = CGPoint(x:70 - halfPoint.x, y:35 - halfPoint.y)
         
         leftMove.name = "Left"
         
         leftMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-        addChild(leftMove)
+        cam.addChild(leftMove)
         
         let rightMove = SKShapeNode(path: circle.cgPath, centered: true)
         
-        rightMove.position = CGPoint(x:120, y:35)
+        rightMove.position = CGPoint(x:120 - halfPoint.x, y:35 - halfPoint.y)
         
         rightMove.name = "Right"
         
         rightMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
-        addChild(rightMove)
+
+        cam.addChild(rightMove)
         
         let jump = SKShapeNode(path: circle.cgPath, centered: true)
                
-        jump.position = CGPoint(x:600, y:35)
+        jump.position = CGPoint(x:700 - halfPoint.x, y:35 - halfPoint.y)
         
         jump.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         jump.name = "Jump"
         
-        addChild(jump)
-        
+        cam.addChild(jump)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
