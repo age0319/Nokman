@@ -12,7 +12,7 @@ class Nokman :SKSpriteNode{
     // キャラクターのサイズを指定します。
     let initialSize = CGSize(width: 64, height: 64)
     // キャラクターの位置を指定します。
-    let initialPosition = CGPoint(x: 200, y: 100)
+    let initialPosition = CGPoint(x: 0, y: 100)
     // テキスチャーアトラスを指定する
     var textureAtlas = SKTextureAtlas(named:"Nokkuman")
   

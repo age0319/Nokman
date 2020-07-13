@@ -10,29 +10,27 @@ import SpriteKit
 
 class Ground: SKSpriteNode {
     
-    var textureAtlas:SKTextureAtlas = SKTextureAtlas(named: "Ground")
-    let tileSize = CGSize(width: 35, height: 60)
+    let Height:CGFloat = 120
     
-    func createGround(frameSize:CGSize){
+    func createGround(frameSize:CGSize,num:Int){
         
-        let texture = textureAtlas.textureNamed("Ground")
-        var tileCount = 0
+        let halfY = frameSize.height/2
         
-        while CGFloat(tileCount) * tileSize.width < self.size.width {
-            let tileNode = SKSpriteNode(texture: texture)
-            tileNode.anchorPoint = CGPoint(x: 0,y: 0)
-            tileNode.position = CGPoint(x: self.position.x + CGFloat(tileCount) * tileSize.width,y: 0)
-            tileNode.size = tileSize
-            self.addChild(tileNode)
-            tileCount += 1
+        var i = 0
+        while i < num {
+            let gr = SKSpriteNode(color: .green, size: CGSize(width: frameSize.width, height: Height))
+            gr.position = CGPoint(x: CGFloat(i) * frameSize.width,y: -halfY)
+            self.addChild(gr)
+            i += 1
         }
         
+        let rightEdge = (CGFloat(num)*frameSize.width) - (frameSize.width/2)
         // 地面の高さ分、エッジを作る
-        let pointTopLeft = CGPoint(x: self.position.x, y: tileSize.height)
-        let pointTopRight = CGPoint(x: self.position.x + self.size.width, y: tileSize.height)
+        let pointTopLeft = CGPoint(x: -frameSize.width/2, y: Height/2 - halfY)
+        let pointTopRight = CGPoint(x: rightEdge, y: Height/2 - halfY)
+        print(pointTopRight)
         
         self.physicsBody = SKPhysicsBody(edgeFrom: pointTopLeft, to: pointTopRight)
-        
-        
     }
+    
 }

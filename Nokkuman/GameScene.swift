@@ -20,36 +20,36 @@ class GameScene: SKScene {
     
     let nokman = Nokman()
     let ground = Ground()
+    let bg = Background()
     let cam = SKCameraNode()
         
     override func didMove(to view: SKView) {
 
         self.anchorPoint = .zero
-        self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
+//        self.backgroundColor = UIColor(red: 0.4, green: 0.6, blue: 0.95, alpha: 1.0)
         
         nokman.zPosition = CGFloat(ZPositions.player.rawValue)
         self.addChild(nokman)
         
-        // フレームの3倍の大きさの地面を作る
-        ground.size = CGSize(width: self.size.width * 3, height: 0)
-        // 地面のx開始点は-1フレーム分の場所から。
-        ground.position = CGPoint(x: -1 * self.size.width, y: 0)
-        ground.createGround(frameSize: self.size)
-        ground.zPosition = CGFloat(ZPositions.background.rawValue)
+        ground.createGround(frameSize: self.size, num: 3)
+        ground.zPosition = CGFloat(ZPositions.foreground.rawValue)
         self.addChild(ground)
         
         setupButtons()
- 
+
+        bg.createBackgound(frameSize: self.size,num:3)
+        bg.zPosition = CGFloat(ZPositions.background.rawValue)
+        
+        addChild(bg)
+        
         self.camera = cam
         self.addChild(cam)
         
     }
     
     override func didSimulatePhysics() {
-        //カメラのポジションはプレイヤーのx座標とフレームの高さの半分。
         //横スクロールゲームのため、高さは固定でx座標だけ動けば良い。
-        self.camera?.position = CGPoint(x: self.nokman.position.x,
-        y: self.size.height / 2)
+        self.camera?.position = CGPoint(x: self.nokman.position.x,y:0)
     }
     
     func setupButtons(){
@@ -57,10 +57,10 @@ class GameScene: SKScene {
         // カメラ(SKCameraNode)の開始座標はフレームの中心。
         // 開始座標を左下にするためにフレームの中心座標を引き算する
         let halfPoint = CGPoint(x: self.size.width/2, y: self.size.height/2)
-         
-        var texture = SKTextureAtlas(named:"UI").textureNamed("flatDark23")
+                         
+        let leftMove = SKSpriteNode(imageNamed: "flatDark23")
         
-        let leftMove = SKSpriteNode(texture: texture, size: CGSize(width: 40,height: 40))
+        leftMove.size = CGSize(width: 40, height: 40)
         
         leftMove.position = CGPoint(x:70 - halfPoint.x, y:35 - halfPoint.y)
         
@@ -70,9 +70,9 @@ class GameScene: SKScene {
         
         cam.addChild(leftMove)
                 
-        texture = SKTextureAtlas(named:"UI").textureNamed("flatDark24")
+        let rightMove = SKSpriteNode(imageNamed: "flatDark24")
         
-        let rightMove = SKSpriteNode(texture: texture, size: CGSize(width: 40,height: 40))
+        rightMove.size = CGSize(width: 40, height: 40)
         
         rightMove.position = CGPoint(x:120 - halfPoint.x, y:35 - halfPoint.y)
         
@@ -82,9 +82,9 @@ class GameScene: SKScene {
 
         cam.addChild(rightMove)
         
-        texture = SKTextureAtlas(named:"UI").textureNamed("flatDark25")
-
-        let jump = SKSpriteNode(texture: texture, size: CGSize(width: 40,height: 40))
+        let jump = SKSpriteNode(imageNamed: "flatDark25")
+        
+        jump.size = CGSize(width: 40, height: 40)
                
         jump.position = CGPoint(x:700 - halfPoint.x, y:35 - halfPoint.y)
         
@@ -174,3 +174,4 @@ class GameScene: SKScene {
         }
     }
 }
+
