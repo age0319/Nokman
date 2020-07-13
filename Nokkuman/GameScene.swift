@@ -57,12 +57,10 @@ class GameScene: SKScene {
         // カメラ(SKCameraNode)の開始座標はフレームの中心。
         // 開始座標を左下にするためにフレームの中心座標を引き算する
         let halfPoint = CGPoint(x: self.size.width/2, y: self.size.height/2)
-
-        // 四角形の大きさを決める
-        let Rect = CGRect(x: 0, y: 0, width: 40, height: 40)
-        let circle = UIBezierPath(roundedRect: Rect, cornerRadius: 5)
-
-        let leftMove = SKShapeNode(path: circle.cgPath, centered: true)
+         
+        var texture = SKTextureAtlas(named:"UI").textureNamed("flatDark23")
+        
+        let leftMove = SKSpriteNode(texture: texture, size: CGSize(width: 40,height: 40))
         
         leftMove.position = CGPoint(x:70 - halfPoint.x, y:35 - halfPoint.y)
         
@@ -71,8 +69,10 @@ class GameScene: SKScene {
         leftMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
         cam.addChild(leftMove)
+                
+        texture = SKTextureAtlas(named:"UI").textureNamed("flatDark24")
         
-        let rightMove = SKShapeNode(path: circle.cgPath, centered: true)
+        let rightMove = SKSpriteNode(texture: texture, size: CGSize(width: 40,height: 40))
         
         rightMove.position = CGPoint(x:120 - halfPoint.x, y:35 - halfPoint.y)
         
@@ -82,11 +82,14 @@ class GameScene: SKScene {
 
         cam.addChild(rightMove)
         
-        let jump = SKShapeNode(path: circle.cgPath, centered: true)
+        texture = SKTextureAtlas(named:"UI").textureNamed("flatDark25")
+
+        let jump = SKSpriteNode(texture: texture, size: CGSize(width: 40,height: 40))
                
         jump.position = CGPoint(x:700 - halfPoint.x, y:35 - halfPoint.y)
         
         jump.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+
         jump.name = "Jump"
         
         cam.addChild(jump)
