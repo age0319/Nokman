@@ -29,7 +29,14 @@ class Shot:SKSpriteNode{
     }
     
     func fire(){
-        self.physicsBody?.applyImpulse(CGVector(dx: 1000, dy: 0))
+        self.physicsBody?.applyImpulse(CGVector(dx: 500, dy: 0))
+        //1秒経ったら弾を消す
+        let wait = SKAction.wait(forDuration: 1)
+        let endShot = SKAction.run {
+            self.removeFromParent()
+        }
+        self.run(SKAction.sequence([wait,endShot]))
+        
     }
     
 }

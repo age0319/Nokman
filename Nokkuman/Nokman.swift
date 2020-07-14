@@ -80,7 +80,7 @@ class Nokman :SKSpriteNode{
             ]
         
         // 1フレームあたりの表示時間は0.05秒
-        let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.1)
+        let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.05)
         
         runAnimation = SKAction.repeatForever(runAction)
         
@@ -102,7 +102,6 @@ class Nokman :SKSpriteNode{
         // 発泡のアニメーションを追加するよ
         let fireFrames:[SKTexture] =
             [
-                textureAtlas.textureNamed("2_entity_000_ATTACK_004"),
                 textureAtlas.textureNamed("2_entity_000_ATTACK_005"),
                 textureAtlas.textureNamed("2_entity_000_ATTACK_006"),
             ]
@@ -142,9 +141,9 @@ class Nokman :SKSpriteNode{
     
     func update(){
         if self.rightMove {
-            self.physicsBody?.velocity.dx = 100
+            self.physicsBody?.velocity.dx = 150
         } else if leftMove {
-            self.physicsBody?.velocity.dx = -100
+            self.physicsBody?.velocity.dx = -150
         }
     }
 }

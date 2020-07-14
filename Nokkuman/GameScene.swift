@@ -190,7 +190,7 @@ class GameScene: SKScene {
     var jumpInterval:Double = 0.8
     
     var fireTime:Double = 0
-    var fireInterval:Double = 0.5
+    var fireInterval:Double = 0.1
     
     override func update(_ currentTime: TimeInterval) {
         
