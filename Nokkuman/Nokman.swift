@@ -10,7 +10,7 @@ import SpriteKit
 
 class Nokman :SKSpriteNode{
     // キャラクターのサイズを指定します。
-    let initialSize = CGSize(width: 64, height: 64)
+    let initialSize = CGSize(width: 96, height: 96)
     // キャラクターの位置を指定します。
     let initialPosition = CGPoint(x: 0, y: 100)
     // テキスチャーアトラスを指定する
@@ -20,10 +20,12 @@ class Nokman :SKSpriteNode{
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
     var jumpAnimation = SKAction()
+    var fireAnimation = SKAction()
     
     var rightMove = false
     var leftMove = false
     var jump = false
+    var fire = false
     
     init() {
         super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
@@ -51,14 +53,15 @@ class Nokman :SKSpriteNode{
         
         // 何もしていない時のアニメーションを追加するよ
         let idleFrames:[SKTexture] =
-            [textureAtlas.textureNamed("2_entity_000_IDLE_000"),
-             textureAtlas.textureNamed("2_entity_000_IDLE_001"),
-             textureAtlas.textureNamed("2_entity_000_IDLE_002"),
-             textureAtlas.textureNamed("2_entity_000_IDLE_003"),
-             textureAtlas.textureNamed("2_entity_000_IDLE_004"),
-             textureAtlas.textureNamed("2_entity_000_IDLE_005"),
-             textureAtlas.textureNamed("2_entity_000_IDLE_006"),
-        ]
+            [
+                textureAtlas.textureNamed("2_entity_000_IDLE_000"),
+                textureAtlas.textureNamed("2_entity_000_IDLE_001"),
+                textureAtlas.textureNamed("2_entity_000_IDLE_002"),
+                textureAtlas.textureNamed("2_entity_000_IDLE_003"),
+                textureAtlas.textureNamed("2_entity_000_IDLE_004"),
+                textureAtlas.textureNamed("2_entity_000_IDLE_005"),
+                textureAtlas.textureNamed("2_entity_000_IDLE_006"),
+            ]
         
         // 1フレームあたりの表示時間は0.14秒
         let idleAction = SKAction.animate(with: idleFrames, timePerFrame: 0.14)
@@ -66,35 +69,46 @@ class Nokman :SKSpriteNode{
 
         // 走っているアニメーションを追加するよ
         let runFrames:[SKTexture] =
-            [textureAtlas.textureNamed("2_entity_000_RUN_000"),
-             textureAtlas.textureNamed("2_entity_000_RUN_001"),
-             textureAtlas.textureNamed("2_entity_000_RUN_002"),
-             textureAtlas.textureNamed("2_entity_000_RUN_003"),
-             textureAtlas.textureNamed("2_entity_000_RUN_004"),
-             textureAtlas.textureNamed("2_entity_000_RUN_005"),
-             textureAtlas.textureNamed("2_entity_000_RUN_006"),
+            [
+                textureAtlas.textureNamed("2_entity_000_RUN_000"),
+                textureAtlas.textureNamed("2_entity_000_RUN_001"),
+                textureAtlas.textureNamed("2_entity_000_RUN_002"),
+                textureAtlas.textureNamed("2_entity_000_RUN_003"),
+                textureAtlas.textureNamed("2_entity_000_RUN_004"),
+                textureAtlas.textureNamed("2_entity_000_RUN_005"),
+                textureAtlas.textureNamed("2_entity_000_RUN_006"),
             ]
         
         // 1フレームあたりの表示時間は0.05秒
-        let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.05)
+        let runAction = SKAction.animate(with: runFrames,timePerFrame: 0.1)
         
         runAnimation = SKAction.repeatForever(runAction)
         
         // ジャンプのアニメーションを追加するよ
         let jumpFrames:[SKTexture] =
-            [textureAtlas.textureNamed("2_entity_000_JUMP_000"),
-             textureAtlas.textureNamed("2_entity_000_JUMP_001"),
-             textureAtlas.textureNamed("2_entity_000_JUMP_002"),
-             textureAtlas.textureNamed("2_entity_000_JUMP_003"),
-             textureAtlas.textureNamed("2_entity_000_JUMP_004"),
-             textureAtlas.textureNamed("2_entity_000_JUMP_005"),
-             textureAtlas.textureNamed("2_entity_000_JUMP_006"),
-        ]
+            [
+                textureAtlas.textureNamed("2_entity_000_JUMP_000"),
+                textureAtlas.textureNamed("2_entity_000_JUMP_001"),
+                textureAtlas.textureNamed("2_entity_000_JUMP_002"),
+                textureAtlas.textureNamed("2_entity_000_JUMP_003"),
+                textureAtlas.textureNamed("2_entity_000_JUMP_004"),
+                textureAtlas.textureNamed("2_entity_000_JUMP_005"),
+                textureAtlas.textureNamed("2_entity_000_JUMP_006"),
+            ]
         
-        // 1フレームあたりの表示時間は0.05秒
+        // 1フレームあたりの表示時間は0.08秒
         jumpAnimation = SKAction.animate(with: jumpFrames,timePerFrame: 0.08)
         
-
+        // 発泡のアニメーションを追加するよ
+        let fireFrames:[SKTexture] =
+            [
+                textureAtlas.textureNamed("2_entity_000_ATTACK_004"),
+                textureAtlas.textureNamed("2_entity_000_ATTACK_005"),
+                textureAtlas.textureNamed("2_entity_000_ATTACK_006"),
+            ]
+        
+        fireAnimation = SKAction.animate(with: fireFrames,timePerFrame: 0.05)
+        
     }
     
     // キャラクターを走らせる
@@ -117,8 +131,13 @@ class Nokman :SKSpriteNode{
         self.run(idleAnimation, withKey: "idleAnimation")
     }
     
+    // ジャンプアニメーションを開始する
     func startJumpAnimation(){
         self.run(jumpAnimation)
+    }
+    
+    func startFireAnimation(){
+        self.run(fireAnimation)
     }
     
     func update(){

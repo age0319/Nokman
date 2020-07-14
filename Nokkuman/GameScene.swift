@@ -126,6 +126,8 @@ class GameScene: SKScene {
                 startRightMove()
             } else if ( node.name == "Jump") {
                 self.nokman.jump = true
+            } else if ( node.name == "Fire"){
+                self.nokman.fire = true
             }
         }
     }
@@ -157,6 +159,14 @@ class GameScene: SKScene {
         self.nokman.startJumpAnimation()
     }
     
+    func startFire(){
+        self.nokman.startFireAnimation()
+
+        let shot = Shot(pos: self.nokman.position)
+        self.addChild(shot)
+        shot.fire()
+    }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch: AnyObject in touches {
@@ -169,27 +179,38 @@ class GameScene: SKScene {
                 stopRightMove()
             } else if node.name == "Jump" {
                 self.nokman.jump = false
+            } else if node.name == "Fire" {
+                self.nokman.fire = false
             }
         }
     }
     
-    var updateTime:Double = 0
+    var jumpTime:Double = 0
     // ジャンプ時間のインターバルを設定する
     var jumpInterval:Double = 0.8
+    
+    var fireTime:Double = 0
+    var fireInterval:Double = 0.5
     
     override func update(_ currentTime: TimeInterval) {
         
         nokman.update()
         
         //　ジャンプフラグが立っていなければ終了
-        guard self.nokman.jump else {
-            return
+        if self.nokman.jump {
+            // インターバルを空けないと再度ジャンプできないようにする
+            if jumpTime == 0 || currentTime - jumpTime > jumpInterval {
+                startJump()
+                jumpTime = currentTime
+            }
         }
-                
-        // インターバルを空けないと再度ジャンプできないようにする
-        if updateTime == 0 || currentTime - updateTime > jumpInterval {
-            startJump()
-            updateTime = currentTime
+        
+        if self.nokman.fire {
+            // インターバルを空けないと再度発砲できないようにする
+            if fireTime == 0 || currentTime - fireTime > fireInterval {
+                startFire()
+                fireTime = currentTime
+            }
         }
     }
 }
