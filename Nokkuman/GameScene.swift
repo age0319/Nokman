@@ -9,6 +9,10 @@
 import SpriteKit
 import GameplayKit
 
+//protocol SceneDelegate {
+//    func addChild()
+//}
+
 enum ZPositions: Int {
     case background
     case foreground
@@ -16,7 +20,7 @@ enum ZPositions: Int {
     case otherNodes
 }
 
-class GameScene: SKScene {
+class GameScene: SKScene{
     
     let nokman = Nokman()
     let ground = Ground()
@@ -121,9 +125,9 @@ class GameScene: SKScene {
             let node = self.atPoint(location)
             
             if (node.name == "Left") {
-                startLeftMove()
+                self.nokman.startRun(bw:true)
             } else if (node.name == "Right") {
-                startRightMove()
+                self.nokman.startRun(bw:false)
             } else if ( node.name == "Jump") {
                 self.nokman.jumping = true
             } else if ( node.name == "Fire"){
@@ -132,36 +136,7 @@ class GameScene: SKScene {
         }
     }
     
-    func startRightMove(){
-        self.nokman.backward = false
-        self.nokman.rightMoving = true
-        self.nokman.startRunAnimation()
-    }
-    
-    func stopRightMove(){
-        self.nokman.rightMoving = false
-        self.nokman.startIdleAnimation()
-    }
-    
-    func startLeftMove(){
-        self.nokman.backward = true
-        self.nokman.leftMoving = true
-        self.nokman.startRunAnimation()
-    }
-    
-    func stopLeftMove(){
-        self.nokman.leftMoving = false
-        self.nokman.startIdleAnimation()
-    }
-    
-    func startJump(){
-        self.nokman.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
-        self.nokman.startJumpAnimation()
-    }
-    
-    func startFire(){
-        self.nokman.startFireAnimation()
-
+    func shot(){
         let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
         self.addChild(shot)
         shot.fire()
@@ -174,9 +149,11 @@ class GameScene: SKScene {
             let node = self.atPoint(location)
             
             if node.name == "Left" {
-                stopLeftMove()
+                self.nokman.leftMoving = false
+                self.nokman.startIdleAnimation()
             } else if node.name == "Right" {
-                stopRightMove()
+                self.nokman.rightMoving = false
+                self.nokman.startIdleAnimation()
             } else if node.name == "Jump" {
                 self.nokman.jumping = false
             } else if node.name == "Fire" {
@@ -193,13 +170,13 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         
-        nokman.update()
+        nokman.update(currentTime)
         
         //　ジャンプフラグが立っていなければ終了
         if self.nokman.jumping {
             // インターバルを空けないとジャンプできないようにする
             if jumpTime == 0 || currentTime - jumpTime > jumpInterval {
-                startJump()
+                self.nokman.startJump()
                 jumpTime = currentTime
             }
         }
@@ -207,10 +184,14 @@ class GameScene: SKScene {
         if self.nokman.firing {
             // インターバルを空けないと発砲できないようにする
             if fireTime == 0 || currentTime - fireTime > fireInterval {
-                startFire()
+                self.nokman.startFire()
+                let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
+                self.addChild(shot)
+                shot.fire()
                 fireTime = currentTime
             }
         }
     }
+   
 }
 

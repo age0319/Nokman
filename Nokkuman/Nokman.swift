@@ -113,11 +113,14 @@ class Nokman :SKSpriteNode{
     }
     
     // キャラクターを走らせる
-    func startRunAnimation(){
+    func startRun(bw:Bool){
+        self.backward = bw
         if self.backward {
             self.xScale = -1
+            self.leftMoving = true
         } else {
             self.xScale = 1
+            self.rightMoving = true
         }
         self.run(runAnimation, withKey: "runAnimation")
     }
@@ -128,19 +131,23 @@ class Nokman :SKSpriteNode{
     }
     
     // ジャンプアニメーションを開始する
-    func startJumpAnimation(){
+    func startJump(){
+        self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
         self.run(jumpAnimation)
     }
     
-    func startFireAnimation(){
+    func startFire(){
         self.run(fireAnimation)
     }
     
-    func update(){
+    func update(_ currentTime: TimeInterval){
+        
         if self.rightMoving {
             self.physicsBody?.velocity.dx = 150
         } else if leftMoving {
             self.physicsBody?.velocity.dx = -150
         }
+        
     }
+    
 }
