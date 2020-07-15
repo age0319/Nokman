@@ -22,10 +22,12 @@ class Nokman :SKSpriteNode{
     var jumpAnimation = SKAction()
     var fireAnimation = SKAction()
     
-    var rightMove = false
-    var leftMove = false
-    var jump = false
-    var fire = false
+    var rightMoving = false
+    var leftMoving = false
+    var jumping = false
+    var firing = false
+    
+    var backward = false
     
     init() {
         super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
@@ -112,17 +114,12 @@ class Nokman :SKSpriteNode{
     
     // キャラクターを走らせる
     func startRunAnimation(){
+        if self.backward {
+            self.xScale = -1
+        } else {
+            self.xScale = 1
+        }
         self.run(runAnimation, withKey: "runAnimation")
-    }
-    
-    func lookForward(){
-        let flipTexturePositive = SKAction.scaleX(to: 1, duration: 0)
-        self.run(flipTexturePositive)
-    }
-    
-    func lookBackward(){
-        let flipTextureNegative = SKAction.scaleX(to: -1, duration: 0)
-        self.run(flipTextureNegative)
     }
     
     // キャラクターをアイドル状態にする
@@ -140,9 +137,9 @@ class Nokman :SKSpriteNode{
     }
     
     func update(){
-        if self.rightMove {
+        if self.rightMoving {
             self.physicsBody?.velocity.dx = 150
-        } else if leftMove {
+        } else if leftMoving {
             self.physicsBody?.velocity.dx = -150
         }
     }

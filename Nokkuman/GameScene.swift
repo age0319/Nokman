@@ -125,32 +125,32 @@ class GameScene: SKScene {
             } else if (node.name == "Right") {
                 startRightMove()
             } else if ( node.name == "Jump") {
-                self.nokman.jump = true
+                self.nokman.jumping = true
             } else if ( node.name == "Fire"){
-                self.nokman.fire = true
+                self.nokman.firing = true
             }
         }
     }
     
     func startRightMove(){
-        self.nokman.rightMove = true
-        self.nokman.lookForward()
+        self.nokman.backward = false
+        self.nokman.rightMoving = true
         self.nokman.startRunAnimation()
     }
     
     func stopRightMove(){
-        self.nokman.rightMove = false
+        self.nokman.rightMoving = false
         self.nokman.startIdleAnimation()
     }
     
     func startLeftMove(){
-        self.nokman.leftMove = true
-        self.nokman.lookBackward()
+        self.nokman.backward = true
+        self.nokman.leftMoving = true
         self.nokman.startRunAnimation()
     }
     
     func stopLeftMove(){
-        self.nokman.leftMove = false
+        self.nokman.leftMoving = false
         self.nokman.startIdleAnimation()
     }
     
@@ -162,7 +162,7 @@ class GameScene: SKScene {
     func startFire(){
         self.nokman.startFireAnimation()
 
-        let shot = Shot(pos: self.nokman.position)
+        let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
         self.addChild(shot)
         shot.fire()
     }
@@ -178,15 +178,14 @@ class GameScene: SKScene {
             } else if node.name == "Right" {
                 stopRightMove()
             } else if node.name == "Jump" {
-                self.nokman.jump = false
+                self.nokman.jumping = false
             } else if node.name == "Fire" {
-                self.nokman.fire = false
+                self.nokman.firing = false
             }
         }
     }
     
     var jumpTime:Double = 0
-    // ジャンプ時間のインターバルを設定する
     var jumpInterval:Double = 0.8
     
     var fireTime:Double = 0
@@ -197,16 +196,16 @@ class GameScene: SKScene {
         nokman.update()
         
         //　ジャンプフラグが立っていなければ終了
-        if self.nokman.jump {
-            // インターバルを空けないと再度ジャンプできないようにする
+        if self.nokman.jumping {
+            // インターバルを空けないとジャンプできないようにする
             if jumpTime == 0 || currentTime - jumpTime > jumpInterval {
                 startJump()
                 jumpTime = currentTime
             }
         }
         
-        if self.nokman.fire {
-            // インターバルを空けないと再度発砲できないようにする
+        if self.nokman.firing {
+            // インターバルを空けないと発砲できないようにする
             if fireTime == 0 || currentTime - fireTime > fireInterval {
                 startFire()
                 fireTime = currentTime

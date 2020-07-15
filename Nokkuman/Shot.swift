@@ -10,11 +10,14 @@ import Foundation
 import SpriteKit
 
 class Shot:SKSpriteNode{
-    init(pos:CGPoint){
+    
+    var backword:Bool = false
+    
+    init(pos:CGPoint,bw:Bool){
         super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: CGSize(width: 10, height: 10))
+
+        self.backword = bw
         
-        self.position = CGPoint(x:pos.x + 25, y:pos.y)
-            
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
         self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
@@ -22,6 +25,13 @@ class Shot:SKSpriteNode{
         self.physicsBody?.mass = 0.5
         
         self.physicsBody?.affectedByGravity = false
+        
+        if self.backword {
+            self.xScale = -1
+            self.position = CGPoint(x:pos.x - 25, y:pos.y)
+        }else{
+            self.position = CGPoint(x:pos.x + 25, y:pos.y)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,8 +39,13 @@ class Shot:SKSpriteNode{
     }
     
     func fire(){
-        self.physicsBody?.applyImpulse(CGVector(dx: 500, dy: 0))
-        //1秒経ったら弾を消す
+        
+        if self.backword {
+            self.physicsBody?.applyImpulse(CGVector(dx: -50, dy: 0))
+        }else{
+            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))
+        }
+            //1秒経ったら弾を消す
         let wait = SKAction.wait(forDuration: 1)
         let endShot = SKAction.run {
             self.removeFromParent()
