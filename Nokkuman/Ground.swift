@@ -12,6 +12,15 @@ class Ground: SKSpriteNode {
     
     let Height:CGFloat = 60
     
+    init(){
+        super.init(texture: nil, color: .clear, size: CGSize(width: 0,height: 0))
+        self.zPosition = CGFloat(ZPositions.foreground.rawValue)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func createGround(frameSize:CGSize,num:Int){
         
         let halfY = frameSize.height/2

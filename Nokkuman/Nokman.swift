@@ -16,6 +16,8 @@ class Nokman :SKSpriteNode{
     // テキスチャーアトラスを指定する
     var textureAtlas = SKTextureAtlas(named:"Nokkuman")
   
+    let runSpeed:CGFloat = 150
+    
     // アニメーションを指定する
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
@@ -40,10 +42,13 @@ class Nokman :SKSpriteNode{
         
         self.physicsBody?.allowsRotation = false
         
+        self.zPosition = CGFloat(ZPositions.player.rawValue)
+        
         // アニメーションの作成
         createAnimations()
+        
         // アイドル状態の開始
-        self.startIdleAnimation()
+        self.Idle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -113,7 +118,7 @@ class Nokman :SKSpriteNode{
     }
     
     // キャラクターを走らせる
-    func startRun(bw:Bool){
+    func Run(bw:Bool){
         self.backward = bw
         if self.backward {
             self.xScale = -1
@@ -126,26 +131,26 @@ class Nokman :SKSpriteNode{
     }
     
     // キャラクターをアイドル状態にする
-    func startIdleAnimation(){
+    func Idle(){
         self.run(idleAnimation, withKey: "idleAnimation")
     }
     
     // ジャンプアニメーションを開始する
-    func startJump(){
+    func Jump(){
         self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
         self.run(jumpAnimation)
     }
     
-    func startFire(){
+    func Fire(){
         self.run(fireAnimation)
     }
     
     func update(_ currentTime: TimeInterval){
         
         if self.rightMoving {
-            self.physicsBody?.velocity.dx = 150
+            self.physicsBody?.velocity.dx = runSpeed
         } else if leftMoving {
-            self.physicsBody?.velocity.dx = -150
+            self.physicsBody?.velocity.dx = -runSpeed
         }
         
     }

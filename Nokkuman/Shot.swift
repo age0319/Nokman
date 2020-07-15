@@ -12,6 +12,7 @@ import SpriteKit
 class Shot:SKSpriteNode{
     
     var backword:Bool = false
+    var shotSpeed = 600
     
     init(pos:CGPoint,bw:Bool){
         super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: CGSize(width: 10, height: 10))
@@ -41,9 +42,9 @@ class Shot:SKSpriteNode{
     func fire(){
         
         if self.backword {
-            self.physicsBody?.applyImpulse(CGVector(dx: -50, dy: 0))
+            self.physicsBody?.applyImpulse(CGVector(dx: -shotSpeed, dy: 0))
         }else{
-            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))
+            self.physicsBody?.applyImpulse(CGVector(dx: shotSpeed, dy: 0))
         }
             //1秒経ったら弾を消す
         let wait = SKAction.wait(forDuration: 1)

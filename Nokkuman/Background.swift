@@ -10,6 +10,15 @@ import Foundation
 import SpriteKit
 
 class Background:  SKSpriteNode{
+    init(){
+        super.init(texture: nil, color: .clear, size: CGSize(width: 0,height: 0))
+        self.zPosition = CGFloat(ZPositions.background.rawValue)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func createBackgound(frameSize:CGSize,num:Int){
         var i = 0
         while i < num {
