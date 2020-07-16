@@ -13,16 +13,14 @@ import SpriteKit
 class Fly:SKSpriteNode {
     
     let initialSize = CGSize(width: 32, height: 32)
-    let initialPosition = CGPoint(x: 200, y: 100)
     var textureAtlas = SKTextureAtlas(named:"Enemies")
-    var frogAnimation = SKAction()
+    var Animation = SKAction()
+    var movingAnimation = SKAction()
     
-    let runSpeed:CGFloat = -100
+    let runSpeed:CGFloat = 100
     
     init() {
         super.init(texture: SKTexture(imageNamed: "fly"), color: .clear, size: initialSize)
-        
-        self.position = initialPosition
         
         self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
             
@@ -36,24 +34,31 @@ class Fly:SKSpriteNode {
         
         self.physicsBody?.affectedByGravity = false
         
-        self.physicsBody?.velocity = CGVector(dx: runSpeed, dy: 0)
-        
-        self.run(frogAnimation)
+        self.run(Animation)
+        self.run(movingAnimation)
     }
     
     func createAnimations() {
-        let frogFrames:[SKTexture] =
+        let Frames:[SKTexture] =
             [
                 textureAtlas.textureNamed("fly"),
                 textureAtlas.textureNamed("fly_move")
             ]
         
-        let frogAction = SKAction.animate(with: frogFrames, timePerFrame: 0.14)
-        frogAnimation = SKAction.repeatForever(frogAction)
+        let Action = SKAction.animate(with: Frames, timePerFrame: 0.14)
+        
+        Animation = SKAction.repeatForever(Action)
+        
+        let flipLeft = SKAction.scaleX(to: 1, duration: 0.05)
+        let moveLeft = SKAction.move(by: CGVector(dx: -100, dy: 0), duration: 2)
+        let flipRight = SKAction.scaleX(to: -1, duration: 0.05)
+        let moveRight = SKAction.move(by: CGVector(dx: 100, dy: 0), duration: 2)
+        
+        movingAnimation = SKAction.repeatForever(SKAction.sequence([flipLeft,moveLeft,flipRight,moveRight]))
     
+        
     }
     required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
 }

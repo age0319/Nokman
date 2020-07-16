@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				B1AA703224BF30EE00272ECA /* EncounterA.sks */,
-				B1AA703524BF329200272ECA /* EncounterManager.swift */,
 				B1AA703A24C0032C00272ECA /* EncounterB.sks */,
+				B1AA703524BF329200272ECA /* EncounterManager.swift */,
 			);
 			path = Encounter;
 			sourceTree = "<group>";
