@@ -13,11 +13,13 @@ class EncounterManager {
     var encounters:[SKNode] = []
     
     init(){
-        let encounterNode = SKNode()
-        let fileName = "EncounterA"
         
-        if let scene = SKScene(fileNamed: fileName){
-            for child in scene.children{
+        let fileNames = ["EncounterA","EncounterB"]
+        
+        for f in fileNames{
+            let scene = SKScene(fileNamed: f)
+            let encounterNode = SKNode()
+            for child in scene!.children{
                 let node = type(of: child).init()
                 node.position = child.position
                 node.name = child.name

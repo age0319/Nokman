@@ -23,6 +23,8 @@
 		B1AA703124BF2EE300272ECA /* Fly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA703024BF2EE300272ECA /* Fly.swift */; };
 		B1AA703324BF30EE00272ECA /* EncounterA.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1AA703224BF30EE00272ECA /* EncounterA.sks */; };
 		B1AA703624BF329200272ECA /* EncounterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA703524BF329200272ECA /* EncounterManager.swift */; };
+		B1AA703B24C0032C00272ECA /* EncounterB.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1AA703A24C0032C00272ECA /* EncounterB.sks */; };
+		B1AA703D24C0045300272ECA /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA703C24C0045300272ECA /* Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		B1AA703024BF2EE300272ECA /* Fly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fly.swift; sourceTree = "<group>"; };
 		B1AA703224BF30EE00272ECA /* EncounterA.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterA.sks; sourceTree = "<group>"; };
 		B1AA703524BF329200272ECA /* EncounterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterManager.swift; sourceTree = "<group>"; };
+		B1AA703A24C0032C00272ECA /* EncounterB.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterB.sks; sourceTree = "<group>"; };
+		B1AA703C24C0045300272ECA /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,22 +80,18 @@
 		49228BE524B542B900CBB1C5 /* Nokkuman */ = {
 			isa = PBXGroup;
 			children = (
+				B1AA703924BFD78500272ECA /* Scene */,
+				B1AA703824BFD6CD00272ECA /* Enemy */,
+				B1AA703724BFD6A000272ECA /* Player */,
 				B1AA703424BF327500272ECA /* Encounter */,
 				49228BE624B542B900CBB1C5 /* AppDelegate.swift */,
 				49228BE824B542B900CBB1C5 /* GameScene.sks */,
 				49228BEA24B542B900CBB1C5 /* Actions.sks */,
-				49228BEC24B542B900CBB1C5 /* GameScene.swift */,
 				49228BEE24B542B900CBB1C5 /* GameViewController.swift */,
 				49228BF024B542B900CBB1C5 /* Main.storyboard */,
 				49228BF324B542BB00CBB1C5 /* Assets.xcassets */,
 				49228BF524B542BB00CBB1C5 /* LaunchScreen.storyboard */,
 				49228BF824B542BB00CBB1C5 /* Info.plist */,
-				49228BFE24B546BE00CBB1C5 /* Nokman.swift */,
-				49A1E78324B81158000F0957 /* Ground.swift */,
-				B1AA702624BC6BA100272ECA /* Background.swift */,
-				B1AA702824BDA28100272ECA /* Shot.swift */,
-				B1AA702A24BEEA1C00272ECA /* Frog.swift */,
-				B1AA703024BF2EE300272ECA /* Fly.swift */,
 			);
 			path = Nokkuman;
 			sourceTree = "<group>";
@@ -101,8 +101,38 @@
 			children = (
 				B1AA703224BF30EE00272ECA /* EncounterA.sks */,
 				B1AA703524BF329200272ECA /* EncounterManager.swift */,
+				B1AA703A24C0032C00272ECA /* EncounterB.sks */,
 			);
 			path = Encounter;
+			sourceTree = "<group>";
+		};
+		B1AA703724BFD6A000272ECA /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				B1AA702824BDA28100272ECA /* Shot.swift */,
+				49228BFE24B546BE00CBB1C5 /* Nokman.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		B1AA703824BFD6CD00272ECA /* Enemy */ = {
+			isa = PBXGroup;
+			children = (
+				B1AA702A24BEEA1C00272ECA /* Frog.swift */,
+				B1AA703024BF2EE300272ECA /* Fly.swift */,
+			);
+			path = Enemy;
+			sourceTree = "<group>";
+		};
+		B1AA703924BFD78500272ECA /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				49228BEC24B542B900CBB1C5 /* GameScene.swift */,
+				B1AA702624BC6BA100272ECA /* Background.swift */,
+				49A1E78324B81158000F0957 /* Ground.swift */,
+				B1AA703C24C0045300272ECA /* Box.swift */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1AA703B24C0032C00272ECA /* EncounterB.sks in Resources */,
 				49228BF224B542B900CBB1C5 /* Main.storyboard in Resources */,
 				49228BE924B542B900CBB1C5 /* GameScene.sks in Resources */,
 				49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */,
@@ -184,6 +215,7 @@
 				49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */,
 				B1AA702924BDA28100272ECA /* Shot.swift in Sources */,
 				B1AA702B24BEEA1C00272ECA /* Frog.swift in Sources */,
+				B1AA703D24C0045300272ECA /* Box.swift in Sources */,
 				49228BEF24B542B900CBB1C5 /* GameViewController.swift in Sources */,
 				49228BE724B542B900CBB1C5 /* AppDelegate.swift in Sources */,
 				B1AA703124BF2EE300272ECA /* Fly.swift in Sources */,

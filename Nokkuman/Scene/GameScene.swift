@@ -23,8 +23,6 @@ class GameScene: SKScene{
     let ground = Ground()
     let bg = Background()
     let cam = SKCameraNode()
-    let frog = Frog()
-    let fly = Fly()
     let EM = EncounterManager()
         
     override func didMove(to view: SKView) {
@@ -44,18 +42,19 @@ class GameScene: SKScene{
         
         setupButtons()
         
-        // 敵をセット
-        self.addChild(frog)
-        self.addChild(fly)
-        
         //カメラをセット
         self.camera = cam
         self.addChild(cam)
-
-        let node = EM.encounters[0]
-        node.position = CGPoint(x: 300, y: -self.size.height/2)
-        self.addChild(node)
         
+        addEncounter()
+    }
+    
+    func addEncounter(){
+        for i in 0..<EM.encounters.count{
+            let node = EM.encounters[i]
+            node.position = CGPoint(x: 900*i,y: 0)
+            self.addChild(node)
+        }
     }
     
     override func didSimulatePhysics() {
