@@ -34,6 +34,9 @@ class Fly:SKSpriteNode {
         
         self.physicsBody?.affectedByGravity = false
         
+        self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
+        self.physicsBody?.collisionBitMask = ~PhysicsCategory.damagedNokman.rawValue
+        
         self.run(Animation)
         self.run(movingAnimation)
     }

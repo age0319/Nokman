@@ -22,6 +22,10 @@ class Box:SKSpriteNode {
         self.physicsBody?.allowsRotation = false
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        
+        self.physicsBody?.categoryBitMask = PhysicsCategory.box.rawValue
+        
+        self.physicsBody?.affectedByGravity = false
                 
         }
     

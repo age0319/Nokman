@@ -10,26 +10,25 @@ import SpriteKit
 
 class Ground: SKSpriteNode {
     
-    let Height:CGFloat = 60
-    
-    init(){
-        super.init(texture: nil, color: .clear, size: CGSize(width: 0,height: 0))
+    init(frameSize:CGSize,num:Int){
+        
+        let Height:CGFloat = 120
+        let size = CGSize(width: frameSize.width * CGFloat(num), height: Height)
+        let halfY = frameSize.height/2
+
+        super.init(texture: nil, color: .clear, size: size)
+        
+        self.color = UIColor.green
+        
+        self.position = CGPoint(x: 0, y: -halfY)
         self.zPosition = CGFloat(ZPositions.foreground.rawValue)
+                
+        self.physicsBody = SKPhysicsBody(rectangleOf: size)
+        self.physicsBody?.isDynamic = false
+        self.physicsBody?.categoryBitMask = PhysicsCategory.ground.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func createGround(frameSize:CGSize,num:Int){
-        
-        let halfY = frameSize.height/2
-        let rightEdge = (CGFloat(num)*frameSize.width) - (frameSize.width/2)
-        
-        // 地面の高さ分、エッジを作る
-        let pointTopLeft = CGPoint(x: -frameSize.width/2, y: Height - halfY)
-        let pointTopRight = CGPoint(x: rightEdge, y: Height - halfY)
-        
-        self.physicsBody = SKPhysicsBody(edgeFrom: pointTopLeft, to: pointTopRight)
     }
 }

@@ -9,32 +9,21 @@
 import SpriteKit
 import GameplayKit
 
-
-enum ZPositions: Int {
-    case background
-    case foreground
-    case player
-    case otherNodes
-}
-
-class GameScene: SKScene{
+class GameScene: SKScene, SKPhysicsContactDelegate{
     
     let nokman = Nokman()
-    let ground = Ground()
-    let bg = Background()
     let cam = SKCameraNode()
-    let EM = EncounterManager()
         
     override func didMove(to view: SKView) {
 
         self.anchorPoint = .zero
         
         // 背景画像をセット
-        bg.createBackgound(frameSize: self.size,num: 3)
+        let bg = Background(frameSize: self.size)
         self.addChild(bg)
         
         // 地面をセット
-        ground.createGround(frameSize: self.size, num: 3)
+        let ground = Ground(frameSize: self.size, num: 3)
         self.addChild(ground)
 
         // プレイヤーをセット
@@ -47,11 +36,37 @@ class GameScene: SKScene{
         self.addChild(cam)
         
         addEncounter()
+        
+        self.physicsWorld.contactDelegate = self
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        let otherBody:SKPhysicsBody
+        
+        let nokmanMask = PhysicsCategory.nokman.rawValue | PhysicsCategory.damagedNokman.rawValue
+        
+        if (contact.bodyA.categoryBitMask & nokmanMask) > 0 {
+            otherBody = contact.bodyB
+        }else{
+            otherBody = contact.bodyA
+        }
+        
+        switch otherBody.categoryBitMask {
+        case PhysicsCategory.ground.rawValue:
+            print("hit the ground")
+        case PhysicsCategory.enemy.rawValue:
+            print("hit the enemy")
+        case PhysicsCategory.box.rawValue:
+            print("hit the box")
+        default:
+            print("No game logic.")
+        }
     }
     
     func addEncounter(){
-        for i in 0..<EM.encounters.count{
-            let node = EM.encounters[i]
+        let em = EncounterManager()
+        for i in 0..<em.encounters.count{
+            let node = em.encounters[i]
             node.position = CGPoint(x: 900*i,y: 0)
             self.addChild(node)
         }
@@ -79,7 +94,7 @@ class GameScene: SKScene{
         
         leftMove.name = "Left"
         
-        leftMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        leftMove.zPosition = CGFloat(ZPositions.button.rawValue)
         
         cam.addChild(leftMove)
         
@@ -92,7 +107,7 @@ class GameScene: SKScene{
         
         rightMove.name = "Right"
         
-        rightMove.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        rightMove.zPosition = CGFloat(ZPositions.button.rawValue)
 
         cam.addChild(rightMove)
         
@@ -103,7 +118,7 @@ class GameScene: SKScene{
                
         jump.position = CGPoint(x:750 - halfPoint.x, y:35 - halfPoint.y)
         
-        jump.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        jump.zPosition = CGFloat(ZPositions.button.rawValue)
 
         jump.name = "Jump"
         
@@ -116,7 +131,7 @@ class GameScene: SKScene{
         
         fire.position = CGPoint(x:800 - halfPoint.x, y:35 - halfPoint.y)
         
-        fire.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        fire.zPosition = CGFloat(ZPositions.button.rawValue)
         
         fire.name = "Fire"
         

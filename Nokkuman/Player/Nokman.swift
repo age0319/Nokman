@@ -44,6 +44,14 @@ class Nokman :SKSpriteNode{
         
         self.zPosition = CGFloat(ZPositions.player.rawValue)
         
+        self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
+        
+        self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
+            PhysicsCategory.ground.rawValue |
+            PhysicsCategory.box.rawValue
+        
+        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+        
         // アニメーションの作成
         createAnimations()
         

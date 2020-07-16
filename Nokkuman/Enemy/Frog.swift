@@ -37,6 +37,9 @@ class Frog:SKSpriteNode {
         
         self.physicsBody?.velocity = CGVector(dx: runSpeed, dy: 0)
         
+        self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
+        self.physicsBody?.collisionBitMask = ~PhysicsCategory.damagedNokman.rawValue
+        
         self.run(frogAnimation)
     }
     
