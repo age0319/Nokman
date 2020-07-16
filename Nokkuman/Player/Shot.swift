@@ -12,16 +12,19 @@ import SpriteKit
 class Shot:SKSpriteNode{
     
     var backword:Bool = false
-    var shotSpeed = 600
+    var shotSpeed:CGFloat = 600
+    let shotspace:CGFloat = 25
+    let initialSize = CGSize(width: 10, height: 10)
     
     init(pos:CGPoint,bw:Bool){
-        super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: CGSize(width: 10, height: 10))
+        super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: initialSize)
 
         self.backword = bw
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
+//        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
+        self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
         
         self.physicsBody?.mass = 0.5
         
@@ -29,10 +32,15 @@ class Shot:SKSpriteNode{
         
         if self.backword {
             self.xScale = -1
-            self.position = CGPoint(x:pos.x - 25, y:pos.y)
+            self.position = CGPoint(x:pos.x - shotspace, y:pos.y)
         }else{
-            self.position = CGPoint(x:pos.x + 25, y:pos.y)
+            self.position = CGPoint(x:pos.x + shotspace, y:pos.y)
         }
+        
+        self.physicsBody?.categoryBitMask = PhysicsCategory.bullet.rawValue
+        
+        self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
+            PhysicsCategory.box.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {

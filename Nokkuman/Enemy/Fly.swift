@@ -12,7 +12,7 @@ import SpriteKit
 
 class Fly:SKSpriteNode {
     
-    let initialSize = CGSize(width: 32, height: 32)
+    let initialSize = CGSize(width: 64, height: 64)
     var textureAtlas = SKTextureAtlas(named:"Enemies")
     var Animation = SKAction()
     var movingAnimation = SKAction()

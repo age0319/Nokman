@@ -40,27 +40,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.physicsWorld.contactDelegate = self
     }
     
+    var nodesToRemove = [SKNode]()
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        let otherBody:SKPhysicsBody
-        
+        var one:SKPhysicsBody = SKPhysicsBody()
+        var two:SKPhysicsBody = SKPhysicsBody()
+        var player:Bool = false
+    
         let nokmanMask = PhysicsCategory.nokman.rawValue | PhysicsCategory.damagedNokman.rawValue
         
+        let bulletMask = PhysicsCategory.bullet.rawValue
+        
         if (contact.bodyA.categoryBitMask & nokmanMask) > 0 {
-            otherBody = contact.bodyB
-        }else{
-            otherBody = contact.bodyA
+            one = contact.bodyA
+            two = contact.bodyB
+            player = true
+        }else if(contact.bodyB.categoryBitMask & nokmanMask > 0){
+            one = contact.bodyB
+            two = contact.bodyA
+            player = true
+        }else if (contact.bodyA.categoryBitMask & bulletMask) > 0 {
+            one = contact.bodyA
+            two = contact.bodyB
+        }else if(contact.bodyB.categoryBitMask & bulletMask > 0){
+            one = contact.bodyB
+            two = contact.bodyA
         }
         
-        switch otherBody.categoryBitMask {
-        case PhysicsCategory.ground.rawValue:
-            print("hit the ground")
-        case PhysicsCategory.enemy.rawValue:
-            print("hit the enemy")
-        case PhysicsCategory.box.rawValue:
-            print("hit the box")
-        default:
-            print("No game logic.")
+        if player {
+            switch two.categoryBitMask {
+            case PhysicsCategory.ground.rawValue:
+                print("hit the ground")
+            case PhysicsCategory.enemy.rawValue:
+                print("hit the enemy")
+            case PhysicsCategory.box.rawValue:
+                print("hit the box")
+            default:
+                print("No game logic.")
+            }
+        }else{
+            switch two.categoryBitMask {
+            case PhysicsCategory.enemy.rawValue:
+                nodesToRemove.append(one.node!)
+                nodesToRemove.append(two.node!)
+                print("bullet hit the enemy")
+            case PhysicsCategory.box.rawValue:
+                print("bullet hit the box")
+            default:
+                print("No game logic.")
+            }
         }
+    }
+    
+    override func didFinishUpdate()
+    {
+        nodesToRemove.forEach(){$0.removeFromParent()}
+        nodesToRemove = [SKNode]()
     }
     
     func addEncounter(){
@@ -82,15 +117,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // カメラ(SKCameraNode)の開始座標はフレームの中心。
         // 開始座標を左下にするためにフレームの中心座標を引く。
         
+        let buttonSize = CGSize(width: 60, height: 60)
         let halfPoint = CGPoint(x: self.size.width/2, y: self.size.height/2)
         
         
         // 左ボタンをセット
         let leftMove = SKSpriteNode(imageNamed: "flatDark23")
         
-        leftMove.size = CGSize(width: 40, height: 40)
+        leftMove.size = buttonSize
         
-        leftMove.position = CGPoint(x:70 - halfPoint.x, y:35 - halfPoint.y)
+        leftMove.position = CGPoint(x:60 - halfPoint.x, y:35 - halfPoint.y)
         
         leftMove.name = "Left"
         
@@ -101,9 +137,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         //　右ボタンをセット
         let rightMove = SKSpriteNode(imageNamed: "flatDark24")
         
-        rightMove.size = CGSize(width: 40, height: 40)
+        rightMove.size = buttonSize
         
-        rightMove.position = CGPoint(x:120 - halfPoint.x, y:35 - halfPoint.y)
+        rightMove.position = CGPoint(x:150 - halfPoint.x, y:35 - halfPoint.y)
         
         rightMove.name = "Right"
         
@@ -114,9 +150,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // ジャンプボタンをセット
         let jump = SKSpriteNode(imageNamed: "flatDark25")
         
-        jump.size = CGSize(width: 40, height: 40)
+        jump.size = buttonSize
                
-        jump.position = CGPoint(x:750 - halfPoint.x, y:35 - halfPoint.y)
+        jump.position = CGPoint(x:680 - halfPoint.x, y:35 - halfPoint.y)
         
         jump.zPosition = CGFloat(ZPositions.button.rawValue)
 
@@ -127,9 +163,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // ジャンプボタンをセット
         let fire = SKSpriteNode(imageNamed: "flatDark35")
         
-        fire.size = CGSize(width: 40, height: 40)
+        fire.size = buttonSize
         
-        fire.position = CGPoint(x:800 - halfPoint.x, y:35 - halfPoint.y)
+        fire.position = CGPoint(x:770 - halfPoint.x, y:35 - halfPoint.y)
         
         fire.zPosition = CGFloat(ZPositions.button.rawValue)
         

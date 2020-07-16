@@ -50,7 +50,7 @@ class Nokman :SKSpriteNode{
             PhysicsCategory.ground.rawValue |
             PhysicsCategory.box.rawValue
         
-        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue | PhysicsCategory.box.rawValue
         
         // アニメーションの作成
         createAnimations()

@@ -25,7 +25,7 @@ class Box:SKSpriteNode {
         
         self.physicsBody?.categoryBitMask = PhysicsCategory.box.rawValue
         
-        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.isDynamic = false
                 
         }
     

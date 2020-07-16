@@ -11,7 +11,7 @@ import SpriteKit
 
 class Frog:SKSpriteNode {
     
-    let initialSize = CGSize(width: 32, height: 32)
+    let initialSize = CGSize(width: 64, height: 64)
     let initialPosition = CGPoint(x: 200, y: 0)
     var textureAtlas = SKTextureAtlas(named:"Enemies")
     var frogAnimation = SKAction()
