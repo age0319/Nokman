@@ -18,28 +18,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
         self.anchorPoint = .zero
         
-        // 背景画像をセット
-        let bg = Background(frameSize: self.size)
-        self.addChild(bg)
+        print(self.size)
         
-        // 地面をセット
-        let ground = Ground(frameSize: self.size, num: 3)
-        self.addChild(ground)
-
         // プレイヤーをセット
         self.addChild(nokman)
         
-        setupButtons()
-        
-        //カメラをセット
+        // カメラをセット
         self.camera = cam
         self.addChild(cam)
         
-        addEncounter()
+        // ボタンをセット
+        setupButtons()
+        
+        // エンカウンターをセット
+        setupEncounters()
         
         self.physicsWorld.contactDelegate = self
     }
-    
+        
     var nodesToRemove = [SKNode]()
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -98,11 +94,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         nodesToRemove = [SKNode]()
     }
     
-    func addEncounter(){
+    func setupEncounters(){
         let em = EncounterManager()
         for i in 0..<em.encounters.count{
-            let node = em.encounters[i]
-            node.position = CGPoint(x: 900*i,y: 0)
+            let node:SKNode = em.encounters[i]
+            node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
             self.addChild(node)
         }
     }
@@ -118,15 +114,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // 開始座標を左下にするためにフレームの中心座標を引く。
         
         let buttonSize = CGSize(width: 60, height: 60)
-        let halfPoint = CGPoint(x: self.size.width/2, y: self.size.height/2)
         
+        let cameraOrigin = CGPoint(x: self.size.width/2, y: self.size.height/2)
         
         // 左ボタンをセット
         let leftMove = SKSpriteNode(imageNamed: "flatDark23")
         
         leftMove.size = buttonSize
         
-        leftMove.position = CGPoint(x:60 - halfPoint.x, y:35 - halfPoint.y)
+        leftMove.position = CGPoint(x: -cameraOrigin.x + 60, y: -cameraOrigin.y + 30)
         
         leftMove.name = "Left"
         
@@ -139,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         rightMove.size = buttonSize
         
-        rightMove.position = CGPoint(x:150 - halfPoint.x, y:35 - halfPoint.y)
+        rightMove.position = CGPoint(x: -cameraOrigin.x + 150, y: -cameraOrigin.y + 30)
         
         rightMove.name = "Right"
         
@@ -152,7 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         jump.size = buttonSize
                
-        jump.position = CGPoint(x:680 - halfPoint.x, y:35 - halfPoint.y)
+        jump.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
         
         jump.zPosition = CGFloat(ZPositions.button.rawValue)
 
@@ -165,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         fire.size = buttonSize
         
-        fire.position = CGPoint(x:770 - halfPoint.x, y:35 - halfPoint.y)
+        fire.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
         
         fire.zPosition = CGFloat(ZPositions.button.rawValue)
         

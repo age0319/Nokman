@@ -23,7 +23,6 @@ class Shot:SKSpriteNode{
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-//        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
         self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
         
         self.physicsBody?.mass = 0.5

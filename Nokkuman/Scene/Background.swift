@@ -10,13 +10,14 @@ import Foundation
 import SpriteKit
 
 class Background:  SKSpriteNode{
-    init(frameSize:CGSize){
-        super.init(texture: SKTexture(imageNamed: "Cartoon_Forest_BG_01"), color: .clear, size: frameSize)
+    let initialSize = CGSize(width: 812, height: 375)
+    init(){
+        super.init(texture: SKTexture(imageNamed: "Cartoon_Forest_BG_01"), color: .clear, size: initialSize)
         self.zPosition = CGFloat(ZPositions.background.rawValue)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+         super.init(coder: aDecoder)
     }
 
 }

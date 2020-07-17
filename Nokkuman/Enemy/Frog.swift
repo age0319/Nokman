@@ -11,8 +11,7 @@ import SpriteKit
 
 class Frog:SKSpriteNode {
     
-    let initialSize = CGSize(width: 64, height: 64)
-    let initialPosition = CGPoint(x: 200, y: 0)
+    let initialSize = CGSize(width: 42, height: 42)
     var textureAtlas = SKTextureAtlas(named:"Enemies")
     var frogAnimation = SKAction()
     
@@ -20,8 +19,6 @@ class Frog:SKSpriteNode {
     
     init() {
         super.init(texture: SKTexture(imageNamed: "frog"), color: .clear, size: initialSize)
-        
-        self.position = initialPosition
         
         self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
             
@@ -55,7 +52,6 @@ class Frog:SKSpriteNode {
     
     }
     required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
 }

@@ -18,13 +18,14 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView?{
             if let scene = SKScene(fileNamed: "GameScene"){
                 scene.scaleMode = .aspectFill
-                scene.size = view.bounds.size
+//                scene.size = view.bounds.size
                 view.presentScene(scene)
             }
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
         }
+    
     }
     
     override var shouldAutorotate: Bool {

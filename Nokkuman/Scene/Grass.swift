@@ -1,19 +1,21 @@
 //
-//  Box.swift
+//  Grass.swift
 //  Nokkuman
 //
-//  Created by 上松晴信 on 2020/07/16.
+//  Created by 上松晴信 on 2020/07/17.
 //  Copyright © 2020 Harunobu Agematsu. All rights reserved.
 //
 
+import Foundation
+
 import SpriteKit
 
-class Box:SKSpriteNode {
+class Grass:SKSpriteNode {
     
     let initialSize = CGSize(width: 42, height: 42)
         
     init() {
-        super.init(texture: SKTexture(imageNamed: "boxCrate"), color: .clear, size: initialSize)
+        super.init(texture: SKTexture(imageNamed: "grass"), color: .clear, size: initialSize)
                 
         self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
             
@@ -23,7 +25,7 @@ class Box:SKSpriteNode {
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-        self.physicsBody?.categoryBitMask = PhysicsCategory.box.rawValue
+        self.physicsBody?.categoryBitMask = PhysicsCategory.ground.rawValue
         
         self.physicsBody?.isDynamic = false
                 
