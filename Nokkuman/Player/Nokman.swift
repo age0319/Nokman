@@ -30,7 +30,6 @@ class Nokman :SKSpriteNode{
     var leftMoving = false
     var jumping = false
     var firing = false
-    var damaging = false
     
     var backward = false
     
@@ -143,10 +142,6 @@ class Nokman :SKSpriteNode{
     
     func Hurt(){
         
-        if damaging { return }
-            
-        damaging = true
-        
         self.run(hurtAnimation)
         
         self.physicsBody?.applyImpulse(damage)
@@ -154,21 +149,21 @@ class Nokman :SKSpriteNode{
         let damegeStart = SKAction.run{
             //敵をすり抜ける。地面とだけ衝突する。
             self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+            self.physicsBody?.categoryBitMask = 0
             self.alpha = 0.3
         }
         let wait = SKAction.wait(forDuration: 3)
         let damegeEnd = SKAction.run {
             //元に戻す。すべての物体の衝突する。
             self.physicsBody?.collisionBitMask = 0xFFFFFFFF
+            self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
             self.alpha = 1
-            self.damaging = false
         }
         
         self.run(SKAction.sequence([
             damegeStart,
             wait,
             damegeEnd]))
-            
             
     }
     

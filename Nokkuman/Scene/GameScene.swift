@@ -44,7 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         var two:SKPhysicsBody = SKPhysicsBody()
         var player:Bool = false
     
-        let nokmanMask = PhysicsCategory.nokman.rawValue | PhysicsCategory.damagedNokman.rawValue
+        let nokmanMask = PhysicsCategory.nokman.rawValue
         
         let bulletMask = PhysicsCategory.bullet.rawValue
 
