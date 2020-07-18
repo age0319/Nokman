@@ -13,6 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     let nokman = Nokman()
     let cam = SKCameraNode()
+    let ground = Ground()
         
     override func didMove(to view: SKView) {
 
@@ -46,47 +47,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let nokmanMask = PhysicsCategory.nokman.rawValue | PhysicsCategory.damagedNokman.rawValue
         
         let bulletMask = PhysicsCategory.bullet.rawValue
-        
+
+        // Aがプレイヤーだった場合、Bを条件判定対象に
         if (contact.bodyA.categoryBitMask & nokmanMask) > 0 {
             one = contact.bodyA
             two = contact.bodyB
             player = true
+        // Bがプレイヤーだった場合、Aを条件判定対象に
         }else if(contact.bodyB.categoryBitMask & nokmanMask > 0){
             one = contact.bodyB
             two = contact.bodyA
             player = true
+        // Aが弾だった場合、Bを条件判定対象に
         }else if (contact.bodyA.categoryBitMask & bulletMask) > 0 {
             one = contact.bodyA
             two = contact.bodyB
+        // Bが弾だった場合、Aを条件判定対象に
         }else if(contact.bodyB.categoryBitMask & bulletMask > 0){
             one = contact.bodyB
             two = contact.bodyA
         }
+
         
         if player {
+            // oneはプレイヤー
             switch two.categoryBitMask {
             case PhysicsCategory.ground.rawValue:
-                print("hit the ground")
+                print("player -> ground")
             case PhysicsCategory.enemy.rawValue:
-                print("hit the enemy")
+                print("player -> enemy")
+                self.nokman.Hurt()
             case PhysicsCategory.box.rawValue:
-                print("hit the box")
+                print("player -> box")
             default:
                 print("No game logic.")
             }
         }else{
+            // oneは弾
             switch two.categoryBitMask {
             case PhysicsCategory.enemy.rawValue:
+                print("bullet -> enemy")
+                
+                // 弾を消す
                 nodesToRemove.append(one.node!)
-                nodesToRemove.append(two.node!)
-                print("bullet hit the enemy")
+                
+                // カエルかハエである場合ダウンキャストする
+                if let frog = two.node as? Frog{
+                    frog.die()
+                }else if let fly = two.node as? Fly{
+                    fly.die()
+                }
+                
             case PhysicsCategory.box.rawValue:
-                print("bullet hit the box")
+                print("bullet -> box")
+                // 弾を消す
+                nodesToRemove.append(one.node!)
+                // 箱を消す
+                nodesToRemove.append(two.node!)
             default:
                 print("No game logic.")
             }
         }
     }
+    
     
     override func didFinishUpdate()
     {

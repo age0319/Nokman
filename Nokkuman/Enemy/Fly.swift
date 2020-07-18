@@ -16,6 +16,7 @@ class Fly:SKSpriteNode {
     var textureAtlas = SKTextureAtlas(named:"Enemies")
     var Animation = SKAction()
     var movingAnimation = SKAction()
+    var dieAnimation = SKAction()
     
     let runSpeed:CGFloat = 100
     
@@ -35,7 +36,6 @@ class Fly:SKSpriteNode {
         self.physicsBody?.affectedByGravity = false
         
         self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
-        self.physicsBody?.collisionBitMask = ~PhysicsCategory.damagedNokman.rawValue
         
         self.run(Animation)
         self.run(movingAnimation)
@@ -58,10 +58,33 @@ class Fly:SKSpriteNode {
         let moveRight = SKAction.move(by: CGVector(dx: 100, dy: 0), duration: 2)
         
         movingAnimation = SKAction.repeatForever(SKAction.sequence([flipLeft,moveLeft,flipRight,moveRight]))
+        
+        let startDie = SKAction.run {
+            self.texture = self.textureAtlas.textureNamed("fly_dead")
+            self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            
+            // 死んだら落下するようにする
+            self.physicsBody?.affectedByGravity = true
+            
+            // 判定を無効に
+            self.physicsBody?.collisionBitMask = 0
+            self.physicsBody?.categoryBitMask = 0
+        }
+        
+        let fadeout = SKAction.fadeOut(withDuration: 1)
+        
+        let endDie = SKAction.removeFromParent()
+        
+        dieAnimation = SKAction.sequence([startDie,fadeout,endDie])
     
         
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func die(){
+        self.removeAllActions()
+        self.run(dieAnimation)
     }
 }

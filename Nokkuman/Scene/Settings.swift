@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+
 enum ZPositions: Int {
     case background
     case foreground

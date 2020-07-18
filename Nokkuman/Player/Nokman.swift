@@ -12,22 +12,25 @@ class Nokman :SKSpriteNode{
     // キャラクターのサイズを指定します。
     let initialSize = CGSize(width: 96, height: 96)
     // キャラクターの位置を指定します。
-    let initialPosition = CGPoint(x: 0, y: 100)
+    let initialPosition = CGPoint(x: -320, y: -80)
     // テキスチャーアトラスを指定する
     var textureAtlas = SKTextureAtlas(named:"Nokkuman")
   
     let runSpeed:CGFloat = 150
+    let damage = CGVector(dx: -5000, dy: 5000)
     
     // アニメーションを指定する
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
     var jumpAnimation = SKAction()
     var fireAnimation = SKAction()
+    var hurtAnimation = SKAction()
     
     var rightMoving = false
     var leftMoving = false
     var jumping = false
     var firing = false
+    var damaging = false
     
     var backward = false
     
@@ -49,9 +52,7 @@ class Nokman :SKSpriteNode{
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
             PhysicsCategory.ground.rawValue |
             PhysicsCategory.box.rawValue
-        
-        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue | PhysicsCategory.box.rawValue
-        
+                
         // アニメーションの作成
         createAnimations()
         
@@ -123,6 +124,52 @@ class Nokman :SKSpriteNode{
         
         fireAnimation = SKAction.animate(with: fireFrames,timePerFrame: 0.05)
         
+        // 何もしていない時のアニメーションを追加するよ
+        let hurtFrames:[SKTexture] =
+            [
+                textureAtlas.textureNamed("2_entity_000_HURT_000"),
+                textureAtlas.textureNamed("2_entity_000_HURT_001"),
+                textureAtlas.textureNamed("2_entity_000_HURT_002"),
+                textureAtlas.textureNamed("2_entity_000_HURT_003"),
+                textureAtlas.textureNamed("2_entity_000_HURT_004"),
+                textureAtlas.textureNamed("2_entity_000_HURT_005"),
+                textureAtlas.textureNamed("2_entity_000_HURT_006"),
+        ]
+        
+        // 1フレームあたりの表示時間は0.14秒
+        hurtAnimation = SKAction.animate(with: hurtFrames, timePerFrame: 0.05)
+        
+    }
+    
+    func Hurt(){
+        
+        if damaging { return }
+            
+        damaging = true
+        
+        self.run(hurtAnimation)
+        
+        self.physicsBody?.applyImpulse(damage)
+        
+        let damegeStart = SKAction.run{
+            //敵をすり抜ける。地面とだけ衝突する。
+            self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+            self.alpha = 0.3
+        }
+        let wait = SKAction.wait(forDuration: 3)
+        let damegeEnd = SKAction.run {
+            //元に戻す。すべての物体の衝突する。
+            self.physicsBody?.collisionBitMask = 0xFFFFFFFF
+            self.alpha = 1
+            self.damaging = false
+        }
+        
+        self.run(SKAction.sequence([
+            damegeStart,
+            wait,
+            damegeEnd]))
+            
+            
     }
     
     // キャラクターを走らせる
