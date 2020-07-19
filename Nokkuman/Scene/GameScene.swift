@@ -16,12 +16,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let ground = Ground()
     var onJumpButton = false
     var onFireButton = false
+    var hud = HUD()
         
     override func didMove(to view: SKView) {
 
         self.anchorPoint = .zero
-        
-        print(self.size)
         
         // プレイヤーをセット
         self.addChild(nokman)
@@ -31,7 +30,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.addChild(cam)
         
         // ボタンをセット
-        setupButtons()
+        hud.setup(cam: cam, scene: self)
+        hud.setupButton()
+        hud.setupHeartDisplay(maxLife: nokman.maxLife)
+        hud.updateHeartDisplay(life: nokman.life)
         
         // エンカウンターをセット
         setupEncounters()
@@ -80,6 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             case PhysicsCategory.enemy.rawValue:
                 print("player -> enemy")
                 self.nokman.Hurt()
+                hud.updateHeartDisplay(life: nokman.life)
             case PhysicsCategory.box.rawValue:
                 print("player -> box")
             default:
@@ -132,48 +135,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didSimulatePhysics() {
         //横スクロールゲームのため、高さは固定でx座標だけ動けば良い。
         self.camera?.position = CGPoint(x: self.nokman.position.x, y:0)
-    }
-    
-    func setupButtons(){
-        // カメラに追随して動くようにボタンはカメラの子として設置する。
-        // カメラ(SKCameraNode)の開始座標はフレームの中心。
-        // 開始座標を左下にするためにフレームの中心座標を引く。
-        
-        let buttonSize = CGSize(width: 60, height: 60)
-        
-        let cameraOrigin = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        // 左ボタンをセット
-        let leftMove = SKSpriteNode(imageNamed: "flatDark23")
-        leftMove.size = buttonSize
-        leftMove.position = CGPoint(x: -cameraOrigin.x + 60, y: -cameraOrigin.y + 30)
-        leftMove.name = "Left"
-        leftMove.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(leftMove)
-        
-        //　右ボタンをセット
-        let rightMove = SKSpriteNode(imageNamed: "flatDark24")
-        rightMove.size = buttonSize
-        rightMove.position = CGPoint(x: -cameraOrigin.x + 150, y: -cameraOrigin.y + 30)
-        rightMove.name = "Right"
-        rightMove.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(rightMove)
-        
-        // ジャンプボタンをセット
-        let jump = SKSpriteNode(imageNamed: "flatDark25")
-        jump.size = buttonSize
-        jump.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
-        jump.zPosition = CGFloat(ZPositions.button.rawValue)
-        jump.name = "Jump"
-        cam.addChild(jump)
-        
-        // ジャンプボタンをセット
-        let fire = SKSpriteNode(imageNamed: "flatDark35")
-        fire.size = buttonSize
-        fire.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
-        fire.zPosition = CGFloat(ZPositions.button.rawValue)
-        fire.name = "Fire"
-        
-        cam.addChild(fire)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

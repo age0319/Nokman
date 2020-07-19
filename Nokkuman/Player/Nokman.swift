@@ -23,12 +23,16 @@ class Nokman :SKSpriteNode{
     let runSpeed:CGFloat = 150
     let damage = CGVector(dx: -5000, dy: 5000)
     
+    var maxLife = 4
+    var life = 1
+    
     // アニメーションを指定する
     var runAnimation = SKAction()
     var idleAnimation = SKAction()
     var jumpAnimation = SKAction()
     var fireAnimation = SKAction()
     var hurtAnimation = SKAction()
+    var dieAnimation = SKAction()
     
     var rightMoving = false
     var leftMoving = false
@@ -44,9 +48,6 @@ class Nokman :SKSpriteNode{
         super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
   
         self.position = initialPosition
-                
-//        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
-//        self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
         
         self.physicsBody = SKPhysicsBody(rectangleOf: bodySize, center: center)
         
@@ -133,7 +134,6 @@ class Nokman :SKSpriteNode{
         
         fireAnimation = SKAction.animate(with: fireFrames,timePerFrame: 0.05)
         
-        // 何もしていない時のアニメーションを追加するよ
         let hurtFrames:[SKTexture] =
             [
                 textureAtlas.textureNamed("2_entity_000_HURT_000"),
@@ -145,37 +145,62 @@ class Nokman :SKSpriteNode{
                 textureAtlas.textureNamed("2_entity_000_HURT_006"),
         ]
         
-        // 1フレームあたりの表示時間は0.14秒
         hurtAnimation = SKAction.animate(with: hurtFrames, timePerFrame: 0.05)
+
+        let dieFrames:[SKTexture] =
+            [
+                textureAtlas.textureNamed("2_entity_000_DIE_000"),
+                textureAtlas.textureNamed("2_entity_000_DIE_001"),
+                textureAtlas.textureNamed("2_entity_000_DIE_002"),
+                textureAtlas.textureNamed("2_entity_000_DIE_003"),
+                textureAtlas.textureNamed("2_entity_000_DIE_004"),
+                textureAtlas.textureNamed("2_entity_000_DIE_005"),
+                textureAtlas.textureNamed("2_entity_000_DIE_006"),
+        ]
         
+        dieAnimation = SKAction.animate(with: dieFrames, timePerFrame: 0.05)
+
+    }
+    
+    func Die(){
+        removeAllActions()
+        run(dieAnimation)
     }
     
     func Hurt(){
+
+        life -= 1
         
-        self.run(hurtAnimation)
+        if life == 0{
+            Die()
+            
+        } else {
         
-        self.physicsBody?.applyImpulse(damage)
-        
-        let damegeStart = SKAction.run{
-            //敵をすり抜ける。地面とだけ衝突する。
-            self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
-            self.physicsBody?.categoryBitMask = 0
-            self.whileTakingDamage = true
-            self.alpha = 0.3
+            self.run(hurtAnimation)
+            
+            self.physicsBody?.applyImpulse(damage)
+            
+            let damegeStart = SKAction.run{
+                //敵をすり抜ける。地面とだけ衝突する。
+                self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+                self.physicsBody?.categoryBitMask = 0
+                self.whileTakingDamage = true
+                self.alpha = 0.3
+            }
+            let wait = SKAction.wait(forDuration: 3)
+            let damegeEnd = SKAction.run {
+                //元に戻す。すべての物体の衝突する。
+                self.physicsBody?.collisionBitMask = 0xFFFFFFFF
+                self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
+                self.alpha = 1
+                self.whileTakingDamage = false
+            }
+            
+            self.run(SKAction.sequence([
+                damegeStart,
+                wait,
+                damegeEnd]))
         }
-        let wait = SKAction.wait(forDuration: 3)
-        let damegeEnd = SKAction.run {
-            //元に戻す。すべての物体の衝突する。
-            self.physicsBody?.collisionBitMask = 0xFFFFFFFF
-            self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
-            self.alpha = 1
-            self.whileTakingDamage = false
-        }
-        
-        self.run(SKAction.sequence([
-            damegeStart,
-            wait,
-            damegeEnd]))
             
     }
     

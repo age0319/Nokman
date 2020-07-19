@@ -16,6 +16,8 @@
 		49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF324B542BB00CBB1C5 /* Assets.xcassets */; };
 		49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF524B542BB00CBB1C5 /* LaunchScreen.storyboard */; };
 		49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BFE24B546BE00CBB1C5 /* Nokman.swift */; };
+		B199A52F24C4012C00C8F468 /* Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199A52E24C4012C00C8F468 /* Heart.swift */; };
+		B199A53124C418E700C8F468 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199A53024C418E700C8F468 /* HUD.swift */; };
 		B1AA702724BC6BA100272ECA /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA702624BC6BA100272ECA /* Background.swift */; };
 		B1AA702924BDA28100272ECA /* Shot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA702824BDA28100272ECA /* Shot.swift */; };
 		B1AA702B24BEEA1C00272ECA /* Frog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA702A24BEEA1C00272ECA /* Frog.swift */; };
@@ -43,6 +45,8 @@
 		49228BF624B542BB00CBB1C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49228BF824B542BB00CBB1C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49228BFE24B546BE00CBB1C5 /* Nokman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nokman.swift; sourceTree = "<group>"; };
+		B199A52E24C4012C00C8F468 /* Heart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart.swift; sourceTree = "<group>"; };
+		B199A53024C418E700C8F468 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		B1AA702624BC6BA100272ECA /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		B1AA702824BDA28100272ECA /* Shot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot.swift; sourceTree = "<group>"; };
 		B1AA702A24BEEA1C00272ECA /* Frog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frog.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				B1AA704224C128AC00272ECA /* Grass.swift */,
 				B1AA709224C2EAB200272ECA /* Ground.swift */,
 				B1AA709424C2F23C00272ECA /* G2.swift */,
+				B199A52E24C4012C00C8F468 /* Heart.swift */,
+				B199A53024C418E700C8F468 /* HUD.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -228,6 +234,7 @@
 				B1AA709324C2EAB200272ECA /* Ground.swift in Sources */,
 				49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */,
 				B1AA702924BDA28100272ECA /* Shot.swift in Sources */,
+				B199A53124C418E700C8F468 /* HUD.swift in Sources */,
 				B1AA702B24BEEA1C00272ECA /* Frog.swift in Sources */,
 				B1AA703D24C0045300272ECA /* Box.swift in Sources */,
 				B1AA709524C2F23C00272ECA /* G2.swift in Sources */,
@@ -235,6 +242,7 @@
 				49228BEF24B542B900CBB1C5 /* GameViewController.swift in Sources */,
 				49228BE724B542B900CBB1C5 /* AppDelegate.swift in Sources */,
 				B1AA704324C128AC00272ECA /* Grass.swift in Sources */,
+				B199A52F24C4012C00C8F468 /* Heart.swift in Sources */,
 				B1AA703124BF2EE300272ECA /* Fly.swift in Sources */,
 				B1AA703624BF329200272ECA /* EncounterManager.swift in Sources */,
 			);

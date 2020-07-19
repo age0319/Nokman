@@ -54,7 +54,7 @@ class Shot:SKSpriteNode{
             self.physicsBody?.applyImpulse(CGVector(dx: shotSpeed, dy: 0))
         }
         //1秒経ったら弾を消す
-        let wait = SKAction.wait(forDuration: 3)
+        let wait = SKAction.wait(forDuration: 1)
         let endShot = SKAction.run {
             self.removeFromParent()
         }
