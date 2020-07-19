@@ -13,7 +13,7 @@ class Shot:SKSpriteNode{
     
     var backword:Bool = false
     var shotSpeed:CGFloat = 600
-    let shotspace:CGFloat = 25
+    let shotspace:CGFloat = 5
     let initialSize = CGSize(width: 10, height: 10)
     
     init(pos:CGPoint,bw:Bool){

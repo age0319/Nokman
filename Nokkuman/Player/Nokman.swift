@@ -11,6 +11,10 @@ import SpriteKit
 class Nokman :SKSpriteNode{
     // キャラクターのサイズを指定します。
     let initialSize = CGSize(width: 96, height: 96)
+    let center = CGPoint(x: -10, y: -10)
+    let bodySize = CGSize(width: 60, height: 60)
+    // 余白を消す
+    let actualSize = CGSize(width: 45, height: 70)
     // キャラクターの位置を指定します。
     let initialPosition = CGPoint(x: -320, y: -80)
     // テキスチャーアトラスを指定する
@@ -34,11 +38,15 @@ class Nokman :SKSpriteNode{
     var backward = false
     
     init() {
+        
         super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
   
         self.position = initialPosition
                 
-        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
+//        self.physicsBody = SKPhysicsBody(texture: self.texture!, size:self.size)
+//        self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
+        
+        self.physicsBody = SKPhysicsBody(rectangleOf: bodySize, center: center)
         
         self.physicsBody?.mass = 30
         
