@@ -15,7 +15,11 @@ class HUD {
     var scene  = SKScene()
     var cameraOrigin = CGPoint()
     var heartNodes = [Heart]()
-    var maxLife = Int()
+    var leftMoveButton = SKSpriteNode()
+    var rightMoveButton = SKSpriteNode()
+    var jumpButton = SKSpriteNode()
+    var fireButton = SKSpriteNode()
+    var restartButton = SKSpriteNode()
     
     init() {
     }
@@ -34,42 +38,56 @@ class HUD {
         let buttonSize = CGSize(width: 60, height: 60)
                 
         // 左ボタンをセット
-        let leftMove = SKSpriteNode(imageNamed: "flatDark23")
-        leftMove.size = buttonSize
-        leftMove.position = CGPoint(x: -cameraOrigin.x + 60, y: -cameraOrigin.y + 30)
-        leftMove.name = "Left"
-        leftMove.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(leftMove)
+        leftMoveButton = SKSpriteNode(imageNamed: "flatDark23")
+        leftMoveButton.size = buttonSize
+        leftMoveButton.position = CGPoint(x: -cameraOrigin.x + 60, y: -cameraOrigin.y + 30)
+        leftMoveButton.name = "Left"
+        leftMoveButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        cam.addChild(leftMoveButton)
         
         //　右ボタンをセット
-        let rightMove = SKSpriteNode(imageNamed: "flatDark24")
-        rightMove.size = buttonSize
-        rightMove.position = CGPoint(x: -cameraOrigin.x + 150, y: -cameraOrigin.y + 30)
-        rightMove.name = "Right"
-        rightMove.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(rightMove)
+        rightMoveButton = SKSpriteNode(imageNamed: "flatDark24")
+        rightMoveButton.size = buttonSize
+        rightMoveButton.position = CGPoint(x: -cameraOrigin.x + 150, y: -cameraOrigin.y + 30)
+        rightMoveButton.name = "Right"
+        rightMoveButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        cam.addChild(rightMoveButton)
         
         // ジャンプボタンをセット
-        let jump = SKSpriteNode(imageNamed: "flatDark25")
-        jump.size = buttonSize
-        jump.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
-        jump.zPosition = CGFloat(ZPositions.button.rawValue)
-        jump.name = "Jump"
-        cam.addChild(jump)
+        jumpButton = SKSpriteNode(imageNamed: "flatDark25")
+        jumpButton.size = buttonSize
+        jumpButton.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
+        jumpButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        jumpButton.name = "Jump"
+        cam.addChild(jumpButton)
         
-        // ジャンプボタンをセット
-        let fire = SKSpriteNode(imageNamed: "flatDark35")
-        fire.size = buttonSize
-        fire.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
-        fire.zPosition = CGFloat(ZPositions.button.rawValue)
-        fire.name = "Fire"
+        // 発射ボタンをセット
+        fireButton = SKSpriteNode(imageNamed: "flatDark35")
+        fireButton.size = buttonSize
+        fireButton.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
+        fireButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        fireButton.name = "Fire"
         
-        cam.addChild(fire)
+        cam.addChild(fireButton)
+        
+        restartButton = SKSpriteNode(imageNamed: "flatDark15")
+        restartButton.size = CGSize(width: 50, height: 50)
+        restartButton.position = CGPoint(x: 0, y: 0)
+        restartButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        restartButton.name = "Restart"
         
     }
     
+    func showRestartButton(){
+        let gameoverText = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+        gameoverText.text = "GameOver"
+        gameoverText.position = CGPoint(x: 0, y: 80)
+        gameoverText.fontSize = 60
+        cam.addChild(gameoverText)
+        cam.addChild(restartButton)
+    }
+    
     func setupHeartDisplay(maxLife:Int){
-        self.maxLife = maxLife
         for i in 0...maxLife-1{
             let heart = Heart(imageNamed:"hudHeart_full")
             heart.position = CGPoint(x: -cameraOrigin.x + CGFloat(30*(i+1)), y: cameraOrigin.y - 30)

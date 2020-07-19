@@ -134,7 +134,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func didSimulatePhysics() {
         //横スクロールゲームのため、高さは固定でx座標だけ動けば良い。
-        self.camera?.position = CGPoint(x: self.nokman.position.x, y:0)
+        if self.nokman.position.x > 0 {
+            self.camera?.position = CGPoint(x: self.nokman.position.x, y:0)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -151,6 +153,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.onJumpButton = true
             } else if ( node.name == "Fire"){
                 self.onFireButton = true
+            } else if ( node.name == "Restart"){
+                // ゲームシーンを呼び出して初めからスタート。
+                self.view?.presentScene(GameScene(size: self.size), transition: .crossFade(withDuration: 0.6))
             }
         }
     }
@@ -197,7 +202,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             // インターバルを空けないと発砲できないようにする
             if fireTime == 0 || currentTime - fireTime > fireInterval {
                 self.nokman.Fire()
-                shotSpawn()
                 fireTime = currentTime
             }
         }

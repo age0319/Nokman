@@ -16,7 +16,7 @@ class Nokman :SKSpriteNode{
     // 余白を消す
     let actualSize = CGSize(width: 45, height: 70)
     // キャラクターの位置を指定します。
-    let initialPosition = CGPoint(x: -320, y: -80)
+    let initialPosition = CGPoint(x: 0, y: 0)
     // テキスチャーアトラスを指定する
     var textureAtlas = SKTextureAtlas(named:"Nokkuman")
   
@@ -37,6 +37,7 @@ class Nokman :SKSpriteNode{
     var rightMoving = false
     var leftMoving = false
     var firing = false
+    var die = false
     
     var onGround = false
     var whileTakingDamage = false
@@ -163,8 +164,16 @@ class Nokman :SKSpriteNode{
     }
     
     func Die(){
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+        self.physicsBody?.categoryBitMask = 0
+        die = true
         removeAllActions()
         run(dieAnimation)
+        
+        if let gameScene = self.parent as? GameScene{
+            gameScene.hud.showRestartButton()
+        }
     }
     
     func Hurt(){
@@ -206,6 +215,9 @@ class Nokman :SKSpriteNode{
     
     // キャラクターを走らせる
     func Run(bw:Bool){
+        
+        if die { return }
+        
         self.backward = bw
         if self.backward {
             self.xScale = -1
@@ -219,6 +231,9 @@ class Nokman :SKSpriteNode{
     
     // キャラクターをアイドル状態にする
     func Idle(){
+        
+        if die { return }
+        
         self.run(idleAnimation, withKey: "idleAnimation")
     }
     
@@ -226,6 +241,8 @@ class Nokman :SKSpriteNode{
     func Jump(){
         
         if whileTakingDamage { return }
+        
+        if die { return }
         
         if !onGround { return }
         
@@ -236,7 +253,15 @@ class Nokman :SKSpriteNode{
     }
     
     func Fire(){
+        
+        if die { return }
+        
         self.run(fireAnimation)
+        
+        //親クラスの弾生成関数を呼び出す。
+        if let gameScene = self.parent as? GameScene{
+            gameScene.shotSpawn()
+        }
     }
     
     func update(_ currentTime: TimeInterval){
