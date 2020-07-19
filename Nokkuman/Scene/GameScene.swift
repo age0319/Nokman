@@ -14,6 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let nokman = Nokman()
     let cam = SKCameraNode()
     let ground = Ground()
+    var onJumpButton = false
+    var onFireButton = false
         
     override func didMove(to view: SKView) {
 
@@ -74,6 +76,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             switch two.categoryBitMask {
             case PhysicsCategory.ground.rawValue:
                 print("player -> ground")
+                self.nokman.onGround = true
             case PhysicsCategory.enemy.rawValue:
                 print("player -> enemy")
                 self.nokman.Hurt()
@@ -139,55 +142,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let buttonSize = CGSize(width: 60, height: 60)
         
         let cameraOrigin = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        
         // 左ボタンをセット
         let leftMove = SKSpriteNode(imageNamed: "flatDark23")
-        
         leftMove.size = buttonSize
-        
         leftMove.position = CGPoint(x: -cameraOrigin.x + 60, y: -cameraOrigin.y + 30)
-        
         leftMove.name = "Left"
-        
         leftMove.zPosition = CGFloat(ZPositions.button.rawValue)
-        
         cam.addChild(leftMove)
         
         //　右ボタンをセット
         let rightMove = SKSpriteNode(imageNamed: "flatDark24")
-        
         rightMove.size = buttonSize
-        
         rightMove.position = CGPoint(x: -cameraOrigin.x + 150, y: -cameraOrigin.y + 30)
-        
         rightMove.name = "Right"
-        
         rightMove.zPosition = CGFloat(ZPositions.button.rawValue)
-
         cam.addChild(rightMove)
         
         // ジャンプボタンをセット
         let jump = SKSpriteNode(imageNamed: "flatDark25")
-        
         jump.size = buttonSize
-               
         jump.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
-        
         jump.zPosition = CGFloat(ZPositions.button.rawValue)
-
         jump.name = "Jump"
-        
         cam.addChild(jump)
         
         // ジャンプボタンをセット
         let fire = SKSpriteNode(imageNamed: "flatDark35")
-        
         fire.size = buttonSize
-        
         fire.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
-        
         fire.zPosition = CGFloat(ZPositions.button.rawValue)
-        
         fire.name = "Fire"
         
         cam.addChild(fire)
@@ -204,14 +187,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             } else if (node.name == "Right") {
                 self.nokman.Run(bw:false)
             } else if ( node.name == "Jump") {
-                self.nokman.jumping = true
+                self.onJumpButton = true
             } else if ( node.name == "Fire"){
-                self.nokman.firing = true
+                self.onFireButton = true
             }
         }
     }
     
-    func shot(){
+    func shotSpawn(){
         let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
         self.addChild(shot)
         shot.fire()
@@ -230,15 +213,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.nokman.rightMoving = false
                 self.nokman.Idle()
             } else if node.name == "Jump" {
-                self.nokman.jumping = false
+                self.onJumpButton = false
             } else if node.name == "Fire" {
-                self.nokman.firing = false
+                self.onFireButton = false
             }
         }
     }
-    
-    var jumpTime:Double = 0
-    var jumpInterval:Double = 0.8
     
     var fireTime:Double = 0
     var fireInterval:Double = 0.1
@@ -248,19 +228,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         nokman.update(currentTime)
         
         //　ジャンプフラグが立っていなければ終了
-        if self.nokman.jumping {
-            // インターバルを空けないとジャンプできないようにする
-            if jumpTime == 0 || currentTime - jumpTime > jumpInterval {
-                self.nokman.Jump()
-                jumpTime = currentTime
-            }
+        if self.onJumpButton {
+            self.nokman.Jump()
         }
         
-        if self.nokman.firing {
+        if self.onFireButton {
             // インターバルを空けないと発砲できないようにする
             if fireTime == 0 || currentTime - fireTime > fireInterval {
                 self.nokman.Fire()
-                shot()
+                shotSpawn()
                 fireTime = currentTime
             }
         }
