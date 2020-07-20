@@ -164,15 +164,16 @@ class Nokman :SKSpriteNode{
     }
     
     func Die(){
+        die = true
         self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
         self.physicsBody?.categoryBitMask = 0
-        die = true
+        
         removeAllActions()
         run(dieAnimation)
         
         if let gameScene = self.parent as? GameScene{
-            gameScene.hud.showRestartButton()
+            gameScene.gameOver()
         }
     }
     

@@ -107,12 +107,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
                 // 弾を消す
                 nodesToRemove.append(one.node!)
-                
                 // カエルかハエである場合ダウンキャストする
                 if let frog = two.node as? Frog{
-                    frog.die()
+                    frog.takeDamage()
                 }else if let fly = two.node as? Fly{
-                    fly.die()
+                    fly.takeDamage()
                 }
                 
             case PhysicsCategory.box.rawValue:
@@ -133,6 +132,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         nodesToRemove.forEach(){$0.removeFromParent()}
         nodesToRemove = [SKNode]()
     }
+    
+  
     
     func setupEncounters(){
         let em = EncounterManager()
@@ -171,6 +172,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
     }
     
+    func gameOver(){
+        hud.showRestartButton()
+    }
+    
     func shotSpawn(){
         let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
         self.addChild(shot)
@@ -202,6 +207,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func update(_ currentTime: TimeInterval) {
         
+        if nokman.die { return }
+        
         nokman.update(currentTime)
         
         //　ジャンプフラグが立っていなければ終了
@@ -215,6 +222,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.nokman.Fire()
                 fireTime = currentTime
             }
+        }
+        
+        if nokman.position.y < -self.size.height/2{
+            nokman.Die()
         }
     }
    

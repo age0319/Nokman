@@ -13,10 +13,14 @@ class Frog:SKSpriteNode{
     
     let initialSize = CGSize(width: 42, height: 42)
     var textureAtlas = SKTextureAtlas(named:"Enemies")
-    var frogAnimation = SKAction()
+    var bounceAnimation = SKAction()
     var dieAnimation = SKAction()
+    var movingAnimation = SKAction()
+    var bounceAndMoving = SKAction()
     
     let runSpeed:CGFloat = -100
+    
+    var life = 5
     
     init() {
         super.init(texture: SKTexture(imageNamed: "frog"), color: .clear, size: initialSize)
@@ -32,14 +36,10 @@ class Frog:SKSpriteNode{
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
         createAnimations()
-        
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.isDynamic = false
-        self.physicsBody?.velocity = CGVector(dx: runSpeed, dy: 0)
-        
-        self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
                 
-        self.run(frogAnimation)
+        self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
+        
+        self.run(bounceAndMoving)
     }
     
     func createAnimations() {
@@ -50,7 +50,16 @@ class Frog:SKSpriteNode{
             ]
         
         let frogAction = SKAction.animate(with: frogFrames, timePerFrame: 0.14)
-        frogAnimation = SKAction.repeatForever(frogAction)
+        bounceAnimation = SKAction.repeatForever(frogAction)
+        
+        let flipLeft = SKAction.scaleX(to: 1, duration: 0.05)
+        let moveLeft = SKAction.move(by: CGVector(dx: -300, dy: 0), duration: 6)
+        let flipRight = SKAction.scaleX(to: -1, duration: 0.05)
+        let moveRight = SKAction.move(by: CGVector(dx: 300, dy: 0), duration: 6)
+        
+        movingAnimation = SKAction.repeatForever(SKAction.sequence([flipLeft,moveLeft,flipRight,moveRight]))
+        
+        bounceAndMoving = SKAction.group([bounceAnimation,movingAnimation])
         
         let startDie = SKAction.run {
             self.texture = self.textureAtlas.textureNamed("frog_dead")
@@ -60,12 +69,11 @@ class Frog:SKSpriteNode{
             self.physicsBody?.categoryBitMask = 0
         }
         
-        let fadeout = SKAction.fadeOut(withDuration: 10)
+        let fadeout = SKAction.fadeOut(withDuration: 3)
         
         let endDie = SKAction.removeFromParent()
         
         dieAnimation = SKAction.sequence([startDie,fadeout,endDie])
-    
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,4 +85,21 @@ class Frog:SKSpriteNode{
         self.run(dieAnimation)
     }
     
+    func takeDamage(){
+        life -= 1
+        
+        if life == 0{
+            die()
+        }else{
+            self.removeAllActions()
+            self.texture = SKTexture(imageNamed: "frog_dead")
+            self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 50))
+            let wait = SKAction.wait(forDuration: 1)
+            self.run(SKAction.sequence([wait,bounceAndMoving]))
+
+        }
+    }
+    
+   
 }
