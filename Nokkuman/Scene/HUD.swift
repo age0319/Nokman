@@ -83,6 +83,7 @@ class HUD {
         gameoverText.text = "GameOver"
         gameoverText.position = CGPoint(x: 0, y: 80)
         gameoverText.fontSize = 60
+        gameoverText.zPosition = CGFloat(ZPositions.button.rawValue)
         cam.addChild(gameoverText)
         cam.addChild(restartButton)
     }

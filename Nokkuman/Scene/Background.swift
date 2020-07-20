@@ -10,14 +10,23 @@ import Foundation
 import SpriteKit
 
 class Background:  SKSpriteNode{
-    let initialSize = CGSize(width: 812, height: 375)
-    init(){
-        super.init(texture: SKTexture(imageNamed: "Cartoon_Forest_BG_01"), color: .clear, size: initialSize)
-        self.zPosition = CGFloat(ZPositions.background.rawValue)
+    
+    var initialSize = CGSize()
+    
+    func craeteBackground(frameSize:CGSize, number:Int){
+        initialSize = frameSize
+        
+        for i in 0..<number{
+            let bg = SKSpriteNode(texture: SKTexture(imageNamed: "Cartoon_Forest_BG_01"), color: .clear, size: initialSize)
+            bg.position = CGPoint(x: CGFloat(i) * initialSize.width, y: 0)
+            bg.zPosition = CGFloat(ZPositions.background.rawValue)
+            
+            self.addChild(bg)
+        }
+        
+        let LeftUnderPoint = CGPoint(x: -frameSize.width/2, y: -frameSize.height/2)
+        let LeftTopPoint = CGPoint(x: -frameSize.width/2, y: frameSize.height/2)
+        
+        self.physicsBody = SKPhysicsBody(edgeFrom: LeftUnderPoint, to: LeftTopPoint)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-         super.init(coder: aDecoder)
-    }
-
 }

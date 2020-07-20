@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let nokman = Nokman()
     let cam = SKCameraNode()
     let ground = Ground()
+    let background = Background()
     var onJumpButton = false
     var onFireButton = false
     var hud = HUD()
@@ -21,6 +22,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
 
         self.anchorPoint = .zero
+        
+//        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        
+        // 背景をセット
+        background.craeteBackground(frameSize: self.size, number: 3)
+        self.addChild(background)
+        
+        //　地面をセット
+        ground.createGround(frameSize: self.size, number: 3)
+        self.addChild(ground)
         
         // プレイヤーをセット
         self.addChild(nokman)
