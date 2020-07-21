@@ -110,8 +110,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 // カエルかハエである場合ダウンキャストする
                 if let frog = two.node as? Frog{
                     frog.takeDamage()
+                    var absolutePosition = frog.position
+                    if frog.parent != self {
+                        absolutePosition = self.convert(frog.position, from: frog.parent!)
+                    }
+                    
+                    hud.showDamageLabel(position: absolutePosition, damage: 1)
                 }else if let fly = two.node as? Fly{
                     fly.takeDamage()
+                    var absolutePosition = fly.position
+                    if fly.parent != self {
+                        absolutePosition = self.convert(fly.position, from: fly.parent!)
+                    }
+                    hud.showDamageLabel(position: absolutePosition, damage: 1)
                 }
                 
             case PhysicsCategory.box.rawValue:
@@ -211,7 +222,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         nokman.update(currentTime)
         
-        //　ジャンプフラグが立っていなければ終了
+        //　ジャンプボタンが押されているか
         if self.onJumpButton {
             self.nokman.Jump()
         }

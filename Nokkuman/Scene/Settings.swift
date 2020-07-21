@@ -19,9 +19,8 @@ enum ZPositions: Int {
 
 enum PhysicsCategory: UInt32{
     case nokman = 1
-    case damagedNokman = 2
-    case ground = 4
-    case enemy = 8
-    case bullet = 16
-    case box = 32
+    case ground = 2
+    case enemy = 4
+    case box = 8
+    case bullet = 16    
 }

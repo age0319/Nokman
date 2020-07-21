@@ -108,4 +108,22 @@ class HUD {
             }
         }
     }
+    
+    func showDamageLabel(position:CGPoint,damage:Int){
+        let text = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+        text.text = String(damage)
+        text.position = CGPoint(x: position.x, y: position.y + 20)
+        text.fontSize = 60
+        text.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
+        
+        self.scene.addChild(text)
+        
+        let fadeout = SKAction.fadeOut(withDuration: 1)
+        
+        let remove = SKAction.run {
+            text.removeFromParent()
+        }
+        
+        text.run(SKAction.sequence([fadeout,remove]))
+    }
 }
