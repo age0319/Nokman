@@ -94,6 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 hud.updateHeartDisplay(life: nokman.life)
             case PhysicsCategory.box.rawValue:
                 print("player -> box")
+                self.nokman.onGround = true
             default:
                 print("No game logic.")
             }
