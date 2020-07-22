@@ -15,6 +15,8 @@ class Shot:SKSpriteNode{
     var shotSpeed:CGFloat = 600
     let shotspace:CGFloat = 5
     let initialSize = CGSize(width: 10, height: 10)
+    let str = 2
+    var damage = Int()
     
     init(pos:CGPoint,bw:Bool){
         super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: initialSize)
@@ -40,6 +42,8 @@ class Shot:SKSpriteNode{
         
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
             PhysicsCategory.box.rawValue
+        
+        self.damage = Int.random(in: 1...str)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -23,8 +23,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
         self.anchorPoint = .zero
         
-//        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        
         // 背景をセット
         background.craeteBackground(frameSize: self.size, number: 3)
         self.addChild(background)
@@ -105,25 +103,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             case PhysicsCategory.enemy.rawValue:
                 print("bullet -> enemy")
                 
-                // 弾を消す
-                nodesToRemove.append(one.node!)
+                var damegeAmount = 0
+                
+                if let bullet = one.node as? Shot{
+                    bullet.removeFromParent()
+                    damegeAmount = bullet.damage
+                }
+                
+                var absolutePosition = CGPoint()
+                
                 // カエルかハエである場合ダウンキャストする
                 if let frog = two.node as? Frog{
-                    frog.takeDamage()
-                    var absolutePosition = frog.position
-                    if frog.parent != self {
-                        absolutePosition = self.convert(frog.position, from: frog.parent!)
-                    }
+                    frog.takeDamage(damage: damegeAmount)
+                    absolutePosition = self.convert(frog.position, from: frog.parent!)
                     
-                    hud.showDamageLabel(position: absolutePosition, damage: 1)
+                    
                 }else if let fly = two.node as? Fly{
-                    fly.takeDamage()
-                    var absolutePosition = fly.position
-                    if fly.parent != self {
-                        absolutePosition = self.convert(fly.position, from: fly.parent!)
-                    }
-                    hud.showDamageLabel(position: absolutePosition, damage: 1)
+                    fly.takeDamage(damage: damegeAmount)
+                    absolutePosition = self.convert(fly.position, from: fly.parent!)
                 }
+                
+                hud.showDamageLabel(position: absolutePosition, damage: damegeAmount)
+                
                 
             case PhysicsCategory.box.rawValue:
                 print("bullet -> box")
