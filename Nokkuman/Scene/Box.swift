@@ -25,10 +25,15 @@ class Box:SKSpriteNode {
         
         self.physicsBody?.categoryBitMask = PhysicsCategory.box.rawValue
         
-                
         }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func explode(position:CGPoint,scene:SKScene){
+        let emitter = SKEmitterNode(fileNamed: "CrateExplosion")!
+        emitter.position = position
+        scene.addChild(emitter)
     }
 }

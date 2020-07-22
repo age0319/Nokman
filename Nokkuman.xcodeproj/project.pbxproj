@@ -30,6 +30,8 @@
 		B1AA704524C138A900272ECA /* EncounterC.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1AA704424C138A900272ECA /* EncounterC.sks */; };
 		B1AA709324C2EAB200272ECA /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA709224C2EAB200272ECA /* Ground.swift */; };
 		B1ED3EAC24C7C3BA00F718F7 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ED3EAB24C7C3BA00F718F7 /* Enemy.swift */; };
+		B1ED3EAF24C838A500F718F7 /* CrateExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1ED3EAD24C838A500F718F7 /* CrateExplosion.sks */; };
+		B1ED3EB024C838A500F718F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1ED3EAE24C838A500F718F7 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		B1AA704424C138A900272ECA /* EncounterC.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterC.sks; sourceTree = "<group>"; };
 		B1AA709224C2EAB200272ECA /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
 		B1ED3EAB24C7C3BA00F718F7 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		B1ED3EAD24C838A500F718F7 /* CrateExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CrateExplosion.sks; sourceTree = "<group>"; };
+		B1ED3EAE24C838A500F718F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 				B1AA709224C2EAB200272ECA /* Ground.swift */,
 				B199A52E24C4012C00C8F468 /* Heart.swift */,
 				B199A53024C418E700C8F468 /* HUD.swift */,
+				B1ED3EAD24C838A500F718F7 /* CrateExplosion.sks */,
+				B1ED3EAE24C838A500F718F7 /* Assets.xcassets */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -212,9 +218,11 @@
 				49228BF224B542B900CBB1C5 /* Main.storyboard in Resources */,
 				49228BE924B542B900CBB1C5 /* GameScene.sks in Resources */,
 				B1AA704524C138A900272ECA /* EncounterC.sks in Resources */,
+				B1ED3EB024C838A500F718F7 /* Assets.xcassets in Resources */,
 				49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */,
 				B1AA704124C1154E00272ECA /* EncounterA.sks in Resources */,
 				49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */,
+				B1ED3EAF24C838A500F718F7 /* CrateExplosion.sks in Resources */,
 				49228BEB24B542B900CBB1C5 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

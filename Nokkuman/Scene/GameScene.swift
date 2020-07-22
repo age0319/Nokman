@@ -129,24 +129,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
             case PhysicsCategory.box.rawValue:
                 print("bullet -> box")
-                // 弾を消す
-                nodesToRemove.append(one.node!)
-                // 箱を消す
-                nodesToRemove.append(two.node!)
+                
+                if let box = two.node as? Box{
+                    let absolutePosition = self.convert(box.position, from: box.parent!)
+                    box.explode(position: absolutePosition, scene: self)
+                    box.removeFromParent()
+                }
+                
+                one.node?.removeFromParent()
+                
             default:
                 print("No game logic.")
             }
         }
     }
-    
-    
-    override func didFinishUpdate()
-    {
-        nodesToRemove.forEach(){$0.removeFromParent()}
-        nodesToRemove = [SKNode]()
-    }
-    
-  
     
     func setupEncounters(){
         let em = EncounterManager()
