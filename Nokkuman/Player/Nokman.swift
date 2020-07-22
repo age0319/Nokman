@@ -13,8 +13,7 @@ class Nokman :SKSpriteNode{
     let initialSize = CGSize(width: 96, height: 96)
     let center = CGPoint(x: -10, y: -10)
     let bodySize = CGSize(width: 60, height: 60)
-    // 余白を消す
-    let actualSize = CGSize(width: 45, height: 70)
+    
     // キャラクターの位置を指定します。
     let initialPosition = CGPoint(x: 0, y: 0)
     // テキスチャーアトラスを指定する
@@ -24,7 +23,7 @@ class Nokman :SKSpriteNode{
     let damage = CGVector(dx: -5000, dy: 5000)
     
     var maxLife = 4
-    var life = 1
+    var life = 4
     
     // アニメーションを指定する
     var runAnimation = SKAction()
@@ -50,7 +49,9 @@ class Nokman :SKSpriteNode{
   
         self.position = initialPosition
         
-        self.physicsBody = SKPhysicsBody(rectangleOf: bodySize, center: center)
+//        self.physicsBody = SKPhysicsBody(rectangleOf: bodySize, center: center)
+        
+        self.physicsBody = SKPhysicsBody(circleOfRadius: 30,center: CGPoint(x: 0, y: -10))
         
         self.physicsBody?.mass = 30
         
@@ -123,8 +124,8 @@ class Nokman :SKSpriteNode{
                 textureAtlas.textureNamed("2_entity_000_JUMP_006"),
             ]
         
-        // 1フレームあたりの表示時間は0.08秒
-        jumpAnimation = SKAction.animate(with: jumpFrames,timePerFrame: 0.08)
+
+        jumpAnimation = SKAction.animate(with: jumpFrames,timePerFrame: 0.05)
         
         // 発泡のアニメーションを追加するよ
         let fireFrames:[SKTexture] =
@@ -204,6 +205,7 @@ class Nokman :SKSpriteNode{
                 self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
                 self.alpha = 1
                 self.whileTakingDamage = false
+                self.onGround = true
             }
             
             self.run(SKAction.sequence([
