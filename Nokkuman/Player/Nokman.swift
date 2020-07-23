@@ -36,9 +36,6 @@ class Nokman :SKSpriteNode{
     var firing = false
     var die = false
     
-    var onGround = false
-    var whileTakingDamage = false
-    
     var backward = false
     
     init() {
@@ -196,10 +193,10 @@ class Nokman :SKSpriteNode{
             self.physicsBody?.applyImpulse(damageImpulse)
             
             let damegeStart = SKAction.run{
-                //敵をすり抜ける。地面とだけ衝突する。
+                //地面とだけ衝突する。
                 self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+                //接触判定を無効に。
                 self.physicsBody?.categoryBitMask = 0
-                self.whileTakingDamage = true
                 self.alpha = 0.3
             }
             let wait = SKAction.wait(forDuration: 3)
@@ -208,8 +205,6 @@ class Nokman :SKSpriteNode{
                 self.physicsBody?.collisionBitMask = 0xFFFFFFFF
                 self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
                 self.alpha = 1
-                self.whileTakingDamage = false
-                self.onGround = true
             }
             
             self.run(SKAction.sequence([
@@ -257,15 +252,10 @@ class Nokman :SKSpriteNode{
     // ジャンプアニメーションを開始する
     func Jump(){
         
-        if whileTakingDamage { return }
-        
         if die { return }
-        
-        if !onGround { return }
         
         self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15000))
         self.run(jumpAnimation)
-        self.onGround = false
 
     }
     

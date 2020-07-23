@@ -26,11 +26,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.anchorPoint = .zero
         
         // 背景をセット
-        background.craeteBackground(frameSize: self.size, number: 3)
+        background.craeteBackground(frameSize: self.size, number: 4)
         self.addChild(background)
         
         //　地面をセット
-        ground.createGround(frameSize: self.size, number: 3)
+        ground.createGround(frameSize: self.size, number: 4)
         self.addChild(ground)
         
         // プレイヤーをセット
@@ -89,13 +89,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             switch two.categoryBitMask {
             case PhysicsCategory.ground.rawValue:
                 print("player -> ground")
-                self.nokman.onGround = true
             case PhysicsCategory.enemy.rawValue:
                 print("player -> enemy")
                 self.nokman.Hurt(damage: 1)
             case PhysicsCategory.box.rawValue:
                 print("player -> box")
-                self.nokman.onGround = true
             case PhysicsCategory.spike.rawValue:
                 self.nokman.Hurt(damage: 2)
             default:
@@ -220,7 +218,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var fireTime:Double = 0
     var fireInterval:Double = 0.1
     var jumpTime:Double = 0
-    var jumpInterval:Double = 0.5
+    var jumpInterval:Double = 0.8
     
     override func update(_ currentTime: TimeInterval) {
         

@@ -14,7 +14,7 @@ class EncounterManager {
     
     init(){
         
-        let fileNames = ["EncounterA","EncounterB","EncounterC"]
+        let fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD"]
         
         for f in fileNames{
             if let scene = SKScene(fileNamed: f){
