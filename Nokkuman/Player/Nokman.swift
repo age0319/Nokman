@@ -11,9 +11,7 @@ import SpriteKit
 class Nokman :SKSpriteNode{
     // キャラクターのサイズを指定します。
     let initialSize = CGSize(width: 96, height: 96)
-    let center = CGPoint(x: -10, y: -10)
-    let bodySize = CGSize(width: 60, height: 60)
-    
+
     // キャラクターの位置を指定します。
     let initialPosition = CGPoint(x: 0, y: 0)
     // テキスチャーアトラスを指定する
@@ -49,9 +47,10 @@ class Nokman :SKSpriteNode{
   
         self.position = initialPosition
         
-//        self.physicsBody = SKPhysicsBody(rectangleOf: bodySize, center: center)
+        // キャラの位置が画像の左下に偏っているため中心地をずらす
+        self.anchorPoint = CGPoint(x: 0.4, y: 0.4)
         
-        self.physicsBody = SKPhysicsBody(circleOfRadius: 30,center: CGPoint(x: 0, y: -10))
+        self.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         
         self.physicsBody?.mass = 30
         
@@ -230,6 +229,16 @@ class Nokman :SKSpriteNode{
             self.rightMoving = true
         }
         self.run(runAnimation, withKey: "runAnimation")
+    }
+    
+    func Stop(bw:Bool){
+        
+        if bw {
+            self.leftMoving = false
+        }else{
+            self.rightMoving = false
+        }
+        Idle()
     }
     
     // キャラクターをアイドル状態にする

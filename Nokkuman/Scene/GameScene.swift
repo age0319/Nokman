@@ -17,6 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let background = Background()
     var onJumpButton = false
     var onFireButton = false
+    var onRightButton = false
+    var onLeftButton = false
     var hud = HUD()
         
     override func didMove(to view: SKView) {
@@ -168,8 +170,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             if (node.name == "Left") {
                 self.nokman.Run(bw:true)
+                self.onLeftButton = true
             } else if (node.name == "Right") {
                 self.nokman.Run(bw:false)
+                self.onRightButton = true
             } else if ( node.name == "Jump") {
                 self.onJumpButton = true
             } else if ( node.name == "Fire"){
@@ -198,11 +202,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             let node = self.atPoint(location)
             
             if node.name == "Left" {
-                self.nokman.leftMoving = false
-                self.nokman.Idle()
+                self.onLeftButton = false
+                self.nokman.Stop(bw: true)
             } else if node.name == "Right" {
-                self.nokman.rightMoving = false
-                self.nokman.Idle()
+                self.onRightButton = false
+                self.nokman.Stop(bw: false)
             } else if node.name == "Jump" {
                 self.onJumpButton = false
             } else if node.name == "Fire" {
@@ -211,8 +215,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
     }
     
+    
     var fireTime:Double = 0
     var fireInterval:Double = 0.1
+    var jumpTime:Double = 0
+    var jumpInterval:Double = 0.5
     
     override func update(_ currentTime: TimeInterval) {
         
@@ -222,7 +229,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         //　ジャンプボタンが押されているか
         if self.onJumpButton {
-            self.nokman.Jump()
+            if jumpTime == 0 || currentTime - jumpTime > jumpInterval {
+                self.nokman.Jump()
+                jumpTime = currentTime
+            }
         }
         
         if self.onFireButton {
