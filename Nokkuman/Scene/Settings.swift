@@ -22,5 +22,6 @@ enum PhysicsCategory: UInt32{
     case ground = 2
     case enemy = 4
     case box = 8
-    case bullet = 16    
+    case bullet = 16
+    case spike = 32
 }

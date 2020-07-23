@@ -92,11 +92,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.nokman.onGround = true
             case PhysicsCategory.enemy.rawValue:
                 print("player -> enemy")
-                self.nokman.Hurt()
-                hud.updateHeartDisplay(life: nokman.life)
+                self.nokman.Hurt(damage: 1)
             case PhysicsCategory.box.rawValue:
                 print("player -> box")
                 self.nokman.onGround = true
+            case PhysicsCategory.spike.rawValue:
+                self.nokman.Hurt(damage: 2)
             default:
                 print("No game logic.")
             }

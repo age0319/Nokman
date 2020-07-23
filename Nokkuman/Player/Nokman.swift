@@ -18,7 +18,7 @@ class Nokman :SKSpriteNode{
     var textureAtlas = SKTextureAtlas(named:"Nokkuman")
   
     let runSpeed:CGFloat = 150
-    let damage = CGVector(dx: -5000, dy: 5000)
+    let damageImpulse = CGVector(dx: -5000, dy: 5000)
     
     var maxLife = 4
     var life = 4
@@ -62,7 +62,8 @@ class Nokman :SKSpriteNode{
         
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
             PhysicsCategory.ground.rawValue |
-            PhysicsCategory.box.rawValue
+            PhysicsCategory.box.rawValue |
+            PhysicsCategory.spike.rawValue
                 
         // アニメーションの作成
         createAnimations()
@@ -177,18 +178,22 @@ class Nokman :SKSpriteNode{
         }
     }
     
-    func Hurt(){
+    func Hurt(damage:Int){
 
-        life -= 1
+        life -= damage
         
-        if life == 0{
+        if let gameScene = self.parent as? GameScene{
+            gameScene.hud.updateHeartDisplay(life: self.life)
+        }
+        
+        if life <= 0{
             Die()
             
         } else {
         
             self.run(hurtAnimation)
             
-            self.physicsBody?.applyImpulse(damage)
+            self.physicsBody?.applyImpulse(damageImpulse)
             
             let damegeStart = SKAction.run{
                 //敵をすり抜ける。地面とだけ衝突する。

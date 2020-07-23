@@ -15,14 +15,12 @@ class Spike: SKSpriteNode {
         
     init() {
         super.init(texture: SKTexture(imageNamed: "spikes"), color: .clear, size: initialSize)
-        
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 
         self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: initialSize.width, height: 1))
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-        self.physicsBody?.categoryBitMask = PhysicsCategory.ground.rawValue
+        self.physicsBody?.categoryBitMask = PhysicsCategory.spike.rawValue
         
         self.physicsBody?.isDynamic = false
     }
