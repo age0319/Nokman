@@ -26,11 +26,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.anchorPoint = .zero
         
         // 背景をセット
-        background.craeteBackground(frameSize: self.size, number: 4)
+        background.craeteBackground(frameSize: self.size, number: 6)
         self.addChild(background)
         
         //　地面をセット
-        ground.createGround(frameSize: self.size, number: 4)
+        ground.createGround(frameSize: self.size, number: 6)
         self.addChild(ground)
         
         // プレイヤーをセット
@@ -135,6 +135,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     let absolutePosition = self.convert(box.position, from: box.parent!)
                     box.explode(position: absolutePosition, scene: self)
                     box.removeFromParent()
+                }
+                
+                if let boxItem = two.node as? BoxItem{
+                    let absolutePosition = self.convert(boxItem.position, from: boxItem.parent!)
+                    boxItem.explode(position: absolutePosition, scene: self)
+                    boxItem.removeFromParent()
+                    self.nokman.Cure(heart: 1)
                 }
                 
                 one.node?.removeFromParent()

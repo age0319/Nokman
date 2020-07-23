@@ -40,7 +40,7 @@ class Nokman :SKSpriteNode{
     
     init() {
         
-        super.init(texture: SKTexture(imageNamed: "2_entity_000_IDLE_000"), color: .clear, size: initialSize)
+        super.init(texture: nil, color: .clear, size: initialSize)
   
         self.position = initialPosition
         
@@ -172,6 +172,13 @@ class Nokman :SKSpriteNode{
         
         if let gameScene = self.parent as? GameScene{
             gameScene.gameOver()
+        }
+    }
+    
+    func Cure(heart:Int){
+        life += heart
+        if let gameScene = self.parent as? GameScene{
+            gameScene.hud.updateHeartDisplay(life: self.life)
         }
     }
     
