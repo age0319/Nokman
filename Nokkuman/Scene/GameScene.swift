@@ -95,7 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             case PhysicsCategory.box.rawValue:
                 print("player -> box")
             case PhysicsCategory.spike.rawValue:
-                self.nokman.Hurt(damage: 2)
+                self.nokman.Hurt(damage: 1)
             default:
                 print("No game logic.")
             }

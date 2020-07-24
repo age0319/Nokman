@@ -164,7 +164,6 @@ class Nokman :SKSpriteNode{
     func Die(){
         die = true
         self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
         self.physicsBody?.categoryBitMask = 0
         
         removeAllActions()
@@ -176,6 +175,7 @@ class Nokman :SKSpriteNode{
     }
     
     func Cure(heart:Int){
+        if life == maxLife { return }
         life += heart
         if let gameScene = self.parent as? GameScene{
             gameScene.hud.updateHeartDisplay(life: self.life)
@@ -200,16 +200,14 @@ class Nokman :SKSpriteNode{
             self.physicsBody?.applyImpulse(damageImpulse)
             
             let damegeStart = SKAction.run{
-                //地面とだけ衝突する。
-                self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
                 //接触判定を無効に。
                 self.physicsBody?.categoryBitMask = 0
+                // 透明にする
                 self.alpha = 0.3
             }
             let wait = SKAction.wait(forDuration: 3)
             let damegeEnd = SKAction.run {
-                //元に戻す。すべての物体の衝突する。
-                self.physicsBody?.collisionBitMask = 0xFFFFFFFF
+                //接触判定を元に戻す
                 self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
                 self.alpha = 1
             }
