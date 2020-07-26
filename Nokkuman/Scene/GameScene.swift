@@ -17,21 +17,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let background = Background()
     var onJumpButton = false
     var onFireButton = false
-    var onRightButton = false
-    var onLeftButton = false
     var hud = HUD()
+    // 2以上にすること
+    let stageCount = 3
+    var finalWidth = CGFloat()
         
     override func didMove(to view: SKView) {
 
         self.anchorPoint = .zero
         
         // 背景をセット
-        background.craeteBackground(frameSize: self.size, number: 6)
+        background.craeteBackground(frameSize: self.size, number: stageCount)
         self.addChild(background)
         
         //　地面をセット
-        ground.createGround(frameSize: self.size, number: 6)
+        ground.createGround(frameSize: self.size, number: stageCount)
         self.addChild(ground)
+        
+        // カメラの停止位置を計算
+        finalWidth = self.size.width*CGFloat((stageCount-1))
         
         // プレイヤーをセット
         self.addChild(nokman)
@@ -51,8 +55,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         self.physicsWorld.contactDelegate = self
     }
-        
-    var nodesToRemove = [SKNode]()
     
     func didBegin(_ contact: SKPhysicsContact) {
         var one:SKPhysicsBody = SKPhysicsBody()
@@ -96,6 +98,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 print("player -> box")
             case PhysicsCategory.spike.rawValue:
                 self.nokman.Hurt(damage: 1)
+            case PhysicsCategory.exit.rawValue:
+                print("goal!!!!!")
             default:
                 print("No game logic.")
             }
@@ -162,9 +166,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     override func didSimulatePhysics() {
-        //横スクロールゲームのため、高さは固定でx座標だけ動けば良い。
-        if self.nokman.position.x > 0 {
-            self.camera?.position = CGPoint(x: self.nokman.position.x, y:0)
+        let posX = self.nokman.position.x
+        if (0 < posX && posX < finalWidth) {
+            self.camera?.position = CGPoint(x: posX, y:0)
+        }else if(posX >= finalWidth){
+            self.camera?.position = CGPoint(x: finalWidth, y: 0)
         }
     }
     
@@ -176,11 +182,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             if (node.name == "Left") {
                 self.nokman.Run(bw:true)
-                self.onLeftButton = true
                 hud.onLeftButton(on: true)
             } else if (node.name == "Right") {
                 self.nokman.Run(bw:false)
-                self.onRightButton = true
                 hud.onRightButton(on: true)
             } else if ( node.name == "Jump") {
                 self.onJumpButton = true
@@ -212,11 +216,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             let node = self.atPoint(location)
             
             if node.name == "Left" {
-                self.onLeftButton = false
                 self.nokman.Stop(bw: true)
                 hud.onLeftButton(on: false)
             } else if node.name == "Right" {
-                self.onRightButton = false
                 self.nokman.Stop(bw: false)
                 hud.onRightButton(on: false)
             } else if node.name == "Jump" {

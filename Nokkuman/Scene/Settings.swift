@@ -24,4 +24,5 @@ enum PhysicsCategory: UInt32{
     case box = 8
     case bullet = 16
     case spike = 32
+    case exit = 64
 }

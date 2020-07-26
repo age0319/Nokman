@@ -60,7 +60,8 @@ class Nokman :SKSpriteNode{
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
             PhysicsCategory.ground.rawValue |
             PhysicsCategory.box.rawValue |
-            PhysicsCategory.spike.rawValue
+            PhysicsCategory.spike.rawValue |
+            PhysicsCategory.exit.rawValue
                 
         // アニメーションの作成
         createAnimations()

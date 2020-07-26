@@ -16,7 +16,7 @@ class Spike: SKSpriteNode {
     init() {
         super.init(texture: SKTexture(imageNamed: "spikes"), color: .clear, size: initialSize)
                 
-        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: initialSize.width, height: 1))
+        self.physicsBody = SKPhysicsBody(edgeFrom: CGPoint(x: -initialSize.width/2, y: 0), to: CGPoint(x: initialSize.width/2, y: 0))
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
