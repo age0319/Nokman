@@ -177,13 +177,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             if (node.name == "Left") {
                 self.nokman.Run(bw:true)
                 self.onLeftButton = true
+                hud.onLeftButton(on: true)
             } else if (node.name == "Right") {
                 self.nokman.Run(bw:false)
                 self.onRightButton = true
+                hud.onRightButton(on: true)
             } else if ( node.name == "Jump") {
                 self.onJumpButton = true
+                hud.onUpButton(on: true)
             } else if ( node.name == "Fire"){
                 self.onFireButton = true
+                hud.onAButton(on: true)
             } else if ( node.name == "Restart"){
                 // ゲームシーンを呼び出して初めからスタート。
                 self.view?.presentScene(GameScene(size: self.size), transition: .crossFade(withDuration: 0.6))
@@ -210,13 +214,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             if node.name == "Left" {
                 self.onLeftButton = false
                 self.nokman.Stop(bw: true)
+                hud.onLeftButton(on: false)
             } else if node.name == "Right" {
                 self.onRightButton = false
                 self.nokman.Stop(bw: false)
+                hud.onRightButton(on: false)
             } else if node.name == "Jump" {
                 self.onJumpButton = false
+                hud.onUpButton(on: false)
             } else if node.name == "Fire" {
                 self.onFireButton = false
+                hud.onAButton(on: false)
             }
         }
     }

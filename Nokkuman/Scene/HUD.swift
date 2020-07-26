@@ -17,8 +17,8 @@ class HUD {
     var heartNodes = [Heart]()
     var leftMoveButton = SKSpriteNode()
     var rightMoveButton = SKSpriteNode()
-    var jumpButton = SKSpriteNode()
-    var fireButton = SKSpriteNode()
+    var upButton = SKSpriteNode()
+    var AButton = SKSpriteNode()
     var restartButton = SKSpriteNode()
     
     init() {
@@ -54,21 +54,21 @@ class HUD {
         cam.addChild(rightMoveButton)
         
         // ジャンプボタンをセット
-        jumpButton = SKSpriteNode(imageNamed: "flatDark25")
-        jumpButton.size = buttonSize
-        jumpButton.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
-        jumpButton.zPosition = CGFloat(ZPositions.button.rawValue)
-        jumpButton.name = "Jump"
-        cam.addChild(jumpButton)
+        upButton = SKSpriteNode(imageNamed: "flatDark25")
+        upButton.size = buttonSize
+        upButton.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
+        upButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        upButton.name = "Jump"
+        cam.addChild(upButton)
         
         // 発射ボタンをセット
-        fireButton = SKSpriteNode(imageNamed: "flatDark35")
-        fireButton.size = buttonSize
-        fireButton.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
-        fireButton.zPosition = CGFloat(ZPositions.button.rawValue)
-        fireButton.name = "Fire"
+        AButton = SKSpriteNode(imageNamed: "flatDark35")
+        AButton.size = buttonSize
+        AButton.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
+        AButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        AButton.name = "Fire"
         
-        cam.addChild(fireButton)
+        cam.addChild(AButton)
         
         restartButton = SKSpriteNode(imageNamed: "flatDark15")
         restartButton.size = CGSize(width: 50, height: 50)
@@ -76,6 +76,38 @@ class HUD {
         restartButton.zPosition = CGFloat(ZPositions.button.rawValue)
         restartButton.name = "Restart"
         
+    }
+    
+    func onLeftButton(on:Bool){
+        if on {
+            leftMoveButton.texture = SKTexture(imageNamed: "flatLight22")
+        }else{
+            leftMoveButton.texture = SKTexture(imageNamed: "flatDark23")
+        }
+    }
+    
+    func onRightButton(on:Bool){
+        if on {
+            rightMoveButton.texture = SKTexture(imageNamed: "flatLight23")
+        }else{
+            rightMoveButton.texture = SKTexture(imageNamed: "flatDark24")
+        }
+    }
+    
+    func onUpButton(on:Bool){
+        if on {
+            upButton.texture = SKTexture(imageNamed: "flatLight24")
+        }else{
+            upButton.texture = SKTexture(imageNamed: "flatDark25")
+        }
+    }
+    
+    func onAButton(on:Bool){
+        if on {
+            AButton.texture = SKTexture(imageNamed: "flatLight34")
+        }else{
+            AButton.texture = SKTexture(imageNamed: "flatDark35")
+        }
     }
     
     func showRestartButton(){
