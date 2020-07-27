@@ -11,23 +11,17 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-    
+  
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        if let view = self.view as! SKView?{
-            if let scene = SKScene(fileNamed: "GameScene"){
-                scene.scaleMode = .aspectFill
-//                scene.size = view.bounds.size
-                view.presentScene(scene)
-            }
-            view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
-            view.showsPhysics = true
-        }
-    
+        let menuScene = SKScene(fileNamed: "MenuScene")
+        let skView = self.view as! SKView
+        skView.ignoresSiblingOrder = true
+        menuScene?.scaleMode = .aspectFill
+        skView.presentScene(menuScene)
     }
+    
     
     override var shouldAutorotate: Bool {
         return true

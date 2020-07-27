@@ -18,8 +18,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var onJumpButton = false
     var onFireButton = false
     var hud = HUD()
-    // 2以上にすること
-    let stageCount = 3
+    // 2以上
+    let stageCount = 7
     var finalWidth = CGFloat()
         
     override func didMove(to view: SKView) {
@@ -100,6 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.nokman.Hurt(damage: 1)
             case PhysicsCategory.exit.rawValue:
                 print("goal!!!!!")
+                backMenu()
             default:
                 print("No game logic.")
             }
@@ -196,6 +197,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 // ゲームシーンを呼び出して初めからスタート。
                 self.view?.presentScene(GameScene(size: self.size), transition: .crossFade(withDuration: 0.6))
             }
+        }
+    }
+    
+    func backMenu(){
+        if let menuScene = SKScene(fileNamed: "MenuScene"){
+            menuScene.scaleMode = .aspectFill
+            self.view?.presentScene(menuScene, transition: .crossFade(withDuration: 0.6))
         }
     }
     
