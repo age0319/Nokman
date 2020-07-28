@@ -16,15 +16,11 @@ class StageSelect: SKScene {
         for touch: AnyObject in touches {
             let location = touch.location(in: self)
             let node = self.atPoint(location)
-          
-            if ( node.name == "stage1" ){
+
+            if let name = node.name{
                 let scene = GameScene(size: self.size)
-                scene.stage = "stage1"
+                scene.stage = name
                 self.view?.presentScene(scene, transition: .crossFade(withDuration: 0.6))
-            } else if ( node.name == "stage2"){
-                print("stage2")
-            } else if ( node.name == "stage3"){
-                print("stage3")
             }
         }
     }

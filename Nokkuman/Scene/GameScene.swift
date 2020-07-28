@@ -35,9 +35,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let stageNumber = encounterManager.encounters.count
         
         // 背景をセット
-        background.craeteBackground(frameSize: self.size, number: stageNumber)
+        background.craeteBackground(frameSize: self.size, number: stageNumber,stage: stage)
         self.addChild(background)
-        
+
         //　地面をセット
         ground.createGround(frameSize: self.size, number: stageNumber)
         self.addChild(ground)
@@ -193,6 +193,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 hud.onAButton(on: true)
             } else if ( node.name == "Restart"){
                 restartGame()
+            } else if ( node.name == "Back"){
+                stageSelect()
             }
         }
     }

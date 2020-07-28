@@ -13,11 +13,21 @@ class Background:  SKSpriteNode{
     
     var initialSize = CGSize()
     
-    func craeteBackground(frameSize:CGSize, number:Int){
+    func craeteBackground(frameSize:CGSize, number:Int,stage:String){
         initialSize = frameSize
         
+        var filename = ""
+        
+        if stage == "stage1"{
+            filename = "Cartoon_Forest_BG_01"
+        }else if stage == "stage2"{
+            filename = "Cartoon_Forest_BG_02"
+        }else if stage == "stage3"{
+            filename = "Cartoon_Forest_BG_03"
+        }
+        
         for i in 0..<number{
-            let bg = SKSpriteNode(texture: SKTexture(imageNamed: "Cartoon_Forest_BG_01"), color: .clear, size: initialSize)
+            let bg = SKSpriteNode(texture: SKTexture(imageNamed: filename), color: .clear, size: initialSize)
             bg.position = CGPoint(x: CGFloat(i) * initialSize.width, y: 0)
             bg.zPosition = CGFloat(ZPositions.background.rawValue)
             

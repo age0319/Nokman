@@ -20,9 +20,7 @@ class HUD {
     var upButton = SKSpriteNode()
     var AButton = SKSpriteNode()
     var restartButton = SKSpriteNode()
-    
-    init() {
-    }
+    var backButton = SKSpriteNode()
     
     func setup(cam:SKCameraNode,scene:SKScene) {
         self.cam = cam
@@ -67,15 +65,20 @@ class HUD {
         AButton.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
         AButton.zPosition = CGFloat(ZPositions.button.rawValue)
         AButton.name = "Fire"
-        
         cam.addChild(AButton)
         
         restartButton = SKSpriteNode(imageNamed: "flatDark15")
         restartButton.size = CGSize(width: 50, height: 50)
-        restartButton.position = CGPoint(x: 0, y: 0)
+        restartButton.position = CGPoint(x: -50, y: 0)
         restartButton.zPosition = CGFloat(ZPositions.button.rawValue)
         restartButton.name = "Restart"
         
+        backButton = SKSpriteNode(imageNamed: "flatDark20")
+        backButton.size = CGSize(width: 50, height: 50)
+        backButton.position = CGPoint(x: 50, y: 0)
+        backButton.zPosition = CGFloat(ZPositions.button.rawValue)
+        backButton.name = "Back"
+                
     }
     
     func onLeftButton(on:Bool){
@@ -118,6 +121,7 @@ class HUD {
         gameoverText.zPosition = CGFloat(ZPositions.button.rawValue)
         cam.addChild(gameoverText)
         cam.addChild(restartButton)
+        cam.addChild(backButton)
     }
     
     func setupHeartDisplay(maxLife:Int){

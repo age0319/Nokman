@@ -17,6 +17,7 @@
 		49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BFE24B546BE00CBB1C5 /* Nokman.swift */; };
 		B194C98624CF92160080C120 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98524CF92160080C120 /* Flag.swift */; };
 		B194C98824CFA02D0080C120 /* StageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98724CFA02D0080C120 /* StageSelect.swift */; };
+		B194C99024D0341F0080C120 /* EncounterH.sks in Resources */ = {isa = PBXBuildFile; fileRef = B194C98F24D0341F0080C120 /* EncounterH.sks */; };
 		B199A52F24C4012C00C8F468 /* Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199A52E24C4012C00C8F468 /* Heart.swift */; };
 		B199A53124C418E700C8F468 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199A53024C418E700C8F468 /* HUD.swift */; };
 		B1A15A4324CD6335000DBF9F /* signExit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A15A4224CD6335000DBF9F /* signExit.swift */; };
@@ -61,6 +62,7 @@
 		49228BFE24B546BE00CBB1C5 /* Nokman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nokman.swift; sourceTree = "<group>"; };
 		B194C98524CF92160080C120 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		B194C98724CFA02D0080C120 /* StageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSelect.swift; sourceTree = "<group>"; };
+		B194C98F24D0341F0080C120 /* EncounterH.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterH.sks; sourceTree = "<group>"; };
 		B199A52E24C4012C00C8F468 /* Heart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart.swift; sourceTree = "<group>"; };
 		B199A53024C418E700C8F468 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		B1A15A4224CD6335000DBF9F /* signExit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signExit.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 			path = Nokkuman;
 			sourceTree = "<group>";
 		};
-		B1AA703424BF327500272ECA /* Encounter */ = {
+		B194C98D24D033D60080C120 /* Stage1 */ = {
 			isa = PBXGroup;
 			children = (
 				B1AA704024C1154E00272ECA /* EncounterA.sks */,
@@ -148,7 +150,24 @@
 				B1E0B7C424C998440017E198 /* EncounterE.sks */,
 				B1A15A4424CD6388000DBF9F /* EncounterF.sks */,
 				B1A15A4824CD8DCE000DBF9F /* EncounterG.sks */,
+			);
+			path = Stage1;
+			sourceTree = "<group>";
+		};
+		B194C98E24D033EE0080C120 /* Stage2 */ = {
+			isa = PBXGroup;
+			children = (
+				B194C98F24D0341F0080C120 /* EncounterH.sks */,
+			);
+			path = Stage2;
+			sourceTree = "<group>";
+		};
+		B1AA703424BF327500272ECA /* Encounter */ = {
+			isa = PBXGroup;
+			children = (
 				B1AA703524BF329200272ECA /* EncounterManager.swift */,
+				B194C98D24D033D60080C120 /* Stage1 */,
+				B194C98E24D033EE0080C120 /* Stage2 */,
 			);
 			path = Encounter;
 			sourceTree = "<group>";
@@ -280,6 +299,7 @@
 				B1AA704524C138A900272ECA /* EncounterC.sks in Resources */,
 				B1A15A4924CD8DCE000DBF9F /* EncounterG.sks in Resources */,
 				B1E0B7C524C998440017E198 /* EncounterE.sks in Resources */,
+				B194C99024D0341F0080C120 /* EncounterH.sks in Resources */,
 				49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */,
 				B1AA704124C1154E00272ECA /* EncounterA.sks in Resources */,
 				49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */,
