@@ -62,7 +62,6 @@ class Nokman :SKSpriteNode{
             PhysicsCategory.box.rawValue |
             PhysicsCategory.spike.rawValue |
             PhysicsCategory.exit.rawValue
-                
         // アニメーションの作成
         createAnimations()
         

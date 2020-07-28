@@ -21,8 +21,10 @@ class MenuScene: SKScene {
             let node = self.atPoint(location)
           
             if ( node.name == "start"){
-                // ゲームシーンを呼び出して初めからスタート。
-                self.view?.presentScene(GameScene(size: self.size), transition: .crossFade(withDuration: 0.6))
+                if let scene = SKScene(fileNamed: "StageSelect"){
+                    scene.scaleMode = .aspectFill
+                    self.view?.presentScene(scene)
+                }
             }
         }
     }

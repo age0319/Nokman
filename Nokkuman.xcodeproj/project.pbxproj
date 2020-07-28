@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		49228BE724B542B900CBB1C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BE624B542B900CBB1C5 /* AppDelegate.swift */; };
-		49228BE924B542B900CBB1C5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 49228BE824B542B900CBB1C5 /* GameScene.sks */; };
 		49228BEB24B542B900CBB1C5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 49228BEA24B542B900CBB1C5 /* Actions.sks */; };
 		49228BED24B542B900CBB1C5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BEC24B542B900CBB1C5 /* GameScene.swift */; };
 		49228BEF24B542B900CBB1C5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BEE24B542B900CBB1C5 /* GameViewController.swift */; };
@@ -16,6 +15,8 @@
 		49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF324B542BB00CBB1C5 /* Assets.xcassets */; };
 		49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF524B542BB00CBB1C5 /* LaunchScreen.storyboard */; };
 		49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BFE24B546BE00CBB1C5 /* Nokman.swift */; };
+		B194C98624CF92160080C120 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98524CF92160080C120 /* Flag.swift */; };
+		B194C98824CFA02D0080C120 /* StageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98724CFA02D0080C120 /* StageSelect.swift */; };
 		B199A52F24C4012C00C8F468 /* Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199A52E24C4012C00C8F468 /* Heart.swift */; };
 		B199A53124C418E700C8F468 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199A53024C418E700C8F468 /* HUD.swift */; };
 		B1A15A4324CD6335000DBF9F /* signExit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A15A4224CD6335000DBF9F /* signExit.swift */; };
@@ -38,6 +39,7 @@
 		B1CD2CA124C8C5C700065E67 /* Spike.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD2CA024C8C5C700065E67 /* Spike.swift */; };
 		B1DB5C3D24CE3F2E003E0341 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB5C3C24CE3F2E003E0341 /* MenuScene.swift */; };
 		B1DB5C3F24CE485D003E0341 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1DB5C3E24CE485D003E0341 /* MenuScene.sks */; };
+		B1DB5C4124CEC7E5003E0341 /* StageSelect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1DB5C4024CEC7E5003E0341 /* StageSelect.sks */; };
 		B1E0B7C124C9620C0017E198 /* EncounterD.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E0B7C024C9620C0017E198 /* EncounterD.sks */; };
 		B1E0B7C524C998440017E198 /* EncounterE.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E0B7C424C998440017E198 /* EncounterE.sks */; };
 		B1E0B7C724C9A0CF0017E198 /* HeartExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E0B7C624C9A0CF0017E198 /* HeartExplosion.sks */; };
@@ -49,7 +51,6 @@
 /* Begin PBXFileReference section */
 		49228BE324B542B900CBB1C5 /* Nokkuman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nokkuman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49228BE624B542B900CBB1C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		49228BE824B542B900CBB1C5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		49228BEA24B542B900CBB1C5 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		49228BEC24B542B900CBB1C5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		49228BEE24B542B900CBB1C5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +59,8 @@
 		49228BF624B542BB00CBB1C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49228BF824B542BB00CBB1C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49228BFE24B546BE00CBB1C5 /* Nokman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nokman.swift; sourceTree = "<group>"; };
+		B194C98524CF92160080C120 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
+		B194C98724CFA02D0080C120 /* StageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSelect.swift; sourceTree = "<group>"; };
 		B199A52E24C4012C00C8F468 /* Heart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart.swift; sourceTree = "<group>"; };
 		B199A53024C418E700C8F468 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		B1A15A4224CD6335000DBF9F /* signExit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signExit.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		B1CD2CA024C8C5C700065E67 /* Spike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spike.swift; sourceTree = "<group>"; };
 		B1DB5C3C24CE3F2E003E0341 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		B1DB5C3E24CE485D003E0341 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		B1DB5C4024CEC7E5003E0341 /* StageSelect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StageSelect.sks; sourceTree = "<group>"; };
 		B1E0B7C024C9620C0017E198 /* EncounterD.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterD.sks; sourceTree = "<group>"; };
 		B1E0B7C424C998440017E198 /* EncounterE.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterE.sks; sourceTree = "<group>"; };
 		B1E0B7C624C9A0CF0017E198 /* HeartExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HeartExplosion.sks; sourceTree = "<group>"; };
@@ -172,13 +176,14 @@
 			isa = PBXGroup;
 			children = (
 				B1AA702624BC6BA100272ECA /* Background.swift */,
-				49228BE824B542B900CBB1C5 /* GameScene.sks */,
 				49228BEC24B542B900CBB1C5 /* GameScene.swift */,
 				49228BEE24B542B900CBB1C5 /* GameViewController.swift */,
 				B1AA709224C2EAB200272ECA /* Ground.swift */,
 				B1DB5C3E24CE485D003E0341 /* MenuScene.sks */,
 				B1DB5C3C24CE3F2E003E0341 /* MenuScene.swift */,
 				B1AA703E24C0760E00272ECA /* Settings.swift */,
+				B1DB5C4024CEC7E5003E0341 /* StageSelect.sks */,
+				B194C98724CFA02D0080C120 /* StageSelect.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 				B1A15A4A24CD8E60000DBF9F /* GrassHillRight.swift */,
 				B1CD2C9E24C8B18100065E67 /* Grass.swift */,
 				B1AA703C24C0045300272ECA /* Box.swift */,
+				B194C98524CF92160080C120 /* Flag.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -268,9 +274,9 @@
 			files = (
 				B1E0B7C124C9620C0017E198 /* EncounterD.sks in Resources */,
 				B1AA703B24C0032C00272ECA /* EncounterB.sks in Resources */,
+				B1DB5C4124CEC7E5003E0341 /* StageSelect.sks in Resources */,
 				49228BF224B542B900CBB1C5 /* Main.storyboard in Resources */,
 				B1E0B7C724C9A0CF0017E198 /* HeartExplosion.sks in Resources */,
-				49228BE924B542B900CBB1C5 /* GameScene.sks in Resources */,
 				B1AA704524C138A900272ECA /* EncounterC.sks in Resources */,
 				B1A15A4924CD8DCE000DBF9F /* EncounterG.sks in Resources */,
 				B1E0B7C524C998440017E198 /* EncounterE.sks in Resources */,
@@ -297,7 +303,9 @@
 				B1AA702724BC6BA100272ECA /* Background.swift in Sources */,
 				B1AA709324C2EAB200272ECA /* Ground.swift in Sources */,
 				B1ED3EAC24C7C3BA00F718F7 /* Enemy.swift in Sources */,
+				B194C98624CF92160080C120 /* Flag.swift in Sources */,
 				49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */,
+				B194C98824CFA02D0080C120 /* StageSelect.swift in Sources */,
 				B1A15A4B24CD8E60000DBF9F /* GrassHillRight.swift in Sources */,
 				B1AA702924BDA28100272ECA /* Shot.swift in Sources */,
 				B1CD2C9F24C8B18100065E67 /* Grass.swift in Sources */,

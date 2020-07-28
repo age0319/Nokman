@@ -12,10 +12,15 @@ class EncounterManager {
     
     var encounters:[SKNode] = []
     
-    init(){
+    init(stage:String){
         
-        let fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD","EncounterE","EncounterF","EncounterG"]
-//        let fileNames = ["EncounterF","EncounterG"]
+        var fileNames:[String] = []
+        
+        if stage == "stage1"{
+            fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD","EncounterE","EncounterF","EncounterG"]
+        } else if ( stage == "stage2"){
+            fileNames = ["EncounterH","EncounterI","EncounterG","EncounterK","EncounterL","EncounterM","EncounterN"]
+        }
         
         for f in fileNames{
             if let scene = SKScene(fileNamed: f){
@@ -29,6 +34,7 @@ class EncounterManager {
                 encounters.append(encounterNode)
             }
         }
-    }    
+        
+    }
     
 }

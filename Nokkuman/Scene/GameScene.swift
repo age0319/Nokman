@@ -18,25 +18,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var onJumpButton = false
     var onFireButton = false
     var hud = HUD()
-    // 2以上
-    let stageCount = 7
     var finalWidth = CGFloat()
-        
+    var stage = String()
+    
     override func didMove(to view: SKView) {
-
-        self.anchorPoint = .zero
+        // ノードをセット
+        let encounterManager = EncounterManager(stage: stage)
+       
+        for i in 0..<encounterManager.encounters.count{
+            let node:SKNode = encounterManager.encounters[i]
+            node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
+            self.addChild(node)
+        }
+        
+        // エンカウンターの数を計算
+        let stageNumber = encounterManager.encounters.count
         
         // 背景をセット
-        background.craeteBackground(frameSize: self.size, number: stageCount)
+        background.craeteBackground(frameSize: self.size, number: stageNumber)
         self.addChild(background)
         
         //　地面をセット
-        ground.createGround(frameSize: self.size, number: stageCount)
+        ground.createGround(frameSize: self.size, number: stageNumber)
         self.addChild(ground)
         
         // カメラの停止位置を計算
-        finalWidth = self.size.width*CGFloat((stageCount-1))
+        finalWidth = self.size.width*CGFloat(stageNumber - 1)
         
+        self.anchorPoint = .zero
+                        
         // プレイヤーをセット
         self.addChild(nokman)
         
@@ -49,9 +59,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         hud.setupButton()
         hud.setupHeartDisplay(maxLife: nokman.maxLife)
         hud.updateHeartDisplay(life: nokman.life)
-        
-        // エンカウンターをセット
-        setupEncounters()
         
         self.physicsWorld.contactDelegate = self
     }
@@ -100,7 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.nokman.Hurt(damage: 1)
             case PhysicsCategory.exit.rawValue:
                 print("goal!!!!!")
-                backMenu()
+                stageSelect()
             default:
                 print("No game logic.")
             }
@@ -157,15 +164,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
     }
     
-    func setupEncounters(){
-        let em = EncounterManager()
-        for i in 0..<em.encounters.count{
-            let node:SKNode = em.encounters[i]
-            node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
-            self.addChild(node)
-        }
-    }
-    
     override func didSimulatePhysics() {
         let posX = self.nokman.position.x
         if (0 < posX && posX < finalWidth) {
@@ -194,17 +192,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.onFireButton = true
                 hud.onAButton(on: true)
             } else if ( node.name == "Restart"){
-                // ゲームシーンを呼び出して初めからスタート。
-                self.view?.presentScene(GameScene(size: self.size), transition: .crossFade(withDuration: 0.6))
+                restartGame()
             }
         }
     }
     
-    func backMenu(){
-        if let menuScene = SKScene(fileNamed: "MenuScene"){
-            menuScene.scaleMode = .aspectFill
-            self.view?.presentScene(menuScene, transition: .crossFade(withDuration: 0.6))
+    func stageSelect(){
+        if let scene = SKScene(fileNamed: "StageSelect"){
+            scene.scaleMode = .aspectFill
+            self.view?.presentScene(scene)
         }
+    }
+    
+    func restartGame(){
+        let scene = GameScene(size: self.size)
+        scene.stage = stage
+        self.view?.presentScene(scene, transition: .crossFade(withDuration: 0.6))
     }
     
     func gameOver(){
