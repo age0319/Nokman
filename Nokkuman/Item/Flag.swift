@@ -19,9 +19,7 @@ class Flag: SKSpriteNode {
         self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
                 
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
-        
-        self.physicsBody?.categoryBitMask = PhysicsCategory.flag.rawValue
-        
+                
         self.physicsBody?.isDynamic = false
     }
     
