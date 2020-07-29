@@ -15,10 +15,12 @@ class GameViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        let menuScene = SKScene(fileNamed: "MenuScene")
+//        let menuScene = SKScene(fileNamed: "MenuScene")
+        let menuScene = GameScene(size: CGSize(width: 812, height: 375))
+        menuScene.stage = "stage2"
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = true
-        menuScene?.scaleMode = .aspectFill
+        menuScene.scaleMode = .aspectFill
         skView.presentScene(menuScene)
     }
     

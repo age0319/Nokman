@@ -11,7 +11,7 @@ import SpriteKit
 
 class Enemy: SKSpriteNode {
     var textureAtlas = SKTextureAtlas(named:"Enemies")
-    var animation = SKAction()
+    var flappingAnimation = SKAction()
     var movingAnimation = SKAction()
     var dieAnimation = SKAction()
     var animationAndMove = SKAction()
@@ -48,7 +48,7 @@ class Enemy: SKSpriteNode {
         
         let Action = SKAction.animate(with: Frames, timePerFrame: 0.14)
         
-        animation = SKAction.repeatForever(Action)
+        flappingAnimation = SKAction.repeatForever(Action)
         
         let flipLeft = SKAction.scaleX(to: 1, duration: 0.05)
         let moveLeft = SKAction.move(by: CGVector(dx: -100, dy: 0), duration: 2)
@@ -57,7 +57,7 @@ class Enemy: SKSpriteNode {
         
         movingAnimation = SKAction.repeatForever(SKAction.sequence([flipLeft,moveLeft,flipRight,moveRight]))
         
-        animationAndMove = SKAction.group([animation,movingAnimation])
+        animationAndMove = SKAction.group([flappingAnimation,movingAnimation])
         
         let startDie = SKAction.run {
             self.texture = self.textureAtlas.textureNamed(self.images[2])

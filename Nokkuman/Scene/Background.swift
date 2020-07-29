@@ -10,12 +10,10 @@ import Foundation
 import SpriteKit
 
 class Background:  SKSpriteNode{
-    
-    var initialSize = CGSize()
-    
-    func craeteBackground(frameSize:CGSize, number:Int,stage:String){
-        initialSize = frameSize
         
+    func craeteBackground(frameSize:CGSize, number:Int,stage:String){
+    
+        let initialSize = frameSize
         var filename = ""
         
         if stage == "stage1"{
@@ -34,9 +32,10 @@ class Background:  SKSpriteNode{
             self.addChild(bg)
         }
         
-        let LeftUnderPoint = CGPoint(x: -frameSize.width/2, y: -frameSize.height/2)
-        let LeftTopPoint = CGPoint(x: -frameSize.width/2, y: frameSize.height/2)
-        
-        self.physicsBody = SKPhysicsBody(edgeFrom: LeftUnderPoint, to: LeftTopPoint)
+        //左に壁を作る場合に利用する
+//        let LeftUnderPoint = CGPoint(x: -frameSize.width/2, y: -frameSize.height/2)
+//        let LeftTopPoint = CGPoint(x: -frameSize.width/2, y: frameSize.height/2)
+//
+//        self.physicsBody = SKPhysicsBody(edgeFrom: LeftUnderPoint, to: LeftTopPoint)
     }
 }

@@ -15,6 +15,9 @@
 		49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF324B542BB00CBB1C5 /* Assets.xcassets */; };
 		49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49228BF524B542BB00CBB1C5 /* LaunchScreen.storyboard */; };
 		49228BFF24B546BE00CBB1C5 /* Nokman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49228BFE24B546BE00CBB1C5 /* Nokman.swift */; };
+		B17FB79F24D10ED1006BBBAD /* Bee.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FB79E24D10ED1006BBBAD /* Bee.swift */; };
+		B17FB7A124D11BF2006BBBAD /* Fireball.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FB7A024D11BF2006BBBAD /* Fireball.swift */; };
+		B17FB7A524D186EE006BBBAD /* EncounterI.sks in Resources */ = {isa = PBXBuildFile; fileRef = B17FB7A424D186EE006BBBAD /* EncounterI.sks */; };
 		B194C98624CF92160080C120 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98524CF92160080C120 /* Flag.swift */; };
 		B194C98824CFA02D0080C120 /* StageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98724CFA02D0080C120 /* StageSelect.swift */; };
 		B194C99024D0341F0080C120 /* EncounterH.sks in Resources */ = {isa = PBXBuildFile; fileRef = B194C98F24D0341F0080C120 /* EncounterH.sks */; };
@@ -60,6 +63,9 @@
 		49228BF624B542BB00CBB1C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49228BF824B542BB00CBB1C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49228BFE24B546BE00CBB1C5 /* Nokman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nokman.swift; sourceTree = "<group>"; };
+		B17FB79E24D10ED1006BBBAD /* Bee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bee.swift; sourceTree = "<group>"; };
+		B17FB7A024D11BF2006BBBAD /* Fireball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fireball.swift; sourceTree = "<group>"; };
+		B17FB7A424D186EE006BBBAD /* EncounterI.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterI.sks; sourceTree = "<group>"; };
 		B194C98524CF92160080C120 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		B194C98724CFA02D0080C120 /* StageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSelect.swift; sourceTree = "<group>"; };
 		B194C98F24D0341F0080C120 /* EncounterH.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterH.sks; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				B194C98F24D0341F0080C120 /* EncounterH.sks */,
+				B17FB7A424D186EE006BBBAD /* EncounterI.sks */,
 			);
 			path = Stage2;
 			sourceTree = "<group>";
@@ -187,6 +194,8 @@
 				B1AA702A24BEEA1C00272ECA /* Frog.swift */,
 				B1AA703024BF2EE300272ECA /* Fly.swift */,
 				B1ED3EAB24C7C3BA00F718F7 /* Enemy.swift */,
+				B17FB79E24D10ED1006BBBAD /* Bee.swift */,
+				B17FB7A024D11BF2006BBBAD /* Fireball.swift */,
 			);
 			path = Enemy;
 			sourceTree = "<group>";
@@ -300,6 +309,7 @@
 				B1A15A4924CD8DCE000DBF9F /* EncounterG.sks in Resources */,
 				B1E0B7C524C998440017E198 /* EncounterE.sks in Resources */,
 				B194C99024D0341F0080C120 /* EncounterH.sks in Resources */,
+				B17FB7A524D186EE006BBBAD /* EncounterI.sks in Resources */,
 				49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */,
 				B1AA704124C1154E00272ECA /* EncounterA.sks in Resources */,
 				49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */,
@@ -320,6 +330,7 @@
 				B1A15A4724CD85A4000DBF9F /* GrassHillLeft.swift in Sources */,
 				B1E0B7C924C9A80A0017E198 /* BoxItem.swift in Sources */,
 				49228BED24B542B900CBB1C5 /* GameScene.swift in Sources */,
+				B17FB7A124D11BF2006BBBAD /* Fireball.swift in Sources */,
 				B1AA702724BC6BA100272ECA /* Background.swift in Sources */,
 				B1AA709324C2EAB200272ECA /* Ground.swift in Sources */,
 				B1ED3EAC24C7C3BA00F718F7 /* Enemy.swift in Sources */,
@@ -332,6 +343,7 @@
 				B199A53124C418E700C8F468 /* HUD.swift in Sources */,
 				B1A15A4324CD6335000DBF9F /* signExit.swift in Sources */,
 				B1AA702B24BEEA1C00272ECA /* Frog.swift in Sources */,
+				B17FB79F24D10ED1006BBBAD /* Bee.swift in Sources */,
 				B1DB5C3D24CE3F2E003E0341 /* MenuScene.swift in Sources */,
 				B1AA703D24C0045300272ECA /* Box.swift in Sources */,
 				B1AA703F24C0760E00272ECA /* Settings.swift in Sources */,

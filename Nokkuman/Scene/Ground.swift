@@ -19,8 +19,6 @@ class Ground:  SKSpriteNode{
         let groundWidth = frameSize.width * CGFloat(number)
         let requiredGrassNumber = Int(groundWidth / initialSize.width)
         
-        print(groundWidth)
-        print(requiredGrassNumber)
         
         for i in 0...requiredGrassNumber {
             let grass = SKSpriteNode(texture: SKTexture(imageNamed: "grass"), color: .clear, size: initialSize)

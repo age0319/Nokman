@@ -113,7 +113,7 @@ class HUD {
         }
     }
     
-    func showRestartButton(){
+    func showRestartMenu(){
         let gameoverText = SKLabelNode(fontNamed: "AvenirNext-Heavy")
         gameoverText.text = "GameOver"
         gameoverText.position = CGPoint(x: 0, y: 80)

@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var hud = HUD()
     var finalWidth = CGFloat()
     var stage = String()
+    var bees:[Bee] = []
     
     override func didMove(to view: SKView) {
         // ノードをセット
@@ -29,6 +30,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             let node:SKNode = encounterManager.encounters[i]
             node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
             self.addChild(node)
+            
+            for child in node.children{
+                if let bee = child as? Bee{
+                    bees.append(bee)
+                }
+            }
+        }
+        
+        for bee in bees{
+            print(bee.parent)
         }
         
         // エンカウンターの数を計算
@@ -130,11 +141,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 if let frog = two.node as? Frog{
                     frog.takeDamage(damage: damegeAmount)
                     absolutePosition = self.convert(frog.position, from: frog.parent!)
-                    
-                    
                 }else if let fly = two.node as? Fly{
                     fly.takeDamage(damage: damegeAmount)
                     absolutePosition = self.convert(fly.position, from: fly.parent!)
+                }else if let bee = two.node as? Bee{
+                    bee.takeDamage(damage: damegeAmount)
+                    absolutePosition = self.convert(bee.position, from: bee.parent!)
                 }
                 
                 hud.showDamageLabel(position: absolutePosition, damage: damegeAmount)
@@ -213,13 +225,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func gameOver(){
-        hud.showRestartButton()
+        hud.showRestartMenu()
     }
     
     func shotSpawn(){
         let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
         self.addChild(shot)
         shot.fire()
+    }
+    
+    func fireballSpawn(bee:Bee){
+        let absolutePosition = self.convert(bee.position, from: bee.parent!)
+        let fireball = Fireball(pos: absolutePosition)
+        self.addChild(fireball)
+        fireball.fire()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -249,6 +268,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var fireInterval:Double = 0.1
     var jumpTime:Double = 0
     var jumpInterval:Double = 0.8
+    var fireballTime:Double = 0
+    var fireballInterval:Double = 2.5
     
     override func update(_ currentTime: TimeInterval) {
         
@@ -275,6 +296,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         if nokman.position.y < -self.size.height/2{
             nokman.Die()
         }
+        
+        //死んだハチを配列から消す。
+        bees = bees.filter{$0.parent != nil}
+        
+        if fireballTime == 0 || currentTime - fireballTime > fireballInterval
+        {
+            for bee in bees{
+                fireballSpawn(bee: bee)
+            }
+            fireballTime = currentTime
+        }
+        
     }
    
 }
