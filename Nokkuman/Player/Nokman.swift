@@ -200,8 +200,11 @@ class Nokman :SKSpriteNode{
             self.physicsBody?.applyImpulse(damageImpulse)
             
             let damegeStart = SKAction.run{
-                //接触判定を無効に。
+                //接触判定を無効にする。
                 self.physicsBody?.categoryBitMask = 0
+                // グラウンドのみぶつかるようにする。敵や火の粉は貫通する。
+                self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue |
+                    PhysicsCategory.spike.rawValue
                 // 透明にする
                 self.alpha = 0.3
             }
@@ -209,6 +212,8 @@ class Nokman :SKSpriteNode{
             let damegeEnd = SKAction.run {
                 //接触判定を元に戻す
                 self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
+                //すべてにぶつかるようにする。
+                self.physicsBody?.collisionBitMask = 0xFFFFFFFF
                 self.alpha = 1
             }
             

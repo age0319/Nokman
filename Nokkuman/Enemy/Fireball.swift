@@ -32,7 +32,6 @@ class Fireball: SKSpriteNode {
         
         self.physicsBody?.contactTestBitMask = PhysicsCategory.nokman.rawValue
         
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -38,10 +38,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         
-        for bee in bees{
-            print(bee.parent)
-        }
-        
         // エンカウンターの数を計算
         let stageNumber = encounterManager.encounters.count
         
@@ -78,9 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         var one:SKPhysicsBody = SKPhysicsBody()
         var two:SKPhysicsBody = SKPhysicsBody()
         var player:Bool = false
-    
+      
         let nokmanMask = PhysicsCategory.nokman.rawValue
-        
         let bulletMask = PhysicsCategory.bullet.rawValue
 
         // Aがプレイヤーだった場合、Bを条件判定対象に
@@ -119,6 +114,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             case PhysicsCategory.exit.rawValue:
                 print("goal!!!!!")
                 stageSelect()
+            case PhysicsCategory.fireball.rawValue:
+                print("fireball -> player")
+                var damegeAmount = 0
+                if let fb = two.node as? Fireball{
+                    fb.removeFromParent()
+                    damegeAmount = fb.damage
+                }
+                self.nokman.Hurt(damage: damegeAmount)
             default:
                 print("No game logic.")
             }
