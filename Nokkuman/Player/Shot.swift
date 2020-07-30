@@ -17,6 +17,7 @@ class Shot:SKSpriteNode{
     let initialSize = CGSize(width: 10, height: 10)
     let str = 2
     var damage = Int()
+    let lifeTime = 1.0
     
     init(pos:CGPoint,bw:Bool){
         super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: initialSize)
@@ -58,7 +59,7 @@ class Shot:SKSpriteNode{
             self.physicsBody?.applyImpulse(CGVector(dx: shotSpeed, dy: 0))
         }
         //1秒経ったら弾を消す
-        let wait = SKAction.wait(forDuration: 1)
+        let wait = SKAction.wait(forDuration: lifeTime)
         let endShot = SKAction.run {
             self.removeFromParent()
         }

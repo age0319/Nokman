@@ -21,6 +21,7 @@ class GameViewController: UIViewController {
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = true
         menuScene.scaleMode = .aspectFill
+        skView.showsPhysics = true
         skView.presentScene(menuScene)
     }
     

@@ -13,6 +13,7 @@ class Fireball: SKSpriteNode {
     var shotSpeed:CGFloat = 200
     let shotspace:CGFloat = 5
     let initialSize = CGSize(width: 40, height: 40)
+    let physicalSize = CGSize(width: 20, height: 20)
     var damage = 1
     
     init(pos:CGPoint){
@@ -22,7 +23,7 @@ class Fireball: SKSpriteNode {
         
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-        self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
+        self.physicsBody = SKPhysicsBody(rectangleOf: physicalSize)
         
         self.physicsBody?.mass = 0.5
         
@@ -31,6 +32,8 @@ class Fireball: SKSpriteNode {
         self.physicsBody?.categoryBitMask = PhysicsCategory.fireball.rawValue
         
         self.physicsBody?.contactTestBitMask = PhysicsCategory.nokman.rawValue
+        
+        self.physicsBody?.collisionBitMask = PhysicsCategory.bullet.rawValue
         
     }
     

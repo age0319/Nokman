@@ -48,6 +48,9 @@
 		B1E0B7C524C998440017E198 /* EncounterE.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E0B7C424C998440017E198 /* EncounterE.sks */; };
 		B1E0B7C724C9A0CF0017E198 /* HeartExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E0B7C624C9A0CF0017E198 /* HeartExplosion.sks */; };
 		B1E0B7C924C9A80A0017E198 /* BoxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E0B7C824C9A80A0017E198 /* BoxItem.swift */; };
+		B1E948A724D2941400C2BE66 /* Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E948A624D2941400C2BE66 /* Bridge.swift */; };
+		B1E948A924D29A1400C2BE66 /* EncounterJ.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E948A824D29A1400C2BE66 /* EncounterJ.sks */; };
+		B1E948AB24D29AF800C2BE66 /* EncounterK.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1E948AA24D29AF800C2BE66 /* EncounterK.sks */; };
 		B1ED3EAC24C7C3BA00F718F7 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ED3EAB24C7C3BA00F718F7 /* Enemy.swift */; };
 		B1ED3EAF24C838A500F718F7 /* CrateExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1ED3EAD24C838A500F718F7 /* CrateExplosion.sks */; };
 /* End PBXBuildFile section */
@@ -96,6 +99,9 @@
 		B1E0B7C424C998440017E198 /* EncounterE.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterE.sks; sourceTree = "<group>"; };
 		B1E0B7C624C9A0CF0017E198 /* HeartExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HeartExplosion.sks; sourceTree = "<group>"; };
 		B1E0B7C824C9A80A0017E198 /* BoxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxItem.swift; sourceTree = "<group>"; };
+		B1E948A624D2941400C2BE66 /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
+		B1E948A824D29A1400C2BE66 /* EncounterJ.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterJ.sks; sourceTree = "<group>"; };
+		B1E948AA24D29AF800C2BE66 /* EncounterK.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterK.sks; sourceTree = "<group>"; };
 		B1ED3EAB24C7C3BA00F718F7 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		B1ED3EAD24C838A500F718F7 /* CrateExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CrateExplosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +171,8 @@
 			children = (
 				B194C98F24D0341F0080C120 /* EncounterH.sks */,
 				B17FB7A424D186EE006BBBAD /* EncounterI.sks */,
+				B1E948A824D29A1400C2BE66 /* EncounterJ.sks */,
+				B1E948AA24D29AF800C2BE66 /* EncounterK.sks */,
 			);
 			path = Stage2;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 				B1CD2C9E24C8B18100065E67 /* Grass.swift */,
 				B1AA703C24C0045300272ECA /* Box.swift */,
 				B194C98524CF92160080C120 /* Flag.swift */,
+				B1E948A624D2941400C2BE66 /* Bridge.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -306,12 +315,14 @@
 				49228BF224B542B900CBB1C5 /* Main.storyboard in Resources */,
 				B1E0B7C724C9A0CF0017E198 /* HeartExplosion.sks in Resources */,
 				B1AA704524C138A900272ECA /* EncounterC.sks in Resources */,
+				B1E948A924D29A1400C2BE66 /* EncounterJ.sks in Resources */,
 				B1A15A4924CD8DCE000DBF9F /* EncounterG.sks in Resources */,
 				B1E0B7C524C998440017E198 /* EncounterE.sks in Resources */,
 				B194C99024D0341F0080C120 /* EncounterH.sks in Resources */,
 				B17FB7A524D186EE006BBBAD /* EncounterI.sks in Resources */,
 				49228BF424B542BB00CBB1C5 /* Assets.xcassets in Resources */,
 				B1AA704124C1154E00272ECA /* EncounterA.sks in Resources */,
+				B1E948AB24D29AF800C2BE66 /* EncounterK.sks in Resources */,
 				49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */,
 				B1ED3EAF24C838A500F718F7 /* CrateExplosion.sks in Resources */,
 				B1A15A4524CD6388000DBF9F /* EncounterF.sks in Resources */,
@@ -332,6 +343,7 @@
 				49228BED24B542B900CBB1C5 /* GameScene.swift in Sources */,
 				B17FB7A124D11BF2006BBBAD /* Fireball.swift in Sources */,
 				B1AA702724BC6BA100272ECA /* Background.swift in Sources */,
+				B1E948A724D2941400C2BE66 /* Bridge.swift in Sources */,
 				B1AA709324C2EAB200272ECA /* Ground.swift in Sources */,
 				B1ED3EAC24C7C3BA00F718F7 /* Enemy.swift in Sources */,
 				B194C98624CF92160080C120 /* Flag.swift in Sources */,

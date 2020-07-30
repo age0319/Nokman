@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+//左下から右上
 class GrassHillRight: SKSpriteNode {
     let initialSize = CGSize(width: 42, height: 42)
         

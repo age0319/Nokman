@@ -115,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 print("goal!!!!!")
                 stageSelect()
             case PhysicsCategory.fireball.rawValue:
-                print("fireball -> player")
+                print("player -> fireball")
                 var damegeAmount = 0
                 if let fb = two.node as? Fireball{
                     fb.removeFromParent()

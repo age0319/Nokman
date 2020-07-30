@@ -20,6 +20,7 @@ class Bee:Enemy {
         super.init(texture: nil, color: .clear, size: initialSize)
         //重くしないと弾の反動をうける
         self.physicsBody?.mass = 20
+        
         images = bee_images
         createAnimations()
         run(flappingAnimation)
