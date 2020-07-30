@@ -34,7 +34,7 @@ class Nokman :SKSpriteNode{
     
     var rightMoving = false
     var leftMoving = false
-    var firing = false
+    var damaging = false
     var die = false
     
     var backward = false
@@ -191,6 +191,8 @@ class Nokman :SKSpriteNode{
     }
     
     func Hurt(damage:Int){
+        
+        self.removeAllActions()
 
         life -= damage
         
@@ -215,6 +217,7 @@ class Nokman :SKSpriteNode{
                     PhysicsCategory.spike.rawValue
                 // 透明にする
                 self.alpha = 0.3
+                self.damaging = true
             }
             let wait = SKAction.wait(forDuration: 3)
             let damegeEnd = SKAction.run {
@@ -223,6 +226,7 @@ class Nokman :SKSpriteNode{
                 //すべてにぶつかるようにする。
                 self.physicsBody?.collisionBitMask = 0xFFFFFFFF
                 self.alpha = 1
+                self.damaging = false
             }
             
             self.run(SKAction.sequence([
@@ -279,8 +283,8 @@ class Nokman :SKSpriteNode{
     
     func Fire(charged:Bool){
         
-        if die { return }
-        
+        if die || damaging { return }
+                
         self.run(fireAnimation)
         
         //親クラスの弾生成関数を呼び出す。
@@ -290,6 +294,9 @@ class Nokman :SKSpriteNode{
     }
     
     func Charge(on:Bool){
+        
+        if damaging { return }
+        
         if on {
             self.run(chargeAnimation,withKey: "charge")
         }else{
