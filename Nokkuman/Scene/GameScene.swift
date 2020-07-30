@@ -16,7 +16,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let ground = Ground()
     let background = Background()
     var onJumpButton = false
-    var onFireButton = false
     var hud = HUD()
     var finalWidth = CGFloat()
     var stage = String()
@@ -188,6 +187,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
     }
     
+    var touchStarted: TimeInterval?
+    let longTapTime: TimeInterval = 0.5
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // タッチしたボタンによって処理を分ける
         for touch: AnyObject in touches {
@@ -204,44 +206,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.onJumpButton = true
                 hud.onUpButton(on: true)
             } else if ( node.name == "Fire"){
-                self.onFireButton = true
+                touchStarted = touch.timestamp
                 hud.onAButton(on: true)
+                self.nokman.Charge(on: true)
             } else if ( node.name == "Restart"){
                 restartGame()
             } else if ( node.name == "Back"){
                 stageSelect()
             }
         }
-    }
-    
-    func stageSelect(){
-        if let scene = SKScene(fileNamed: "StageSelect"){
-            scene.scaleMode = .aspectFill
-            self.view?.presentScene(scene)
-        }
-    }
-    
-    func restartGame(){
-        let scene = GameScene(size: self.size)
-        scene.stage = stage
-        self.view?.presentScene(scene, transition: .crossFade(withDuration: 0.6))
-    }
-    
-    func gameOver(){
-        hud.showRestartMenu()
-    }
-    
-    func shotSpawn(){
-        let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward)
-        self.addChild(shot)
-        shot.fire()
-    }
-    
-    func fireballSpawn(bee:Bee){
-        let absolutePosition = self.convert(bee.position, from: bee.parent!)
-        let fireball = Fireball(pos: absolutePosition)
-        self.addChild(fireball)
-        fireball.fire()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -259,16 +232,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             } else if node.name == "Jump" {
                 self.onJumpButton = false
                 hud.onUpButton(on: false)
-            } else if node.name == "Fire" {
-                self.onFireButton = false
+            } else if node.name == "Fire" && touchStarted != nil{
+                let timeEnded = touch.timestamp
+                if timeEnded! - touchStarted! >= longTapTime {
+                    self.nokman.Fire(charged: true)
+                } else {
+                    self.nokman.Fire(charged: false)
+                }
+                touchStarted = nil
                 hud.onAButton(on: false)
+                self.nokman.Charge(on: false)
             }
         }
     }
     
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchStarted = nil
+    }
+
+    func stageSelect(){
+        if let scene = SKScene(fileNamed: "StageSelect"){
+            scene.scaleMode = .aspectFill
+            self.view?.presentScene(scene)
+        }
+    }
     
-    var fireTime:Double = 0
-    var fireInterval:Double = 0.1
+    func restartGame(){
+        let scene = GameScene(size: self.size)
+        scene.stage = stage
+        self.view?.presentScene(scene, transition: .crossFade(withDuration: 0.6))
+    }
+    
+    func gameOver(){
+        hud.showRestartMenu()
+    }
+    
+    func shotSpawn(charged:Bool){
+        let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward, charged: charged)
+        self.addChild(shot)
+        shot.fire()
+    }
+    
+    func fireballSpawn(bee:Bee){
+        let absolutePosition = self.convert(bee.position, from: bee.parent!)
+        let fireball = Fireball(pos: absolutePosition)
+        self.addChild(fireball)
+        fireball.fire()
+    }
+    
     var jumpTime:Double = 0
     var jumpInterval:Double = 0.8
     var fireballTime:Double = 0
@@ -288,13 +299,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         
-        if self.onFireButton {
-            // インターバルを空けないと発砲できないようにする
-            if fireTime == 0 || currentTime - fireTime > fireInterval {
-                self.nokman.Fire()
-                fireTime = currentTime
-            }
-        }
         
         if nokman.position.y < -self.size.height/2{
             nokman.Die()

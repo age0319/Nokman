@@ -14,12 +14,18 @@ class Shot:SKSpriteNode{
     var backword:Bool = false
     var shotSpeed:CGFloat = 600
     let shotspace:CGFloat = 5
-    let initialSize = CGSize(width: 10, height: 10)
-    let str = 2
+    var initialSize = CGSize(width: 10, height: 10)
+    var str = 2
     var damage = Int()
     let lifeTime = 1.0
     
-    init(pos:CGPoint,bw:Bool){
+    init(pos:CGPoint,bw:Bool,charged:Bool){
+        
+        if charged {
+            initialSize = CGSize(width: 20, height: 20)
+            str = 5
+        }
+        
         super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: initialSize)
 
         self.backword = bw
@@ -44,7 +50,7 @@ class Shot:SKSpriteNode{
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
             PhysicsCategory.box.rawValue
         
-        self.damage = Int.random(in: 1...str)
+        self.damage = Int.random(in: str-1...str)
     }
     
     required init?(coder aDecoder: NSCoder) {

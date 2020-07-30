@@ -30,6 +30,7 @@ class Nokman :SKSpriteNode{
     var fireAnimation = SKAction()
     var hurtAnimation = SKAction()
     var dieAnimation = SKAction()
+    var chargeAnimation = SKAction()
     
     var rightMoving = false
     var leftMoving = false
@@ -158,6 +159,13 @@ class Nokman :SKSpriteNode{
         ]
         
         dieAnimation = SKAction.animate(with: dieFrames, timePerFrame: 0.05)
+        
+        let fastFade = SKAction.sequence([
+            SKAction.fadeAlpha(to: 0.5, duration: 0.2),
+            SKAction.fadeAlpha(to: 1, duration: 0.2)
+            ])
+        
+        chargeAnimation = SKAction.repeatForever(fastFade)
 
     }
     
@@ -269,7 +277,7 @@ class Nokman :SKSpriteNode{
 
     }
     
-    func Fire(){
+    func Fire(charged:Bool){
         
         if die { return }
         
@@ -277,10 +285,19 @@ class Nokman :SKSpriteNode{
         
         //親クラスの弾生成関数を呼び出す。
         if let gameScene = self.parent as? GameScene{
-            gameScene.shotSpawn()
+            gameScene.shotSpawn(charged:charged)
         }
     }
     
+    func Charge(on:Bool){
+        if on {
+            self.run(chargeAnimation,withKey: "charge")
+        }else{
+            self.removeAction(forKey: "charge")
+            self.alpha = 1
+        }
+    }
+        
     func update(_ currentTime: TimeInterval){
         
         if self.rightMoving {
