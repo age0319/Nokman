@@ -75,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         var player:Bool = false
       
         let nokmanMask = PhysicsCategory.nokman.rawValue
-        let bulletMask = PhysicsCategory.bullet.rawValue
+        let bulletMask = PhysicsCategory.bullet.rawValue | PhysicsCategory.bigbullet.rawValue
 
         // Aがプレイヤーだった場合、Bを条件判定対象に
         if (contact.bodyA.categoryBitMask & nokmanMask) > 0 {
@@ -133,7 +133,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 var damegeAmount = 0
                 
                 if let bullet = one.node as? Shot{
-                    bullet.removeFromParent()
+                    //チャージ弾は敵を貫通する
+                    if (one.categoryBitMask & PhysicsCategory.bigbullet.rawValue) == 0{
+                        bullet.removeFromParent()
+                    }
+
                     damegeAmount = bullet.damage
                 }
                 
@@ -172,6 +176,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
                 one.node?.removeFromParent()
                 
+            case PhysicsCategory.ground.rawValue:
+                one.node?.removeFromParent()
+                
             default:
                 print("No game logic.")
             }
@@ -206,7 +213,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 self.onJumpButton = true
                 hud.onUpButton(on: true)
             } else if ( node.name == "Fire"){
-                touchStarted = touch.timestamp
+                if touchStarted == nil{
+                    touchStarted = touch.timestamp
+                }
                 hud.onAButton(on: true)
                 self.nokman.Charge(on: true)
             } else if ( node.name == "Restart"){

@@ -45,10 +45,16 @@ class Shot:SKSpriteNode{
             self.position = CGPoint(x:pos.x + shotspace, y:pos.y)
         }
         
-        self.physicsBody?.categoryBitMask = PhysicsCategory.bullet.rawValue
+        if charged {
+            self.physicsBody?.categoryBitMask = PhysicsCategory.bigbullet.rawValue
+            self.physicsBody?.collisionBitMask = 0
+        }else{
+            self.physicsBody?.categoryBitMask = PhysicsCategory.bullet.rawValue
+        }
         
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
-            PhysicsCategory.box.rawValue
+            PhysicsCategory.box.rawValue |
+            PhysicsCategory.ground.rawValue
         
         self.damage = Int.random(in: str-1...str)
     }

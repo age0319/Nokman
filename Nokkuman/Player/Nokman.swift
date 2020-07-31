@@ -34,7 +34,6 @@ class Nokman :SKSpriteNode{
     
     var rightMoving = false
     var leftMoving = false
-    var damaging = false
     var die = false
     
     var backward = false
@@ -160,12 +159,10 @@ class Nokman :SKSpriteNode{
         
         dieAnimation = SKAction.animate(with: dieFrames, timePerFrame: 0.05)
         
-        let fastFade = SKAction.sequence([
-            SKAction.fadeAlpha(to: 0.5, duration: 0.2),
-            SKAction.fadeAlpha(to: 1, duration: 0.2)
-            ])
+        let colorize = SKAction.colorize(with: .blue, colorBlendFactor: 0.5, duration: 0.2)
+        let back = SKAction.colorize(with: .blue, colorBlendFactor: 0.0, duration: 0.2)
         
-        chargeAnimation = SKAction.repeatForever(fastFade)
+        chargeAnimation = SKAction.repeatForever(SKAction.sequence([colorize,back]))
 
     }
     
@@ -191,9 +188,7 @@ class Nokman :SKSpriteNode{
     }
     
     func Hurt(damage:Int){
-        
-        self.removeAllActions()
-
+    
         life -= damage
         
         if let gameScene = self.parent as? GameScene{
@@ -217,7 +212,6 @@ class Nokman :SKSpriteNode{
                     PhysicsCategory.spike.rawValue
                 // 透明にする
                 self.alpha = 0.3
-                self.damaging = true
             }
             let wait = SKAction.wait(forDuration: 3)
             let damegeEnd = SKAction.run {
@@ -226,7 +220,6 @@ class Nokman :SKSpriteNode{
                 //すべてにぶつかるようにする。
                 self.physicsBody?.collisionBitMask = 0xFFFFFFFF
                 self.alpha = 1
-                self.damaging = false
             }
             
             self.run(SKAction.sequence([
@@ -283,7 +276,7 @@ class Nokman :SKSpriteNode{
     
     func Fire(charged:Bool){
         
-        if die || damaging { return }
+        if die { return }
                 
         self.run(fireAnimation)
         
@@ -294,17 +287,14 @@ class Nokman :SKSpriteNode{
     }
     
     func Charge(on:Bool){
-        
-        if damaging { return }
-        
         if on {
             self.run(chargeAnimation,withKey: "charge")
         }else{
-            self.removeAction(forKey: "charge")
-            self.alpha = 1
+             self.removeAction(forKey: "charge")
+            self.colorBlendFactor = 0.0
         }
     }
-        
+            
     func update(_ currentTime: TimeInterval){
         
         if self.rightMoving {
