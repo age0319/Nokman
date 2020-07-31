@@ -22,7 +22,8 @@ class Bee:Enemy {
         self.physicsBody?.mass = 20
         
         images = bee_images
-        createAnimations()
+        createMoveAnimation()
+        createDieAnimation()
         run(flappingAnimation)
     }
     

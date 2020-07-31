@@ -148,6 +148,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 }else if let bee = two.node as? Bee{
                     bee.takeDamage(damage: damegeAmount)
                     absolutePosition = self.convert(bee.position, from: bee.parent!)
+                }else if let alien = two.node as? AlienPink{
+                    alien.takeDamage(damage: damegeAmount)
+                    absolutePosition = self.convert(alien.position, from: alien.parent!)
                 }
                 
                 hud.showDamageLabel(position: absolutePosition, damage: damegeAmount)

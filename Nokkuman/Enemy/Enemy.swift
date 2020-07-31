@@ -41,7 +41,7 @@ class Enemy: SKSpriteNode {
         self.physicsBody?.collisionBitMask = ~PhysicsCategory.fireball.rawValue
     }
     
-    func createAnimations() {
+    func createMoveAnimation() {
         let Frames:[SKTexture] =
             [
                 textureAtlas.textureNamed(images[0]),
@@ -61,6 +61,9 @@ class Enemy: SKSpriteNode {
         
         animationAndMove = SKAction.group([flappingAnimation,movingAnimation])
         
+    }
+    
+    func createDieAnimation(){
         let startDie = SKAction.run {
             self.texture = self.textureAtlas.textureNamed(self.images[2])
             self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
@@ -78,8 +81,7 @@ class Enemy: SKSpriteNode {
         let endDie = SKAction.removeFromParent()
         
         dieAnimation = SKAction.sequence([startDie,fadeout,endDie])
-        
-        
+
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

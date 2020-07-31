@@ -19,7 +19,8 @@ class EncounterManager {
         if stage == "stage1"{
             fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD","EncounterE","EncounterF","EncounterG"]
         } else if stage == "stage2"{
-            fileNames = ["EncounterH","EncounterI","EncounterJ","EncounterK","EncounterL","EncounterM","EncounterN"]
+//            fileNames = ["EncounterH","EncounterI","EncounterJ","EncounterK","EncounterL","EncounterM","EncounterN"]
+            fileNames = ["AlienPink"]
         }
         
         for f in fileNames{

@@ -15,7 +15,7 @@ class Fireball: SKSpriteNode {
     let initialSize = CGSize(width: 40, height: 40)
     let physicalSize = CGSize(width: 20, height: 20)
     var damage = 1
-    let lifeTime = 1.5
+    let lifeTime = 1.8
     
     init(pos:CGPoint){
         super.init(texture: SKTexture(imageNamed: "fireball"), color:.clear,size: initialSize)

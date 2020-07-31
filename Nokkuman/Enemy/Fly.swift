@@ -17,7 +17,8 @@ class Fly:Enemy {
     init() {
         super.init(texture: nil, color: .clear, size: initialSize)
         images = fly_images
-        createAnimations()
+        createMoveAnimation()
+        createDieAnimation()
         self.run(animationAndMove)
     }
     
