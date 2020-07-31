@@ -75,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         var player:Bool = false
       
         let nokmanMask = PhysicsCategory.nokman.rawValue
-        let bulletMask = PhysicsCategory.bullet.rawValue | PhysicsCategory.bigbullet.rawValue
+        let bulletMask = PhysicsCategory.bullet.rawValue
 
         // Aがプレイヤーだった場合、Bを条件判定対象に
         if (contact.bodyA.categoryBitMask & nokmanMask) > 0 {
@@ -131,17 +131,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 print("bullet -> enemy")
                 
                 var damegeAmount = 0
+                var absolutePosition = CGPoint()
                 
                 if let bullet = one.node as? Shot{
-                    //チャージ弾は敵を貫通する
-                    if (one.categoryBitMask & PhysicsCategory.bigbullet.rawValue) == 0{
-                        bullet.removeFromParent()
-                    }
-
                     damegeAmount = bullet.damage
+                    bullet.removeFromParent()
                 }
-                
-                var absolutePosition = CGPoint()
                 
                 // カエルかハエである場合ダウンキャストする
                 if let frog = two.node as? Frog{

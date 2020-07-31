@@ -159,11 +159,17 @@ class Nokman :SKSpriteNode{
         
         dieAnimation = SKAction.animate(with: dieFrames, timePerFrame: 0.05)
         
-        let colorize = SKAction.colorize(with: .blue, colorBlendFactor: 0.5, duration: 0.2)
-        let back = SKAction.colorize(with: .blue, colorBlendFactor: 0.0, duration: 0.2)
+        // チャージが始まるまで少しバッファを持たせることで通常弾時に青くならない。
+        let wait = SKAction.wait(forDuration: 0.2)
         
-        chargeAnimation = SKAction.repeatForever(SKAction.sequence([colorize,back]))
-
+        let colarChange = SKAction.sequence([
+            SKAction.colorize(with: .blue, colorBlendFactor: 0.5, duration: 0.2),
+            SKAction.colorize(with: .blue, colorBlendFactor: 0.0, duration: 0.2)
+            ])
+        
+        let charge = SKAction.repeatForever(colarChange)
+        
+        chargeAnimation = SKAction.sequence([wait,charge])
     }
     
     func Die(){

@@ -26,5 +26,4 @@ enum PhysicsCategory: UInt32{
     case spike = 32
     case exit = 64
     case fireball = 128
-    case bigbullet = 256
 }

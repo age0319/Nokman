@@ -12,7 +12,7 @@ import SpriteKit
 class Shot:SKSpriteNode{
     
     var backword:Bool = false
-    var shotSpeed:CGFloat = 600
+    var shotSpeed:CGFloat = 500
     let shotspace:CGFloat = 5
     var initialSize = CGSize(width: 10, height: 10)
     var str = 2
@@ -23,7 +23,7 @@ class Shot:SKSpriteNode{
         
         if charged {
             initialSize = CGSize(width: 20, height: 20)
-            str = 5
+            str = 6
         }
         
         super.init(texture: SKTexture(imageNamed: "shot"), color:.clear,size: initialSize)
@@ -45,12 +45,8 @@ class Shot:SKSpriteNode{
             self.position = CGPoint(x:pos.x + shotspace, y:pos.y)
         }
         
-        if charged {
-            self.physicsBody?.categoryBitMask = PhysicsCategory.bigbullet.rawValue
-            self.physicsBody?.collisionBitMask = 0
-        }else{
-            self.physicsBody?.categoryBitMask = PhysicsCategory.bullet.rawValue
-        }
+      
+        self.physicsBody?.categoryBitMask = PhysicsCategory.bullet.rawValue
         
         self.physicsBody?.contactTestBitMask = PhysicsCategory.enemy.rawValue |
             PhysicsCategory.box.rawValue |

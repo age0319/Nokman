@@ -38,8 +38,7 @@ class Enemy: SKSpriteNode {
         
         self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
         
-        self.physicsBody?.collisionBitMask = ~(PhysicsCategory.fireball.rawValue |
-            PhysicsCategory.bigbullet.rawValue)
+        self.physicsBody?.collisionBitMask = ~PhysicsCategory.fireball.rawValue
     }
     
     func createAnimations() {

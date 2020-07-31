@@ -15,6 +15,7 @@ class Fireball: SKSpriteNode {
     let initialSize = CGSize(width: 40, height: 40)
     let physicalSize = CGSize(width: 20, height: 20)
     var damage = 1
+    let lifeTime = 1.5
     
     init(pos:CGPoint){
         super.init(texture: SKTexture(imageNamed: "fireball"), color:.clear,size: initialSize)
@@ -43,7 +44,7 @@ class Fireball: SKSpriteNode {
     
     func fire(){
         self.physicsBody?.applyImpulse(CGVector(dx: -shotSpeed, dy: 0))
-        let wait = SKAction.wait(forDuration: 1.5)
+        let wait = SKAction.wait(forDuration: lifeTime)
         let endShot = SKAction.run {
             self.removeFromParent()
         }
