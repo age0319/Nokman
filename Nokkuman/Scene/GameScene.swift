@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var finalWidth = CGFloat()
     var stage = String()
     var bees:[Bee] = []
+    var alien = AlienPink()
     
     override func didMove(to view: SKView) {
         // ノードをセット

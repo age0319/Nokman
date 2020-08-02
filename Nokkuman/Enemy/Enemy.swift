@@ -9,12 +9,15 @@
 import Foundation
 import SpriteKit
 
+
+// 基本的な敵の設定を作る。敵ごとの動きは継承先にて実装。
 class Enemy: SKSpriteNode {
+    
     var textureAtlas = SKTextureAtlas(named:"Enemies")
-    var flappingAnimation = SKAction()
+    var switchAnimation = SKAction()
     var movingAnimation = SKAction()
     var dieAnimation = SKAction()
-    var animationAndMove = SKAction()
+    var switchAndMove = SKAction()
     
     let runSpeed:CGFloat = 100
     
@@ -28,7 +31,7 @@ class Enemy: SKSpriteNode {
         
         self.physicsBody = SKPhysicsBody(rectangleOf: size)
         
-        self.physicsBody?.mass = 1
+        self.physicsBody?.mass = 20
         
         self.physicsBody?.allowsRotation = false
         
@@ -38,10 +41,11 @@ class Enemy: SKSpriteNode {
         
         self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
         
+        //火の玉は当たらないようにする
         self.physicsBody?.collisionBitMask = ~PhysicsCategory.fireball.rawValue
     }
     
-    func createMoveAnimation() {
+    func createSwitchAnimation() {
         let Frames:[SKTexture] =
             [
                 textureAtlas.textureNamed(images[0]),
@@ -50,17 +54,22 @@ class Enemy: SKSpriteNode {
         
         let Action = SKAction.animate(with: Frames, timePerFrame: 0.14)
         
-        flappingAnimation = SKAction.repeatForever(Action)
-        
+        //２枚のテキスチャを動かして動きをつける
+        switchAnimation = SKAction.repeatForever(Action)
+    }
+    
+    func createMoveAnimation(){
+        // Please implement
         let flipLeft = SKAction.scaleX(to: 1, duration: 0.05)
         let moveLeft = SKAction.move(by: CGVector(dx: -100, dy: 0), duration: 2)
         let flipRight = SKAction.scaleX(to: -1, duration: 0.05)
         let moveRight = SKAction.move(by: CGVector(dx: 100, dy: 0), duration: 2)
         
+        // 左、右、左と永遠に移動を繰り返す
         movingAnimation = SKAction.repeatForever(SKAction.sequence([flipLeft,moveLeft,flipRight,moveRight]))
         
-        animationAndMove = SKAction.group([flappingAnimation,movingAnimation])
-        
+        // 左右に行き来するアニメーション。カエルとフライで利用を想定。
+        switchAndMove = SKAction.group([switchAnimation,movingAnimation])
     }
     
     func createDieAnimation(){
@@ -83,6 +92,7 @@ class Enemy: SKSpriteNode {
         dieAnimation = SKAction.sequence([startDie,fadeout,endDie])
 
     }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -93,17 +103,11 @@ class Enemy: SKSpriteNode {
     }
     
     func takeDamage(damage:Int){
+        
         life -= damage
         
         if life <= 0{
             die()
-        }else{
-            self.removeAllActions()
-            self.texture = SKTexture(imageNamed: images[2])
-            self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))
-            let wait = SKAction.wait(forDuration: 1)
-            self.run(SKAction.sequence([wait,animationAndMove]))
         }
     }
 }

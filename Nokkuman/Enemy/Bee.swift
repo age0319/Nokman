@@ -18,32 +18,19 @@ class Bee:Enemy {
     
     init() {
         super.init(texture: nil, color: .clear, size: initialSize)
-        //重くしないと弾の反動をうける
-        self.physicsBody?.mass = 20
+        
+        self.physicsBody?.isDynamic = false
         
         images = bee_images
-        createMoveAnimation()
+              
+        createSwitchAnimation()
         createDieAnimation()
-        run(flappingAnimation)
+        
+        self.run(switchAnimation)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    override func takeDamage(damage: Int) {
-        life -= damage
-               
-        if life <= 0{
-            die()
-        }else{
-            self.removeAllActions()
-            self.texture = SKTexture(imageNamed: images[2])
-            self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: 0))
-            let wait = SKAction.wait(forDuration: 1)
-            self.run(SKAction.sequence([wait,flappingAnimation]))
-        }
     }
     
 }

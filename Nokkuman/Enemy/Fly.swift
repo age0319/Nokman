@@ -17,9 +17,10 @@ class Fly:Enemy {
     init() {
         super.init(texture: nil, color: .clear, size: initialSize)
         images = fly_images
+        createSwitchAnimation()
         createMoveAnimation()
         createDieAnimation()
-        self.run(animationAndMove)
+        self.run(switchAndMove)
     }
     
     required init?(coder aDecoder: NSCoder) {
