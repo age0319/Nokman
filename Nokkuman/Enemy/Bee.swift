@@ -33,4 +33,11 @@ class Bee:Enemy {
         super.init(coder: aDecoder)
     }
     
+    func shotFireball(){
+        let absolutePosition = self.parent!.convert(self.position, from: self.parent!)
+        let fireball = Fireball(pos: absolutePosition)
+        self.parent!.addChild(fireball)
+        fireball.fire()
+    }
+
 }

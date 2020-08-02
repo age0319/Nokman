@@ -20,26 +20,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var finalWidth = CGFloat()
     var stage = String()
     var bees:[Bee] = []
-    var alien = AlienPink()
+    var boss = AlienPink()
     
     override func didMove(to view: SKView) {
         // ノードをセット
         let encounterManager = EncounterManager(stage: stage)
-       
-        for i in 0..<encounterManager.encounters.count{
+        
+        // エンカウンターの数を計算
+        let stageNumber = encounterManager.encounters.count
+        
+        for i in 0 ..< stageNumber {
             let node:SKNode = encounterManager.encounters[i]
             node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
+
             self.addChild(node)
-            
+            //火の玉のために鉢のインスタンスは保存しておく。
             for child in node.children{
                 if let bee = child as? Bee{
                     bees.append(bee)
                 }
+                if let alien = child as? AlienPink{
+                    boss = alien
+                }
             }
         }
-        
-        // エンカウンターの数を計算
-        let stageNumber = encounterManager.encounters.count
         
         // 背景をセット
         background.craeteBackground(frameSize: self.size, number: stageNumber,stage: stage)
@@ -69,6 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         self.physicsWorld.contactDelegate = self
     }
+    
     
     func didBegin(_ contact: SKPhysicsContact) {
         var one:SKPhysicsBody = SKPhysicsBody()
@@ -190,6 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             self.camera?.position = CGPoint(x: posX, y:0)
         }else if(posX >= finalWidth){
             self.camera?.position = CGPoint(x: finalWidth, y: 0)
+            boss.startMove()
         }
     }
     
@@ -275,19 +281,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         hud.showRestartMenu()
     }
     
-    func shotSpawn(charged:Bool){
-        let shot = Shot(pos: self.nokman.position, bw:self.nokman.backward, charged: charged)
-        self.addChild(shot)
-        shot.fire()
-    }
-    
-    func fireballSpawn(bee:Bee){
-        let absolutePosition = self.convert(bee.position, from: bee.parent!)
-        let fireball = Fireball(pos: absolutePosition)
-        self.addChild(fireball)
-        fireball.fire()
-    }
-    
     var jumpTime:Double = 0
     var jumpInterval:Double = 0.8
     var fireballTime:Double = 0
@@ -318,7 +311,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         if fireballTime == 0 || currentTime - fireballTime > fireballInterval
         {
             for bee in bees{
-                fireballSpawn(bee: bee)
+                bee.shotFireball()
             }
             fireballTime = currentTime
         }

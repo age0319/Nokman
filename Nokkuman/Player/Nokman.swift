@@ -286,10 +286,9 @@ class Nokman :SKSpriteNode{
                 
         self.run(fireAnimation)
         
-        //親クラスの弾生成関数を呼び出す。
-        if let gameScene = self.parent as? GameScene{
-            gameScene.shotSpawn(charged:charged)
-        }
+        let shot = Shot(pos: self.position, bw:self.backward, charged: charged)
+        self.parent!.addChild(shot)
+        shot.fire()
     }
     
     func Charge(on:Bool){

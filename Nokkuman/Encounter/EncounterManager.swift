@@ -19,13 +19,14 @@ class EncounterManager {
         if stage == "stage1"{
             fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD","EncounterE","EncounterF","EncounterG"]
         } else if stage == "stage2"{
-//            fileNames = ["EncounterH","EncounterI","EncounterJ","EncounterK","EncounterL","EncounterM","EncounterN"]
-            fileNames = ["AlienPink"]
+            fileNames = ["EncounterH","EncounterI","EncounterJ","EncounterK","EncounterA","EncounterB","Alien"]
+//            fileNames = ["EncounterH"]
         }
         
         for f in fileNames{
             if let scene = SKScene(fileNamed: f){
                 let encounterNode = SKNode()
+                encounterNode.name = f
                 for child in scene.children{
                     let node = type(of: child).init()
                     node.position = child.position

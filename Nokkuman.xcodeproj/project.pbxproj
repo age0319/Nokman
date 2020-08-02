@@ -19,7 +19,7 @@
 		B17FB7A124D11BF2006BBBAD /* Fireball.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17FB7A024D11BF2006BBBAD /* Fireball.swift */; };
 		B17FB7A524D186EE006BBBAD /* EncounterI.sks in Resources */ = {isa = PBXBuildFile; fileRef = B17FB7A424D186EE006BBBAD /* EncounterI.sks */; };
 		B1829F1F24D4379E001DF2F3 /* AlienPink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1829F1E24D4379E001DF2F3 /* AlienPink.swift */; };
-		B1829F2124D4381E001DF2F3 /* AlienPink.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1829F2024D4381E001DF2F3 /* AlienPink.sks */; };
+		B1829F2124D4381E001DF2F3 /* Alien.sks in Resources */ = {isa = PBXBuildFile; fileRef = B1829F2024D4381E001DF2F3 /* Alien.sks */; };
 		B194C98624CF92160080C120 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98524CF92160080C120 /* Flag.swift */; };
 		B194C98824CFA02D0080C120 /* StageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B194C98724CFA02D0080C120 /* StageSelect.swift */; };
 		B194C99024D0341F0080C120 /* EncounterH.sks in Resources */ = {isa = PBXBuildFile; fileRef = B194C98F24D0341F0080C120 /* EncounterH.sks */; };
@@ -72,7 +72,7 @@
 		B17FB7A024D11BF2006BBBAD /* Fireball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fireball.swift; sourceTree = "<group>"; };
 		B17FB7A424D186EE006BBBAD /* EncounterI.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterI.sks; sourceTree = "<group>"; };
 		B1829F1E24D4379E001DF2F3 /* AlienPink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienPink.swift; sourceTree = "<group>"; };
-		B1829F2024D4381E001DF2F3 /* AlienPink.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AlienPink.sks; sourceTree = "<group>"; };
+		B1829F2024D4381E001DF2F3 /* Alien.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Alien.sks; sourceTree = "<group>"; };
 		B194C98524CF92160080C120 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		B194C98724CFA02D0080C120 /* StageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSelect.swift; sourceTree = "<group>"; };
 		B194C98F24D0341F0080C120 /* EncounterH.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EncounterH.sks; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				B17FB7A424D186EE006BBBAD /* EncounterI.sks */,
 				B1E948A824D29A1400C2BE66 /* EncounterJ.sks */,
 				B1E948AA24D29AF800C2BE66 /* EncounterK.sks */,
-				B1829F2024D4381E001DF2F3 /* AlienPink.sks */,
+				B1829F2024D4381E001DF2F3 /* Alien.sks */,
 			);
 			path = Stage2;
 			sourceTree = "<group>";
@@ -330,7 +330,7 @@
 				B1AA704124C1154E00272ECA /* EncounterA.sks in Resources */,
 				B1E948AB24D29AF800C2BE66 /* EncounterK.sks in Resources */,
 				49228BF724B542BB00CBB1C5 /* LaunchScreen.storyboard in Resources */,
-				B1829F2124D4381E001DF2F3 /* AlienPink.sks in Resources */,
+				B1829F2124D4381E001DF2F3 /* Alien.sks in Resources */,
 				B1ED3EAF24C838A500F718F7 /* CrateExplosion.sks in Resources */,
 				B1A15A4524CD6388000DBF9F /* EncounterF.sks in Resources */,
 				49228BEB24B542B900CBB1C5 /* Actions.sks in Resources */,
