@@ -9,10 +9,8 @@
 import Foundation
 import SpriteKit
 
-class HUD {
+class HUD:SKSpriteNode {
 
-    var cam = SKCameraNode()
-    var scene  = SKScene()
     var cameraOrigin = CGPoint()
     var heartNodes = [Heart]()
     var leftMoveButton = SKSpriteNode()
@@ -22,16 +20,12 @@ class HUD {
     var restartButton = SKSpriteNode()
     var backButton = SKSpriteNode()
     
-    func setup(cam:SKCameraNode,scene:SKScene) {
-        self.cam = cam
-        self.scene = scene
-        self.cameraOrigin = CGPoint(x: self.scene.size.width/2, y: self.scene.size.height/2)
-    }
-    
     func setupButton(){
         // カメラに追随して動くようにボタンはカメラの子として設置する。
         // カメラ(SKCameraNode)の開始座標はフレームの中心。
         // 開始座標を左下にするためにフレームの中心座標を引く。
+        
+        cameraOrigin = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
         
         let buttonSize = CGSize(width: 60, height: 60)
                 
@@ -41,7 +35,7 @@ class HUD {
         leftMoveButton.position = CGPoint(x: -cameraOrigin.x + 60, y: -cameraOrigin.y + 30)
         leftMoveButton.name = "Left"
         leftMoveButton.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(leftMoveButton)
+        self.parent!.addChild(leftMoveButton)
         
         //　右ボタンをセット
         rightMoveButton = SKSpriteNode(imageNamed: "flatDark24")
@@ -49,7 +43,7 @@ class HUD {
         rightMoveButton.position = CGPoint(x: -cameraOrigin.x + 150, y: -cameraOrigin.y + 30)
         rightMoveButton.name = "Right"
         rightMoveButton.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(rightMoveButton)
+        self.parent!.addChild(rightMoveButton)
         
         // ジャンプボタンをセット
         upButton = SKSpriteNode(imageNamed: "flatDark25")
@@ -57,7 +51,7 @@ class HUD {
         upButton.position = CGPoint(x: cameraOrigin.x - 150, y: -cameraOrigin.y + 30)
         upButton.zPosition = CGFloat(ZPositions.button.rawValue)
         upButton.name = "Jump"
-        cam.addChild(upButton)
+        self.parent!.addChild(upButton)
         
         // 発射ボタンをセット
         AButton = SKSpriteNode(imageNamed: "flatDark35")
@@ -65,7 +59,7 @@ class HUD {
         AButton.position = CGPoint(x: cameraOrigin.x - 60, y: -cameraOrigin.y + 30)
         AButton.zPosition = CGFloat(ZPositions.button.rawValue)
         AButton.name = "Fire"
-        cam.addChild(AButton)
+        self.parent!.addChild(AButton)
         
         restartButton = SKSpriteNode(imageNamed: "flatDark15")
         restartButton.size = CGSize(width: 50, height: 50)
@@ -114,14 +108,18 @@ class HUD {
     }
     
     func showRestartMenu(){
-        let gameoverText = SKLabelNode(fontNamed: "AvenirNext-Heavy")
-        gameoverText.text = "GameOver"
-        gameoverText.position = CGPoint(x: 0, y: 80)
-        gameoverText.fontSize = 60
-        gameoverText.zPosition = CGFloat(ZPositions.button.rawValue)
-        cam.addChild(gameoverText)
-        cam.addChild(restartButton)
-        cam.addChild(backButton)
+        let node = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+        node.text = "GameOver"
+        node.position = CGPoint(x: 0, y: 80)
+        node.fontSize = 60
+        node.zPosition = CGFloat(ZPositions.button.rawValue)
+        self.parent!.addChild(node)
+        self.parent!.addChild(restartButton)
+        self.parent!.addChild(backButton)
+    }
+    
+    func showClearMenu(){
+        
     }
     
     func setupHeartDisplay(maxLife:Int){
@@ -129,7 +127,7 @@ class HUD {
             let heart = Heart(imageNamed:"hudHeart_full")
             heart.position = CGPoint(x: -cameraOrigin.x + CGFloat(30*(i+1)), y: cameraOrigin.y - 30)
             heart.id = i
-            cam.addChild(heart)
+            self.parent!.addChild(heart)
             heartNodes.append(heart)
         }
     }
@@ -152,7 +150,7 @@ class HUD {
         text.fontSize = 60
         text.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
         
-        self.scene.addChild(text)
+        self.scene!.addChild(text)
         
         let fadeout = SKAction.fadeOut(withDuration: 1)
         

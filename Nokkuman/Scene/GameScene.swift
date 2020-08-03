@@ -57,12 +57,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         // プレイヤーをセット
         self.addChild(nokman)
         
-        // カメラをセット
+        // GameSceneにカメラノードをセット
         self.camera = cam
         self.addChild(cam)
         
-        // ボタンをセット
-        hud.setup(cam: cam, scene: self)
+        // カメラノードにHUDをセット
+        cam.addChild(hud)
         hud.setupButton()
         hud.setupHeartDisplay(maxLife: nokman.maxLife)
         hud.updateHeartDisplay(life: nokman.life)

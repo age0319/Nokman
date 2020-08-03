@@ -87,8 +87,16 @@ class AlienPink:Enemy {
         // 中央上に移動して落ちる
         let fallingFromCenter = SKAction.group([moveCenterTop,wait])
         
+        let shot = SKAction.run {
+            self.shotFireball()
+        }
+        
+        let shotWait = SKAction.wait(forDuration: 0.5)
+        
+        let shotFireball = SKAction.sequence([shotWait,shot,shotWait,shot,shotWait])
+        
         movingAnimation = SKAction.repeatForever(SKAction.sequence([
-            moveLeftGround,fallingFromRight,fallingFromleft,moveRightGround,fallingFromCenter
+            moveLeftGround,fallingFromRight,shotFireball,fallingFromleft,moveRightGround,fallingFromCenter
         ]))
         
         switchAndMove = SKAction.group([switchAnimation,movingAnimation])
@@ -99,7 +107,7 @@ class AlienPink:Enemy {
         self.run(dieAnimation)
         
         if let gameScene = self.scene as? GameScene{
-//            gameScene.gameOver()
+            gameScene.gameOver()
         }
     }
     

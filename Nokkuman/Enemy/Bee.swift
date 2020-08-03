@@ -46,11 +46,5 @@ class Bee:Enemy {
         flappingAndFire = SKAction.group([switchAnimation,fireballAnimation])
     }
     
-    func shotFireball(){
-        let absolutePosition = self.parent!.convert(self.position, from: self.parent!)
-        let fireball = Fireball(pos: absolutePosition)
-        self.parent!.addChild(fireball)
-        fireball.fire()
-    }
 
 }
