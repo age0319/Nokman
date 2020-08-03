@@ -27,7 +27,8 @@ class Enemy: SKSpriteNode {
     
     // SKSpriteNodeを継承して敵としての初期設定をする
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: nil, color: .clear, size: size)
+      
+        super.init(texture: texture, color: .clear, size: size)
         
         self.physicsBody = SKPhysicsBody(rectangleOf: size)
         

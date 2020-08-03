@@ -300,7 +300,7 @@ class Nokman :SKSpriteNode{
         }
     }
             
-    func update(_ currentTime: TimeInterval){
+    func update(){
         
         if self.rightMoving {
             self.physicsBody?.velocity.dx = runSpeed

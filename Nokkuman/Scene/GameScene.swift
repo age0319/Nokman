@@ -19,7 +19,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var hud = HUD()
     var finalWidth = CGFloat()
     var stage = String()
-    var bees:[Bee] = []
     var boss = AlienPink()
     
     override func didMove(to view: SKView) {
@@ -34,11 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
 
             self.addChild(node)
-            //火の玉のために鉢のインスタンスは保存しておく。
+            //ボスのインスタンスは保存しておく。
             for child in node.children{
-                if let bee = child as? Bee{
-                    bees.append(bee)
-                }
                 if let alien = child as? AlienPink{
                     boss = alien
                 }
@@ -195,7 +191,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             self.camera?.position = CGPoint(x: posX, y:0)
         }else if(posX >= finalWidth){
             self.camera?.position = CGPoint(x: finalWidth, y: 0)
-            boss.startMove()
+            boss.start()
         }
     }
     
@@ -290,9 +286,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         if nokman.die { return }
         
-        nokman.update(currentTime)
+        // 横ボタンが押されていたら速度を設定する
+        nokman.update()
         
-        //　ジャンプボタンが押されているか
+        //　ジャンプボタンが押されていたらジャンプする
         if self.onJumpButton {
             if jumpTime == 0 || currentTime - jumpTime > jumpInterval {
                 self.nokman.Jump()
@@ -300,22 +297,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         
-        
+        // 地面以下になったら死亡
         if nokman.position.y < -self.size.height/2{
             nokman.Die()
         }
-        
-        //死んだハチを配列から消す。
-        bees = bees.filter{$0.parent != nil}
-        
-        if fireballTime == 0 || currentTime - fireballTime > fireballInterval
-        {
-            for bee in bees{
-                bee.shotFireball()
-            }
-            fireballTime = currentTime
-        }
-        
+                
     }
    
 }

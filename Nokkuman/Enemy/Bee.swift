@@ -25,12 +25,25 @@ class Bee:Enemy {
               
         createSwitchAnimation()
         createDieAnimation()
+        createShotAnimation()
         
-        self.run(switchAnimation)
+        self.run(flappingAndFire)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func createShotAnimation(){
+        
+        let shot = SKAction.run {
+            self.shotFireball()
+        }
+        let wait = SKAction.wait(forDuration: 2.5)
+        
+        fireballAnimation = SKAction.repeatForever(SKAction.sequence([shot,wait]))
+        
+        flappingAndFire = SKAction.group([switchAnimation,fireballAnimation])
     }
     
     func shotFireball(){

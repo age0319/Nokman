@@ -15,10 +15,10 @@ class AlienPink:Enemy {
     let sceneSize = CGSize(width: 812, height: 375)
     let groundHeight:CGFloat = 43
     let alien_images = ["alienPink_walk1","alienPink_walk2","alienPink_hit"]
-    var isMoving = false
     
     init() {
-        super.init(texture: nil, color: .clear, size: initialSize)
+        super.init(texture: SKTexture(imageNamed: alien_images[0]), color: .clear, size: initialSize)
+        
         self.life = 30
         self.physicsBody?.affectedByGravity = true
         
@@ -30,18 +30,23 @@ class AlienPink:Enemy {
         createMoveAnimation()
         createDieAnimation()
         
-        self.run(switchAnimation)
-
+        run(switchAndMove)
+        
+        self.isPaused = true
+        self.physicsBody?.categoryBitMask = 0
+        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+         
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func startMove(){
-        if isMoving == false{
-            isMoving = true
-            self.run(switchAndMove)
+    func start(){
+        if isPaused{
+            isPaused = false
+            self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
+            self.physicsBody?.collisionBitMask = 0xFFFFFFFF
         }
     }
     
@@ -87,6 +92,15 @@ class AlienPink:Enemy {
         ]))
         
         switchAndMove = SKAction.group([switchAnimation,movingAnimation])
+    }
+    
+    override func die() {
+        self.removeAllActions()
+        self.run(dieAnimation)
+        
+        if let gameScene = self.scene as? GameScene{
+//            gameScene.gameOver()
+        }
     }
     
 }
