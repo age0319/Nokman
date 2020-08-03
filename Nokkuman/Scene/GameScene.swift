@@ -19,27 +19,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var hud = HUD()
     var finalWidth = CGFloat()
     var stage = String()
-    var boss = AlienPink()
     
     override func didMove(to view: SKView) {
-        // ノードをセット
-        let encounterManager = EncounterManager(stage: stage)
-        
-        // エンカウンターの数を計算
-        let stageNumber = encounterManager.encounters.count
-        
-        for i in 0 ..< stageNumber {
-            let node:SKNode = encounterManager.encounters[i]
-            node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
+        self.anchorPoint = .zero
+        self.physicsWorld.contactDelegate = self
 
-            self.addChild(node)
-            //ボスのインスタンスは保存しておく。
-            for child in node.children{
-                if let alien = child as? AlienPink{
-                    boss = alien
-                }
-            }
-        }
+        // 敵キャラをセット
+        let stageNumber = setupSprite(stage: stage)
+        
+        // カメラの停止位置を計算
+        finalWidth = self.size.width*CGFloat(stageNumber - 1)
         
         // 背景をセット
         background.craeteBackground(frameSize: self.size, number: stageNumber,stage: stage)
@@ -48,16 +37,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         //　地面をセット
         ground.createGround(frameSize: self.size, number: stageNumber)
         self.addChild(ground)
-        
-        // カメラの停止位置を計算
-        finalWidth = self.size.width*CGFloat(stageNumber - 1)
-        
-        self.anchorPoint = .zero
                         
         // プレイヤーをセット
         self.addChild(nokman)
         
-        // GameSceneにカメラノードをセット
+        // カメラノードをセット
         self.camera = cam
         self.addChild(cam)
         
@@ -67,9 +51,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         hud.setupHeartDisplay(maxLife: nokman.maxLife)
         hud.updateHeartDisplay(life: nokman.life)
         
-        self.physicsWorld.contactDelegate = self
     }
     
+    func setupSprite(stage:String) -> Int {
+        var fileNames:[String] = []
+        
+        if stage == "stage1"{
+            fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD","EncounterE","EncounterF","EncounterG"]
+        } else if stage == "stage2"{
+//            fileNames = ["EncounterH","EncounterI","EncounterJ","EncounterK","EncounterA","EncounterB","Alien"]
+            fileNames = ["Alien"]
+        }
+        
+        for i in 0 ..< fileNames.count{
+            if let scene = SKScene(fileNamed: fileNames[i]){
+                let node = SKNode()
+                for child in scene.children{
+                    let sprite = type(of: child).init()
+                    sprite.position = child.position
+                    sprite.name = child.name
+                    node.addChild(sprite)
+                }
+                node.position = CGPoint(x: Int(self.size.width)*i,y: 0)
+                self.addChild(node)
+            }
+        }
+        
+        return fileNames.count
+    }
     
     func didBegin(_ contact: SKPhysicsContact) {
         var one:SKPhysicsBody = SKPhysicsBody()
@@ -191,7 +200,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             self.camera?.position = CGPoint(x: posX, y:0)
         }else if(posX >= finalWidth){
             self.camera?.position = CGPoint(x: finalWidth, y: 0)
-            boss.start()
         }
     }
     
@@ -270,7 +278,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     func restartGame(){
         let scene = GameScene(size: self.size)
         scene.stage = stage
-        self.view?.presentScene(scene, transition: .crossFade(withDuration: 0.6))
+        self.view?.presentScene(scene)
     }
     
     func gameOver(){

@@ -12,8 +12,9 @@ import SpriteKit
 class AlienPink:Enemy {
     
     let initialSize = CGSize(width: 44, height: 63)
-    let sceneSize = CGSize(width: 812, height: 375)
+    var sceneSize = CGSize(width: 812, height: 375)
     let groundHeight:CGFloat = 43
+    
     let alien_images = ["alienPink_walk1","alienPink_walk2","alienPink_hit"]
     
     init() {
@@ -29,25 +30,15 @@ class AlienPink:Enemy {
         createSwitchAnimation()
         createMoveAnimation()
         createDieAnimation()
-        
+    
         run(switchAndMove)
         
-        self.isPaused = true
-        self.physicsBody?.categoryBitMask = 0
-        self.physicsBody?.collisionBitMask = PhysicsCategory.ground.rawValue
+        isPaused = true
          
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    func start(){
-        if isPaused{
-            isPaused = false
-            self.physicsBody?.categoryBitMask = PhysicsCategory.enemy.rawValue
-            self.physicsBody?.collisionBitMask = 0xFFFFFFFF
-        }
     }
     
     override func createMoveAnimation(){
@@ -108,6 +99,17 @@ class AlienPink:Enemy {
         
         if let gameScene = self.scene as? GameScene{
             gameScene.gameOver()
+        }
+    }
+    
+    override func takeDamage(damage: Int) {
+        
+        if isPaused { isPaused = false }
+        
+        life -= damage
+         
+        if life <= 0{
+            die()
         }
     }
     

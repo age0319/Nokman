@@ -119,7 +119,14 @@ class HUD:SKSpriteNode {
     }
     
     func showClearMenu(){
-        
+        let node = SKLabelNode(fontNamed: "AvenirNext-Heavy")
+        node.text = "Game Clear!!!"
+        node.position = CGPoint(x: 0, y: 80)
+        node.fontSize = 60
+        node.zPosition = CGFloat(ZPositions.button.rawValue)
+        self.parent!.addChild(node)
+        self.parent!.addChild(restartButton)
+        self.parent!.addChild(backButton)
     }
     
     func setupHeartDisplay(maxLife:Int){
