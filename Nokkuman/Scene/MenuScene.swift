@@ -10,9 +10,6 @@ import SpriteKit
 
 class MenuScene: SKScene {
     
-    override func didMove(to view: SKView) {
-      
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // タッチしたボタンによって処理を分ける
@@ -21,10 +18,9 @@ class MenuScene: SKScene {
             let node = self.atPoint(location)
           
             if ( node.name == "start"){
-                if let scene = SKScene(fileNamed: "StageSelect"){
-                    scene.scaleMode = .aspectFill
-                    self.view?.presentScene(scene)
-                }
+                let scene = SKScene(fileNamed: "StageSelect")
+                scene!.scaleMode = .aspectFill
+                self.view?.presentScene(scene)
             }
         }
     }

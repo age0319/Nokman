@@ -18,7 +18,7 @@ class AlienPink:Enemy {
     let alien_images = ["alienPink_walk1","alienPink_walk2","alienPink_hit"]
     
     init() {
-        super.init(texture: SKTexture(imageNamed: alien_images[0]), color: .clear, size: initialSize)
+        super.init(texture: nil, color: .clear, size: initialSize)
         
         self.life = 30
         self.physicsBody?.affectedByGravity = true
@@ -32,8 +32,6 @@ class AlienPink:Enemy {
         createDieAnimation()
     
         run(switchAndMove)
-        
-        isPaused = true
          
     }
     
@@ -43,7 +41,7 @@ class AlienPink:Enemy {
     
     override func createMoveAnimation(){
         
-        let rightTop = CGPoint(x: sceneSize.width/2 - 30, y: sceneSize.height/2 - 30)
+        let rightTop = CGPoint(x: sceneSize.width/2 - 50, y: sceneSize.height/2 - 30)
         let leftTop = CGPoint(x: -sceneSize.width/2 + 30, y: sceneSize.height/2 - 30)
         let centerTop = CGPoint(x: 0, y: sceneSize.height/2 - 30)
         let rightGround = CGPoint(x: sceneSize.width/2 - 30, y: -sceneSize.height/2 + groundHeight)
@@ -60,7 +58,7 @@ class AlienPink:Enemy {
             SKAction.scaleX(to: 1, duration: 0.05),
             SKAction.move(to: rightGround, duration: 2)
         ])
-                
+        
         let moveRightTop = SKAction.move(to: rightTop, duration: 0)
         
         let moveCenterTop = SKAction.move(to: centerTop, duration: 0)
@@ -74,7 +72,7 @@ class AlienPink:Enemy {
         
         //左上に移動して落ちる
         let fallingFromleft = SKAction.group([moveLeftTop,wait])
-        
+     
         // 中央上に移動して落ちる
         let fallingFromCenter = SKAction.group([moveCenterTop,wait])
         
@@ -85,7 +83,7 @@ class AlienPink:Enemy {
         let shotWait = SKAction.wait(forDuration: 0.5)
         
         let shotFireball = SKAction.sequence([shotWait,shot,shotWait,shot,shotWait])
-        
+ 
         movingAnimation = SKAction.repeatForever(SKAction.sequence([
             moveLeftGround,fallingFromRight,shotFireball,fallingFromleft,moveRightGround,fallingFromCenter
         ]))
@@ -98,13 +96,12 @@ class AlienPink:Enemy {
         self.run(dieAnimation)
         
         if let gameScene = self.scene as? GameScene{
-            gameScene.gameOver()
+            gameScene.gameClear()
+            SaveData().save(key: "stage2", value: true)
         }
     }
     
     override func takeDamage(damage: Int) {
-        
-        if isPaused { isPaused = false }
         
         life -= damage
          

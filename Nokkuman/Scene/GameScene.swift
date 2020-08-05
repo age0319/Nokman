@@ -18,24 +18,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var onJumpButton = false
     var hud = HUD()
     var finalWidth = CGFloat()
-    var stage = String()
+    var stage = Int()
     
     override func didMove(to view: SKView) {
         self.anchorPoint = .zero
         self.physicsWorld.contactDelegate = self
 
+        // ステージを設定
+        let st = Settings(stage: stage)
+        
         // 敵キャラをセット
-        let stageNumber = setupSprite(stage: stage)
+        setupSprite(fileNames: st.fileNames)
         
         // カメラの停止位置を計算
-        finalWidth = self.size.width*CGFloat(stageNumber - 1)
+        finalWidth = self.size.width*CGFloat(st.stageNumber - 1)
         
         // 背景をセット
-        background.craeteBackground(frameSize: self.size, number: stageNumber,stage: stage)
+        background.craeteBackground(frameSize: self.size, number: st.stageNumber,stage: stage)
         self.addChild(background)
 
         //　地面をセット
-        ground.createGround(frameSize: self.size, number: stageNumber)
+        ground.createGround(frameSize: self.size, number: st.stageNumber)
         self.addChild(ground)
                         
         // プレイヤーをセット
@@ -53,16 +56,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
     }
     
-    func setupSprite(stage:String) -> Int {
-        var fileNames:[String] = []
-        
-        if stage == "stage1"{
-            fileNames = ["EncounterA","EncounterB","EncounterC","EncounterD","EncounterE","EncounterF","EncounterG"]
-        } else if stage == "stage2"{
-//            fileNames = ["EncounterH","EncounterI","EncounterJ","EncounterK","EncounterA","EncounterB","Alien"]
-            fileNames = ["Alien"]
-        }
-        
+    func setupSprite(fileNames:[String]) {
+                
         for i in 0 ..< fileNames.count{
             if let scene = SKScene(fileNamed: fileNames[i]){
                 let node = SKNode()
@@ -77,7 +72,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             }
         }
         
-        return fileNames.count
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -149,19 +143,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     bullet.removeFromParent()
                 }
                 
-                // カエルかハエである場合ダウンキャストする
-                if let frog = two.node as? Frog{
-                    frog.takeDamage(damage: damegeAmount)
-                    absolutePosition = self.convert(frog.position, from: frog.parent!)
-                }else if let fly = two.node as? Fly{
-                    fly.takeDamage(damage: damegeAmount)
-                    absolutePosition = self.convert(fly.position, from: fly.parent!)
-                }else if let bee = two.node as? Bee{
-                    bee.takeDamage(damage: damegeAmount)
-                    absolutePosition = self.convert(bee.position, from: bee.parent!)
-                }else if let alien = two.node as? AlienPink{
-                    alien.takeDamage(damage: damegeAmount)
-                    absolutePosition = self.convert(alien.position, from: alien.parent!)
+                if let enemy = two.node as? Enemy{
+                    enemy.takeDamage(damage: damegeAmount)
+                    absolutePosition = self.convert(enemy.position, to: enemy.parent!)
                 }
                 
                 hud.showDamageLabel(position: absolutePosition, damage: damegeAmount)
@@ -269,10 +253,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
 
     func stageSelect(){
-        if let scene = SKScene(fileNamed: "StageSelect"){
-            scene.scaleMode = .aspectFill
-            self.view?.presentScene(scene)
-        }
+        let scene = SKScene(fileNamed: "StageSelect")
+        scene!.scaleMode = .aspectFill
+        self.view?.presentScene(scene)
     }
     
     func restartGame(){
@@ -283,6 +266,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     func gameOver(){
         hud.showRestartMenu()
+    }
+    
+    func gameClear(){
+        hud.showClearMenu()
     }
     
     var jumpTime:Double = 0

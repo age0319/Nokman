@@ -120,7 +120,7 @@ class HUD:SKSpriteNode {
     
     func showClearMenu(){
         let node = SKLabelNode(fontNamed: "AvenirNext-Heavy")
-        node.text = "Game Clear!!!"
+        node.text = "Stage Clear!!!"
         node.position = CGPoint(x: 0, y: 80)
         node.fontSize = 60
         node.zPosition = CGFloat(ZPositions.button.rawValue)

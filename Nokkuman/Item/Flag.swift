@@ -16,8 +16,6 @@ class Flag: SKSpriteNode {
     init() {
         super.init(texture: SKTexture(imageNamed: "flagRed1"), color: .clear, size: initialSize)
                 
-        self.physicsBody = SKPhysicsBody(rectangleOf: initialSize)
-                
         self.zPosition = CGFloat(ZPositions.otherNodes.rawValue)
                 
         self.physicsBody?.isDynamic = false
@@ -25,5 +23,13 @@ class Flag: SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func changeFlagColor(){
+        if SaveData().get(key: self.name!){
+            self.texture = SKTexture(imageNamed: "flagGreen1")
+        }else{
+            self.texture = SKTexture(imageNamed: "flagRed1")
+        }
     }
 }

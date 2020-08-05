@@ -11,16 +11,16 @@ import SpriteKit
 
 class Background:  SKSpriteNode{
         
-    func craeteBackground(frameSize:CGSize, number:Int,stage:String){
+    func craeteBackground(frameSize:CGSize, number:Int,stage:Int){
     
         let initialSize = frameSize
         var filename = ""
         
-        if stage == "stage1"{
+        if stage == 1{
             filename = "Cartoon_Forest_BG_01"
-        }else if stage == "stage2"{
+        }else if stage == 2{
             filename = "Cartoon_Forest_BG_02"
-        }else if stage == "stage3"{
+        }else if stage == 3{
             filename = "Cartoon_Forest_BG_03"
         }
         
