@@ -125,7 +125,6 @@ class HUD:SKSpriteNode {
         node.fontSize = 60
         node.zPosition = CGFloat(ZPositions.button.rawValue)
         self.parent!.addChild(node)
-        self.parent!.addChild(restartButton)
         self.parent!.addChild(backButton)
     }
     

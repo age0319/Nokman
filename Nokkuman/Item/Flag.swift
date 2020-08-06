@@ -12,7 +12,7 @@ import SpriteKit
 class Flag: SKSpriteNode {
     
     let initialSize = CGSize(width: 42, height: 42)
-        
+ 
     init() {
         super.init(texture: SKTexture(imageNamed: "flagRed1"), color: .clear, size: initialSize)
                 

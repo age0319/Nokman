@@ -20,8 +20,8 @@ class Nokman :SKSpriteNode{
     let runSpeed:CGFloat = 150
     let damageImpulse = CGVector(dx: -5000, dy: 5000)
     
-    var maxLife = 4
-    var life = 4
+    var maxLife = 5
+    var life = 5
     
     // アニメーションを指定する
     var runAnimation = SKAction()
@@ -210,7 +210,7 @@ class Nokman :SKSpriteNode{
             
             self.physicsBody?.applyImpulse(damageImpulse)
             
-            let damegeStart = SKAction.run{
+            let damageStart = SKAction.run{
                 //接触判定を無効にする。
                 self.physicsBody?.categoryBitMask = 0
                 // グラウンドのみぶつかるようにする。敵や火の粉は貫通する。
@@ -220,7 +220,7 @@ class Nokman :SKSpriteNode{
                 self.alpha = 0.3
             }
             let wait = SKAction.wait(forDuration: 3)
-            let damegeEnd = SKAction.run {
+            let damageEnd = SKAction.run {
                 //接触判定を元に戻す
                 self.physicsBody?.categoryBitMask = PhysicsCategory.nokman.rawValue
                 //すべてにぶつかるようにする。
@@ -229,9 +229,9 @@ class Nokman :SKSpriteNode{
             }
             
             self.run(SKAction.sequence([
-                damegeStart,
+                damageStart,
                 wait,
-                damegeEnd]))
+                damageEnd]))
         }
             
     }

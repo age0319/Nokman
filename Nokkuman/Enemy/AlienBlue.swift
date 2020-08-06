@@ -14,13 +14,14 @@ class AlienBlue:Enemy {
     let initialSize = CGSize(width: 44, height: 63)
     var sceneSize = CGSize(width: 812, height: 375)
     let groundHeight:CGFloat = 43
+    let stage = "stage3"
     
     let alien_images = ["alienBlue_walk1","alienBlue_walk2","alienBlue_hit"]
     
     init() {
         super.init(texture: nil, color: .clear, size: initialSize)
         
-        self.life = 3
+        self.life = 30
         
         images = alien_images
         
@@ -40,12 +41,14 @@ class AlienBlue:Enemy {
     
     override func createMoveAnimation(){
         
-        var actions = [SKAction]()
+        
         
         let rightTop = CGPoint(x: sceneSize.width/2 - 50, y: sceneSize.height/2 - 30)
         let rightMiddle = CGPoint(x: sceneSize.width/2 - 50, y: 0)
         let rightGround = CGPoint(x: sceneSize.width/2 - 50, y: -sceneSize.height/2 + groundHeight)
-                
+        
+        var actions = [SKAction]()
+        
         let moveRightTop = SKAction.move(to: rightTop, duration: 0.5)
         actions.append(moveRightTop)
         
@@ -81,16 +84,7 @@ class AlienBlue:Enemy {
         
         if let gameScene = self.scene as? GameScene{
             gameScene.gameClear()
-            SaveData().save(key: "stage3", value: true)
-        }
-    }
-    
-    override func takeDamage(damage: Int) {
-        
-        life -= damage
-         
-        if life <= 0{
-            die()
+            SaveData().save(key: stage, value: true)
         }
     }
     

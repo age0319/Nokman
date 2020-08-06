@@ -21,16 +21,17 @@ class StageSelect: SKScene {
                 sprite.position = child.position
                 sprite.name = child.name
                 if let flag = sprite as? Flag{
+                    
                     self.addChild(flag)
+                    flag.changeFlagColor()
                     flags.append(flag)
                 }
             }
         }
         
-        for flag in flags{
-            flag.changeFlagColor()
+        if SaveData().isAllClear(){
+            print("congrats!!!!")
         }
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -43,20 +44,12 @@ class StageSelect: SKScene {
             
             if node.name == "stage1"{
                 scene.stage = 1
-                self.view?.presentScene(scene)
             }else if node.name == "stage2"{
                 scene.stage = 2
-                self.view?.presentScene(scene)
             }else if node.name == "stage3"{
                 scene.stage = 3
-                self.view?.presentScene(scene)
-            }else if node.name == "exit"{
-                for flag in flags{
-                    SaveData().save(key: flag.name!, value: false)
-                    flag.changeFlagColor()
-                }
             }
-            
+            self.view?.presentScene(scene)
         }
     }
 }
