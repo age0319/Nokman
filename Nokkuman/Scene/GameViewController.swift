@@ -20,10 +20,10 @@ class GameViewController: UIViewController {
 //        menuScene.stage = 3
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = true
-        menuScene!.scaleMode = .aspectFill
-        skView.showsPhysics = true
-        skView.showsNodeCount = true
-        skView.showsFPS = true
+        menuScene!.scaleMode = .aspectFit
+//        skView.showsPhysics = true
+//        skView.showsNodeCount = true
+//        skView.showsFPS = true
         skView.presentScene(menuScene)
     }
     

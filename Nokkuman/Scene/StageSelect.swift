@@ -42,6 +42,8 @@ class StageSelect: SKScene {
             
             let scene = GameScene(size: self.size)
             
+            scene.scaleMode = .aspectFit
+            
             if node.name == "stage1"{
                 scene.stage = 1
             }else if node.name == "stage2"{

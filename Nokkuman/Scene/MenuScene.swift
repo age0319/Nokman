@@ -19,7 +19,7 @@ class MenuScene: SKScene {
           
             if ( node.name == "start"){
                 let scene = SKScene(fileNamed: "StageSelect")
-                scene!.scaleMode = .aspectFill
+                scene!.scaleMode = .aspectFit
                 self.view?.presentScene(scene)
             }
         }

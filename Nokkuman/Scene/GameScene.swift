@@ -21,7 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var stage = Int()
     
     override func didMove(to view: SKView) {
-        self.anchorPoint = .zero
+//        self.anchorPoint = .zero
         self.physicsWorld.contactDelegate = self
 
         // ステージを設定
@@ -254,13 +254,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
     func stageSelect(){
         let scene = SKScene(fileNamed: "StageSelect")
-        scene!.scaleMode = .aspectFill
+        scene!.scaleMode = .aspectFit
         self.view?.presentScene(scene)
     }
     
     func restartGame(){
         let scene = GameScene(size: self.size)
         scene.stage = stage
+        scene.scaleMode = .aspectFit
         self.view?.presentScene(scene)
     }
     
