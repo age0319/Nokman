@@ -63,7 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		49228BE324B542B900CBB1C5 /* Nokkuman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nokkuman.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49228BE324B542B900CBB1C5 /* Nokman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nokman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49228BE624B542B900CBB1C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49228BEA24B542B900CBB1C5 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		49228BEC24B542B900CBB1C5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		49228BE424B542B900CBB1C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				49228BE324B542B900CBB1C5 /* Nokkuman.app */,
+				49228BE324B542B900CBB1C5 /* Nokman.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,7 +297,7 @@
 			);
 			name = Nokkuman;
 			productName = Nokkuman;
-			productReference = 49228BE324B542B900CBB1C5 /* Nokkuman.app */;
+			productReference = 49228BE324B542B900CBB1C5 /* Nokman.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -553,7 +553,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.at.mc1.18.Nokkuman;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Nokman;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -572,7 +572,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.at.mc1.18.Nokkuman;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Nokman;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
